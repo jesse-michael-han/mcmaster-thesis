@@ -1,0 +1,568 @@
+\label{chap-ultracategories}
+In this chapter we provide the necessary background on Makkai's theory of ultracategories.
+
+\section{Introduction}
+An ultraproduct of a family $(A_i)_{i \in I}$ of non-empty sets with respect to a non-principal ultrafilter $\mc{U}$ on $I$ is the set
+$$
+\prod_{i \to \mc{U}} A_i \dfeq \bigslant{\prod_{i \in I} A_i}{\sim_{\mc{U}}},
+$$
+where $(x_i)_{i \in I} \sim_{\mc{U}} (y_i)_{i \in I}$ if and only if $\{j \in I \stbar x_i = y_i\} \in \mc{U}$. Given a representative $(x_i)_{i \in I}$ of a $\mc{U}$-class, we write $[x_i]_{i \to \mc{U}}$ for its $\sim_{\mc{U}}$-class.
+
+Inside the category $\mbf{Set}$, this definition can be recast as the filtered colimit
+$$
+\prod_{i \to \mc{U}} A_i \dfeq \colim \left(\prod_{i \in P}A_i \right)_{P \in \mc{U}},
+$$
+where the transition maps in the filtered diagram $\prod_{i \in P} A_i \to \prod_{i \in P'} A_i$ are the projections to the coordinates $P \cap P'$.
+
+This determines an \tbf{ultraproduct functor} $[\mc{U}] : \Set^I \to \Set$.
+
+Now, by the {\L}os theorem \ref{thm-los-theorem} the notion of an ultraproduct of a family of models also holds in the category of models $\Mod(T)$ of a first-order theory $T$. But here they admit no nice definition in terms of a filtered colimit of infinite products as when we were computing ultraproducts in a topos. However, since ultraproducts of models are still computed sort-by-sort, at the level of sets, one might believe that there is some residual ``niceness'' from $\mbf{Set}$ manifesting in how the ultraproducts of models interact with each other.
+
+The purpose of the notion of ultracategory, modeled after $\Mod(T)$, is to formalize this notion of a category equipped with extra structure coming from a ``nice'' notion of taking ultraproducts of its objects. In particular, since in $\Set$, ultraproducts are a combination of products and filtered colimits, there are purely formal ``comparison maps'' between ultraproducts arising from the universal properties of products and filtered colimits, and we will see that part of the extra structure includes naming these ``comparison maps''. Functors which preserve this extra structure are called ultrafunctors, and ultrafunctors between ultracategories $X : \mbf{K} \to \mbf{K}'$ will generalize the reduct functors $\Mod(T') \to \Mod(T)$ induced by an interpretation $T \to T'$.
+
+Makkai's duality theorem \cite{makkai-sdfol} tells us that there is a dual adjunction between first-order theories (pretoposes) and ultracategories, in fact given by homming into a dualizing object $\mbf{Set}$. Strong conceptual completeness says that the counit of this adjunction is an equivalence, i.e. that a pretopos $T$ is equivalent to the category of ultrafunctors $\mbf{Ult}(\Mod(T), \mbf{Set})$.
+
+\section{Basic notions}
+\subsection{The {\L}os theorem}
+To every non-principal ultrafilter $\mc{U}$ on an indexing set $I$, we have fixed an ultraproduct functor
+$$
+[U] : \mbf{Set}^I \to \mbf{Set}, \hspace{5mm} (X_i)_{i \in I} \mapsto \prod_{i \to \mc{U}} X_i.
+$$
+
+The starting point is the {\L}os ultraproduct theorem, which we rephrase in terms of the ultraproduct functors in $\mbf{Set}$:
+
+\theorem{\label{thm-los-theorem}\emph{({\L}os theorem)} Let $I$ be an indexing set and $U$ an ultrafilter on $I$. Then the ultraproduct functor $[U] : \mbf{Set}^I \to \mbf{Set}$ is elementary.}
+
+\begin{proof}
+  An elementary functor preserves initial and terminal objects, pullbacks, disjoint sums, and quotients by equivalence relations\footnote{Note that this implies that images are preserved: the image of any definable function $f : X \to Y$ is the projection to $Y$ of the graph $\Gamma(f)$ of $f$, and is therefore in definable bijection with the quotient of $\Gamma(f)$ by the definable equivalence relation $(x,y) \simeq (x', y') \iff y = y'$.}.
+\begin{itemize}
+\item  Initial objects: a product of the empty set is the empty set, and a quotient of the empty set is the empty set.
+
+\item  Terminal objects: a product of terminal objects is terminal, and the quotient of a singleton is a singleton.
+
+\item  Pullbacks: a product of pullbacks is a pullback, and finite limits commute with filtered colimits.
+
+\item  Disjoint sums: a product of disjoint sums is a disjoint sum of products, and colimits commute with colimits.
+
+\item  Quotients: a product of quotients $X_i/E_i$ is a quotient of products $\prod_I X_i / \prod_I E_i$, and colimits commute with colimits.
+  \end{itemize}
+\end{proof}
+
+\corollary{Let $(M_i)_{i \in I}$ be an $I$-indexed family of $\mc{L}$-structures. For each $\mc{L}$-formula $\varphi(x)$, each element $\ol{a}$ of the ultraproduct $\bigslant{\prod_{i \in I} M_i}{\mc{U}},$ $$\bigslant{\prod_{i \in I} M_i}{\mc{U}} \models \varphi[\ol{a}] \iff \{i \in I \stbar M_i \models \varphi[a_i]\} \in \mc{U}.$$}
+
+\begin{proof}
+By \ref{thm-los-theorem} the ultraproduct functor is elementary, so that the process of taking points inside a model of a definable set commutes with taking ultraproducts. In symbols, $$\left(\prod_{i \in I} M_i / \mc{U}\right)(X) \simeq \prod_{i \in I} M_i(X) / \mc{U}.$$ Since this is a filtered colimit, a sequence $\ol{x}$ satisfies that its germ $[\ol{x}]$ is in $\prod_{i \in I} M_i / \mc{U}(X)$ if and only if there is some $J \in \mc{U}$ such that the restriction of $\ol{x}$ to $J$ is in $\prod_{j \in J} M_j(X)$. i.e. if $x_j \in M_j(X)$ for each $j \in J$.
+  \end{proof}
+
+We recount the proof via regular ultraproducts of the compactness theorem for first-order logic. This technique will be used in various arguments later on.
+  
+    \fact{\parenemph{Compactness theorem for first-order logic} \label{thm-compactness} Let $T$ be a first-order theory. $T$ has a model if and only if every finite subset $T_s \undersubseteq{fin} T$ has a model.}
+  \begin{proof}
+Let $I$ index the finite fragments of $T$ a first-order theory. For each $i \in I$, let $P_i$ be the collection of all $j \in I$ such that viewed as finite fragments of $T$, $j \supseteq i$. The collection $F \dfeq \{P_i\}_{i \in I}$ has the finite intersection property: $P_i \cap P_{i'} = \{j \in I \stbar j \supseteq i \te{ and } j \supseteq i'\} = \{j \in I \stbar j \supseteq i \cup i'\} = P_{i \cup i'}.$  Now take a completion $\ol{F}$ of $F$ to an ultrafilter. Let $M_i$ model each finite fragment of $T$ given by $i \in I$, and consider the ultraproduct $$M^* \dfeq \displaystyle \bigslant{\prod_{I} M_i}{\ol{F}}.$$ Then for every sentence $\phi \in T$, $\phi$ is supported on some subcollection belonging to $\ol{F}$, so is satisfied in $M^*$.
+\end{proof}
+
+We also recount and prove the following useful ultraproduct characterization of elementary classes, due to Chang and Keisler:
+
+\definition{
+  \label{def-ultraroot}
+  Let $M$ be an $\mc{L}$-structure. An \emph{ultraroot} of $M$ is some structure $N$ such that $N^U \simeq M$ for some non-principal ultrafilter $\mc{U}$.
+  }
+
+\fact{
+  \label{thm-ultraproduct-characterization-of-elementary-classes}
+  A class $\mbf{C}$ of $\mc{L}$-structures is an elementary class if and only if it is closed under isomorphisms, ultraproducts, and ultraroots.
+}
+
+\begin{proof}
+  Suppose that $\mbf{C}$ is the objects $\Mod(T)_0$ of $\Mod(T)$ for some $\mc{L}$-theory $T$. Then it closed under isomorphisms, ultraproducts (by the {\L}os theorem \ref{thm-los-theorem}), and ultraroots (since diagonal embeddings into ultrapowers are elementary).
+
+  On the other hand, suppose that $\mbf{C}$ is a class of $\mc{L}$-structures closed under isomorphisms, ultraproducts, and ultraroots. Let $T$ be the theory $$T \dfeq \bigcap_{M \in \mbf{C}} \Th_{\mc{L}}(M).$$ It suffices to show that $\mbf{C} = \Mod(T)_0$. By definition, $\mbf{C} \subseteq \Mod(T)_0$, and the inclusion $\mbf{C} \hookrightarrow \Mod(T)_0$ reflects isomorphisms. By the Keisler-Shelah isomorphism theorem \ref{thm-keisler-shelah}, the inclusion reflects elementary equivalences. Therefore, if there is an $M \in \Mod(T)_0 \backslash \mbf{C}$, its theory must not show up in $\{\Th(N) \stbar N \in \mbf{C}\}$.
+
+  Since $T = \bigcap \{\Th(N) \stbar N \in \mbf{C}\}$, for every finite fragment $\Sigma \undersubseteq{fin} \Th(M)$, there exists an $N_{\Sigma} \in \mbf{C}$ such that $\Th(N) \models \Sigma$. (Otherwise, there is a sentence $\psi \in \Th(M) \backslash T$ such that for all $N \in \mbf{C}$, $N \models \neg \psi$, so that $\neg \psi \in T$, a contradiction).
+
+  There is a regular ultrafilter $\mc{U}$ such that $\displaystyle \prod_{\underset{\Sigma \undersubseteq{fin} \Th(M)}{\Sigma \to \mc{U}}} N_{\Sigma} \models \Th(M)$. Since $\mbf{C}$ was closed under ultraproducts, this contradicts our assumption that $M \not \in \mbf{C}$. Therefore, $\mbf{C} = \Mod(T)$ is an elementary class.
+  
+\end{proof}
+
+Finally, we state the Keisler-Shelah isomorphism theorem (though much of the time, special models arguments suffice to replace it.)
+
+\theorem{\label{thm-keisler-shelah}(Keisler-Shelah isomorphism theorem) Two $\mc{L}$-structures are elementarily equivalent if and only if they have isomorphic ultrapowers.}
+
+\subsection{Frayne's lemma and Scott's lemma}
+In this subsection, we state Frayne's lemma and the related Scott's lemma, which will be needed for some later results. We omit the proofs (somewhat-elaborate regular ultraproduct arguments) and refer the interested reader to \cite{bell-slomson-model-theory}.
+
+\lemma{\label{lemma-frayne}
+Let $N \equiv M$ be elementarily equivalent. Then $N$ elementarily embeds into some ultrapower $M^{\mc{U}}$ of $M$.
+  }
+
+\lemma{\label{lemma-scott}
+  Let $M \overset{f}{\to} N$ be an elementary map. Then there is an ultrapower $M^{\mc{U}}$ of $M$ and an elementary embedding $N \overset{g}{\to} M^{\mc{U}}$ such that the diagram
+  $$
+  \begin{tikzcd}[ampersand replacement = \&]
+   M^{\mc{U}}        \& \\
+      M \arrow{u}{\Delta_M} \arrow[swap]{r}{f}  \& N \arrow[swap]{ul}{g}
+    \end{tikzcd}
+    $$
+    commutes.
+  }
+
+\subsection{The Beth definability theorem}
+In this subsection, we state and prove a version of the Beth definability theorem, due to Bradd Hart.
+
+\theorem{\label{thm-beth}
+Let \(L_0 \subseteq L_1\) be two languages, so that \(L_1\) has no new sorts. Let \(T_1\) be a theory in \(L_1\). Let \(F\) be the reduct functor
+$$
+\Mod(T_1) \to \Mod(\emptyset_{L_0})
+$$
+(here \(\emptyset_{L_0}\) is the empty theory in \(L_0\), whose models are just all the $L_{0}$-structures.)
+
+Suppose that we know any one of the following:
+
+\begin{enumerate}
+\item There is a theory \(T_0\) in \(L_0\) such that \(F\) factors through \(\Mod(T_0)\) with $\Mod(T_1) \to \Mod(T_0)$ an equivalence of categories.
+\item $F $ is fully faithful.
+\item $F $ is injective on objects.
+\item $F$ is full and faithful just on automorphism groups.
+\item For all $M \in \Mod(T_1)$, every $L_0$-elementary map $f : F(M) \to F(M)^{\mc{U}}$ is (uniquely lifts to) an $L_1$-homomorphism $f = \wt{f} : M \to M^{\mc{U}}$ (between $M$ and $M^{\mc{U}}$ viewed as $L_1$-structures.)
+\end{enumerate}
+\ul{Then}: every \(L_1\)-formula is \(T_1\)-equivalent to an \(L_0\)-formula.}
+
+\begin{proof}
+\(1\) clearly implies \(2\).
+
+\(2\) is equivalent to \(3\): assume not \(3\). Then there are two distinct \(L_1\)-expansions \(M\) and \(N\) of the same \(L_0\)-structure \(K\), and so the identity automorphism is not in the image of $F $ restricted to \(\Hom_{L_1}(M, N)\): \(M\) and \(N\) being different must be witnessed by a single tuple \(k\) and some symbol \(R\) from \(L_1 \backslash L_0\) such that \(\models R^M(k)\) and \(\models \neg R^M(k)\). Therefore, any automorphism of \(K\) which fixes \(k\) cannot be \(L_1\)-elementary, and this negates \(2\).
+
+Now assume not \(2\). Since taking reducts along an inclusion of languages is always faithful, this must fail to be full, and so this must be witnessed by an \(L_0\)-elementary, \(L_1\)-not-elementary map \(g : F M \to F N\). But then the pushforward \(L_1\)-structure of \(M\) along \(g\) induces an \(L_1\)-expansion of \(F N\) distinct from \(N\), which negates \(3\).
+
+\(2\) clearly implies \(4\).
+
+\(4\) implies \(5\): it suffices to show fullness, so let \(f : FM \to (FM)^{\mc{U}}\). We use a special models argument: by repeatedly invoking Scott's lemma, start with $FM \to (FM)^{\mc{U}}$ and obtain a diagram of iterated ultrapowers
+$$
+\begin{tikzcd}[ampersand replacement = \&]
+FM \arrow[swap]{d}{f}  \arrow{r} \& (FM)^{\mc{U}_0} \arrow{d} \arrow{r} \& \left((FM)^{\mc{U_0}} \right)^{\mc{U}_2}\arrow{d} \arrow{r}\& \cdots\\
+(FM)^{\mc{U}} \arrow{r} \arrow{ur}  \& \left((FM)^{\mc{U}} \right)^{\mc{U}_1} \arrow{r} \arrow{ur}\&  \left( \left(F(M)^{\mc{U}} \right)^{\mc{U}_1} \right)^{\mc{U}_3} \arrow{r} \arrow{ur}\& \cdots
+  \end{tikzcd}
+  $$
+so that the vertical arrows become an isomorphism $f_{\omega} : \mbf{M}_1 \to \mbf{M}_2$ in the limit which extends $f$. The diagonal arrows become an isomorphism $g_{\omega} \mbf{M}_2 \to \mbf{M}_1$ in the limit, and from the commutativity of the diagram at every stage, $g_{\omega} \circ f_{\omega}$ becomes an automorphism of $\mbf{M}_1$ which extends $f$. Then $g_{\omega} \circ f_{\omega}$ lifts to an $L_1$-automorphism. Restricting $g_{\omega} \circ f_{\omega}$ from $\mbf{M}_1$ to $FM$, we get that $f$ also lifts to an $L_1$-homomorphism.
+
+Now, to show that \(5\) implies that every \(L_1\)-formula is equivalent modulo \(T\) to an \(L_0\)-formula: suppose not, so that there is an \(L_1\) formula \(\psi(x)\) such that for all \(L_0\)-formulas \(\psi(x)\), there exists an \(a\) and a \(b\) such that \(\varphi(a) \land \varphi(b)\) for all \(\varphi(x) \in L_0\), but \(\psi(a) \land \neg \psi(b)\).
+
+This is saying that there exists a model \(M\) of \(T_1\) on which the indicator function of \(\psi(x)\) disagrees with the indicator functions of every \(\varphi(x) \in L_0\).
+
+Now, since \(a\) and \(b\) have the same \(L_0\)-type, there exists an ultrafilter \(\mc{U}\) and a pair of maps
+$$
+F M \overset{f}{\underset{\Delta_{F M}}{\rightrightarrows}} (F M)^{\mc{U}}
+$$
+where \(f\) is some embedding which sends \(b \mapsto a\).
+
+Since \(b\) and \(a\) have distinct \(L_1\)-types, $\wt{f}$ is not \(L_1\)-elementary. Since $\wt{f}$ is a homomorphism lifting an elementary embedding, it is an embedding, so $a$ and $b$ have the same quantifier-free $L_1$-type. Therefore, $\psi$ was not quantifier free.
+
+This implies that every quantifier-free $L_1$ formula $\psi$ is $T$-provably equivalent to an $L_0$-formula.
+
+Since interpretations commute with quantification, we conclude that every $L_1$-formula is $T$-provably equivalent to an $L_0$-formula.
+  \end{proof}
+
+With a little more work, we can remove the stipulation that no new sorts are added.
+  
+  \theorem{
+    Let $L_0 \subseteq L_1$ be an inclusion of languages, possibly with new sorts. Let $T$ be an $L_1$-theory.
+
+    Suppose that whenever $M \models T$ and $\mc{U}$ is an ultrafilter, then every elementary map $$M \restr_{L_0} \to \left(M \restr_{L_0}\right)^{\mc{U}}$$ has a unique lift to a homomorphism on $M$.
+
+    Then every definable set $X$ of $T$ is $T$-provably equivalent (i.e. equivalent modulo $T$) to an $L_0$-imaginary sort.
+  }
+  \begin{proof}
+    The proof proceeds via the following steps:
+    \begin{enumerate}
+    \item Show that under our assumptions, in every model $M \models T$, the points in $M$ of every $L_1$-sort is contained in the definable closure of the points in $M$ of the $L_0$-sorts.
+    \item By a compactness argument (see proof of \ref{thm-conceptual-completeness}), every $L_1$-sort is the surjective image of an $L_0$-imaginary sort.
+    \end{enumerate}
+
+    We will spell out the first item, and trust that the reader will be able to imitate the identical compactness argument from \ref{thm-conceptual-completeness}. Suppose towards the contrapositive that there exists a model $M \models T$ such that there is an $L_1$-sort $S$ such that $M(S)$ is not in the definable closure of $M(L_0)$. Then (possibly enlarging $M$) there are two points $x,y \in M(S)$ with the same type over $M(L_0)$. So, for some ultrapower $M^{\mc{U}}$ of $M$, $\Delta_M(x)$ and $\Delta_M(y)$ are conjugate by an automorphism $\sigma$ fixing $M(L_0)$.
+
+      Then both $\Delta_M : M \to M^{\mc{U}}$ and $\sigma \circ \Delta_M : M \to M^{\mc{U}}$ lift $\Delta : M \restr_{L_0} \to \left(M \restr_{L_0}\right)^{\mc{U}}$, which violates the assumptions of the theorem.
+    \end{proof}
+  
+\subsection{Conceptual completeness}
+In this subsection, we state the conceptual completeness theorem (7.1.8, \cite{makkai-reyes}) from Makkai-Reyes and give a proof, following (4.4, \cite{kamensky-categorical-internality}).
+
+\theorem{
+  \label{thm-conceptual-completeness}
+Let $T_1$ and $T_2$ eliminate imaginaries. Let $J : \Def(T_1) \to \Def(T_2)$ be an interpretation of $T_1$ in $T_2$. Let $J^* \dfeq (- \circ J)$ be the induced functor $\Mod(T_2) \to \Mod(T_1)$.
+
+Then $J$ is an equivalence of categories if and only if $J^*$ is.
+}
+
+\begin{proof}
+  That $J^*$ is an equivalence of categories if $J $ is is purely formal, c.f. the lemma \ref{lemma-equivalent-categories-have-equivalent-functor-categories}.
+
+  Towards the other direction, suppose $J^*$ is an equivalence of categories. We need to show that $J$ is full, faithful, and essentially surjective.
+
+  To see that $J$ is faithful: if $f_1 \neq f_2$ for $Y_1 \overset{f_1}{\underset{f_2}{\rightrightarrows}} Y_2$ in $\Def(T_1)$, then their equalizer is not all of $Y_1$, which is to say that
+  $$
+\models \exists y \in Y_1 \suchthat y \not \in \opn{eq}(f_1, f_2).
+$$
+Since $J$ is an interpretation, as a functor it preserves finite limits, complementation, and existential quantification. Applying $J$ to the above sentence, conclude that $J(f_1) \neq J(f_2)$.
+
+
+
+\begin{description}
+\item[Claim.] If $J$ is essentially surjective, it is full.
+  \begin{proof}[Proof of claim.]
+If $g : J(Y_1) \to J(Y_2)$ is a definable function, then its graph $\Gamma(g)$ is a definable set $\Gamma(g) \hookrightarrow J(Y_1 \times Y_2)$. If $J$ is essentially surjective, then there is a corresponding $\Gamma(\ol{g}) \hookrightarrow (Y_1 \times Y_2)$ such that $J(\ol{g}) = g$.
+    \end{proof}
+  \end{description}
+
+  So, it suffices to see that $J$ is essentially surjective.
+
+  First, we show that to prove this, it suffices to be able to place every object of $\Def(T_2)$ inside an object coming from $T_1$:
+
+  \begin{description}
+\item[Claim.] Let $X \in \Def(T_2)$. If there exists $Y \in \Def(T_1)$ with $X \hookrightarrow J(Y)$, then there exists $\ol{X} \in \Def(T_1)$ with $J(\ol{X}) = X$.
+  \begin{proof}[Proof of claim.]
+Let $M$ and $N$ be two models of $T_2$. If $J^*M = J^* N$, then $M(X) = N(X)$ since $M(X) \hookrightarrow M(Y) = N(Y) \hookleftarrow N(X)$ and since $J^*$ is an equivalence (consider a lift of the identity and the corresponding naturality square for the inclusion $X \hookrightarrow J(Y)$), $M(X) = N(X)$.
+\end{proof}
+\end{description}
+
+Next, we claim that if $M_2$ is any model of $T_2$, then any element $a$ of $M_2$ is definable over $J^*M_2$. Indeed, we can replace $M_2$ with a larger model such that there are two elements $a$ and $b$ which are not definable over $J^* M_2$ but which have the same type over $J^*M_2$. Then there is an ultrapower $^*M^2$ of $M^2$ and an automorphism of this ultrapower which moves $\Delta(a)$ to $\Delta(b)$. This would yield two different embeddings of $M_2$ in $^*M_2$; these agree on $J^* M_2$, which would contradict that $J^*$ was an equivalence.
+
+We will now use a compactness argument to show that, in $\Def(T_2)$, any definable set $Y$ of $T_2$ is the image of a definable map from a definable set $J(X)$ coming from $T_1$.
+
+So, suppose that $Y$ is not covered by any finite collection of functions whose domains lie in sorts coming from $T_1$. This means that for any finite collection of such functions, every model realizes a witness $d \in Y$ which lies outside the images of the functions. That is, after introducing a generic constant symbol $d$, the theory
+$$
+T' \dfeq T_2 \cup \{\neg \exists r \phi(r, d) \stbar \phi \te{ is a function whose domain lies in a $T_1$-sort}\} \cup \{d \in Y\}
+$$
+is finitely consistent, therefore consistent. So $T'$ has a model. But in any model $M$ of $T'$, the realization of $d$ will not be $T_2$-provably definable over $J^* M$ (since otherwise the formula $\varphi(x,y)$ which witnesses this can be restricted to a definable function whose domain is in a sort coming from $T_1$), contradicting the previous claim. Therefore, there exists some definable set $J(X)$ such that there is a definable surjection $J(X) \twoheadrightarrow Y$.
+
+By the second claim of this proof, the kernel relation of the definable surjection $J(X) \twoheadrightarrow Y$ is in the image of $J$. Therefore, $Y$ is isomorphic to an imaginary sort of $T_1$, and since $T_1$ eliminates imaginaries, $Y$ is in the essential image of $J$.
+  \end{proof}
+
+\section{Ultracategories and ultrafunctors}
+
+
+\subsection{Pre-ultracategories and pre-ultrafunctors}
+\definition{\label{def-pre-ultracategory}(\cite{makkai-sdfol}, Section 1)
+A \tbf{pre-ultracategory} $\ul{\mbf{S}}$ is a category $\mbf{S}$ along with specified ultraproduct functors $[U] : \mbf{S}^I \to \mbf{S}$ for every set $I$ and every non-principal ultrafilter $\mc{U}$ on $I$.
+  }
+
+  (Of course, this is not enough structure to nail down what it means to have a nice notion of being able to form ultraproducts of families of objects; there are no restrictions on what these ultraproduct functors might be, or how they interact. For example, given an pre-ultracategory, we could replace $[\mc{U}]$ for each $I$ with $[\mc{V}]$ for $\mc{V}$ some fixed principal ultrafilter, and this would still be a pre-ultracategory.)
+
+  The prototypical pre-ultracategory is $\Set$; we have already described its ultraproduct functors.
+
+There is an obvious notion of a structure-preserving map between pre-ultracategories.
+    
+\definition{\label{def-pre-ultrafunctor}(\cite{makkai-sdfol}, Section 1)
+A \emph{pre-ultrafunctor} $\ul{\mbf{S}} \to \ul{\mbf{S}}'$ is a functor $X : \mbf{S} \to \mbf{S}'$ along with a specified \emph{transition isomorphism} $$\Phi_{X, U} : X \circ [U] \overset{\simeq}{\to} [U] \circ X^I,$$ for each $I$ and each $U$ an ultrafilter on $I.$ That is, we require all diagrams
+$$
+\begin{tikzcd}[ampersand replacement = \&]
+\mbf{S}^I \arrow{rr}{X^I} \arrow[swap]{dd}{[U]_{\mbf{S}}} \& \& (\mbf{S}')^I \arrow{dd}{[U]_{\mbf{S}'}} \\
+\& \& \\
+\mbf{S} \arrow[swap]{rr}{X} \& \& \mbf{S}'
+\end{tikzcd}
+$$
+to commute, where $U$ ranges over all non-principal ultrafilters on $I$ ranging over all small indexing sets. (``Ultraproducts are preserved up to the transition isomorphism $\Phi_{X,U}.$'')
+}
+
+\begin{rem} \label{rem-obvious-remark}Every functor of points $\operatorname{ev}_{\varphi(x)}$ can be canonically viewed as a pre-ultrafunctor with the transition isomorphisms $\Phi$ just the identity maps (corresponding to the equality signs in the above diagrams). \end{rem}
+
+\remark{
+  Because we only require our pre-ultrafunctors to commute with ultraproducts up to transition isomorphisms, one can have functors $X : \Mod(T) \to \mbf{Set}$ induced by taking certain (clearly non-definable) subsets of models which are isomorphic anyway by \emph{some} natural transformation of functors to a definable functor. We give an example below, which is the basis of the constructions in \ref{first-batch}.
+}
+
+\example{\label{example-simple-counterexample}
+  Let $T$ be the theory of equality on an infinite set expanded by denumerably many distinct constant symbols $\{c_i\}_{i \in \omega}$. Then the functor $X : \Mod(T) \to \mbf{Set}$ which is induced by sending $$M \hspace{3mm} \mapsto \hspace{3mm} \{c_i \stbar i \te{ even}\} \cup \left(M \backslash \{c_i\}_{i \i \omega} \right)$$
+  is isomorphic to the functor $\ev_{=}$, which just takes the $1$-sort of any model.
+The isomorphism $X \simeq \ev_{=}$ is given by on each model $M$ by making it the identity on the omittable type $\left(M \backslash \{c_i\}_{i \i \omega} \right)$; on constants, we use any bijection $\mathbb{N} \to 2 \mbb{N}$, say $k \mapsto 2 \cdot k$.
+}
+
+We want to work with a category of pre-ultrafunctors, so we must describe what it means to have a morphism of pre-ultrafunctors.
+
+\definition{
+  \label{def-ultratransformation}(\cite{makkai-sdfol}, Section 1)
+Given two pre-ultrafunctors $(X, \Phi)$ and $(X', \Phi')$, we define a map between them, called an \textbf{ultratransformation}, to be a natural transformation $\eta : X \to X'$ which satisfies the following additional property: all diagrams
+$$\begin{tikzcd}[ampersand replacement = \&]
+X\left(\prod_{i \to \mathcal{U}} M_i \right) \arrow{r}{\Phi_{(M_i)}} \arrow[swap]{d}{\eta_{\prod_{i \to \mathcal{U}} M_i}}   \& \prod_{i \to \mathcal{U}} X(M_i) \arrow{d}{\prod_{i \to \mathcal{U}} \eta_{M_i}}  \\
+X'\left(\prod_{i \to \mathcal{U}} M_i\right) \arrow[swap]{r}{\Phi'_{(M_i)}}  \& \prod_{i \to \mathcal{U}} X'(M_i)\end{tikzcd}$$
+must commute.
+  }
+
+
+\begin{defn} \label{def-category-of-pre-ultrafunctors} The \textbf{category of pre-ultrafunctors} $\mathbf{PUlt}(\operatorname{\mathbf{Mod}}(T), \mathbf{Set})$ comprises the following data:
+  $$\mathbf{PUlt}(\operatorname{\mathbf{Mod}}(T),\mathbf{Set}) \overset{\operatorname{df}}{=} \begin{cases} \text{Objects: pre-ultrafunctors $(X,\Phi) : \operatorname{\mathbf{Mod}}(T) \to \mathbf{Set}$ } \\ \text{Morphisms: ultratransformations $\eta : (X, \Phi) \to (X, \Phi')$.}
+  \end{cases}$$
+ \end{defn}
+  
+\subsection{Ultramorphisms}
+\subsubsection{Introduction}
+In $\mbf{Set}$ ultraproducts are computed as certain filtered colimits, and so there are canonical comparison maps between them induced by maps between their underlying diagrams (via their universal properties).
+
+For example, consider the terminal map $I \to 1$. This induces a diagonal map $A \to \prod_{i \in I} A$ by $a \mapsto (a,a,a, \dots)$, and this induced map extends along ultraproducts to give the diagonal map
+$$
+\Delta : M \hookrightarrow M^{\mc{U}}
+$$
+of a model into its ultrapower.
+
+In $\Mod(T)$, these filtered colimits don't usually exist because products of models of a first-order theory don't usually exist. For example, $\Mod(T)$ doesn't see the diagonal map $A \to \prod_{i \in I} A$, only the diagonal map $\Delta : M \hookrightarrow M^{\mc{U}}$ it induces on models. So the pure category $\Mod(T)$ does not distinguish (say) $\Delta : M \hookrightarrow M^{\mc{U}}$ from any other embedding $M \hookrightarrow M^{\mc{U}}$, because there is no canonical way to obtain $\Delta$. But once we force $\Mod(T)$ to remember that ultraproducts of models are computed as certain filtered colimits in $\mbf{Set}$, then $\Delta : M \hookrightarrow M^{\mc{U}}$ is distinguished by the ultracategory $\Mod(T)$ because it arises in a canonical way.
+
+The purpose of the notion of ultramorphisms is to name all the maps between ultraproducts in an pre-ultracategory which ``should'' arise in a canonical way. It turns out that this is enough to correct for the laxness in the definition of a pre-ultracategory: an ultracategory will be precisely a pre-ultracategory with as many ultramorphisms as possible, and after that we get Makkai's duality and strong conceptual completeness.
+
+\subsubsection{The definition of an ultramorphism}
+\definition{ (\cite{makkai-sdfol}, Section 3)
+  \label{def-ultragraph}
+  An \tbf{ultragraph} $\Gamma$ comprises:
+  \bfenumerate{
+  \item Two disjoint sets $\Gamma^f$ and $\Gamma^b$, called the sets of \tbf{free nodes} and \tbf{bound nodes}, respectively.
+    
+  \item For any pair $\gamma, \gamma' \in \Gamma$, there exists a set $E(\gamma, \gamma')$ of \tbf{edges}. This gives the data of a directed graph.
+    
+  \item For any bound node $\beta \in \Gamma^b$, we assign a triple (``ultraproduct data'') $\langle I, \mc{U}, g \rangle \dfeq \langle I_{\beta}, \mc{U}_{\beta}, g_{\beta} \rangle$ where $\mc{U}$ is an ultrafilter on $I$ and $g$ is a function $g : I \to \Gamma^f$.
+    }
+  }
+
+  \definition{\label{def-ultradiagram} (\cite{makkai-sdfol}, Section 3)
+    An \tbf{ultradiagram of type $\Gamma$} in a pre-ultracategory $\ul{\mbf{S}}$ is a diagram $A : \Gamma \to \mbf{S}$ assigning an object $A$ to each node $\gamma \in X$, and assigning a morphism in $\mbf{S}$ to each edge $e \in E(\gamma, \gamma')$, such that
+    $$
+\label{eqn-ultradiagram-condition} A(\beta) = \prod_{i \in I_{\beta}} A(g_{\beta}(i))/\mc{U}_{\beta}
+    $$
+    for all bound nodes $\beta \in \Gamma^b$.
+ }
+
+  Given this notion of a diagram with extra structure, there is an obvious notion of natural transformations between such diagrams which preserve the extra given structure.
+  
+  \definition{
+    \label{def-ultradiagram-morphism}
+    (\cite{makkai-sdfol}, Section 3)
+    Let $A, B : \Gamma \to \mbf{S}$.
+    A \tbf{morphism} of ultradiagrams $\Phi : A \to B$ is a natural transformation $\Phi$ satisfying
+    $$
+\label{eqn-ultradiagram-morphism-condition} \Phi_{\beta} = \prod_{i \to \mc{U}_{\beta}} \Phi_{g_{\beta}(i)}
+$$
+for all bound nodes $\beta \in \Gamma^b$.
+}
+
+Finally, we can define ultramorphisms.
+
+\definition{
+  \label{def-ultramorphism}
+  (\cite{makkai-sdfol}, Section 3)
+  Let $\Hom(\Gamma, \ul{\mbf{S}})$ be the category of all ultradiagrams of type $\Gamma$ inside $\ul{\mbf{S}}$ with morphisms the ultradiagram morphisms \ref{def-ultradiagram-morphism} defined above. Any two nodes $k, \ell \in \Gamma$ define \emph{evaluation functors} $(k), (\ell) : \Hom(\Gamma, \ul{\mbf{S}}) \rightrightarrows \mbf{S},$ by
+  $$
+(k) \left(A \overset{\Phi}{\to} B \right) = A(k) \overset{\Phi_k}{\to} B(k)
+$$
+(resp. $\ell$).
+
+An \tbf{ultramorphism} of type $\langle \Gamma, k, \ell \rangle$ in $\ul{\mbf{S}}$ is a natural transformation $\delta : (k) \to (\ell)$.\footnote{Note that in our terminology, an ultramorphism, singular, refers to a collection of possibly many maps (the components of the natural transformation $(k) \to (\ell)$).}
+}
+  \subsubsection{Examples of ultramorphisms}
+Let us unravel this definition for the prototypical example $\Delta : M \hookrightarrow M^{\mc{U}}$ of an ultramorphism.
+
+\example{\label{example-ultramorphism-diagonal-map}
+  Given an ultrafilter $\mc{U}$ on $I$, put:
+  \begin{itemize}
+  \item $\Gamma^f = \{k\}$,
+  \item $\Gamma^b = \{\ell\}$,
+  \item $E(\gamma, \gamma') = \emptyset$ for all $\gamma, \gamma' \in \Gamma$,
+  \item $\langle I_{\ell}, \mc{U}_{\ell}, g_{\ell} \rangle = \langle I, \mc{U}, g \rangle$ where $g$ is the constant map to $k$ from $I$.
+  \end{itemize}
+
+  By the ultradiagram condition \ref{eqn-ultradiagram-condition}, an ultradiagram $A$ of type $\Gamma$ in $\ul{\mbf{S}}$ is determined by $A(k)$, with $A(\ell) = A(k)^{\mc{U}}$.
+
+  By the ultradiagram morphism condition \ref{eqn-ultradiagram-morphism-condition}, an ultramorphism of type $\langle \Gamma, k, \ell \rangle$ must be a collection of maps $\left(\delta_M : M \to M^{\mc{U}} \right)_{M \in \Mod(T)}$ which make all squares of the form
+  $$
+  \begin{tikzcd}[ampersand replacement = \&]
+  M^{\mc{U}} \arrow{r}{f^{\mc{U}}}  \& N^{\mc{U}} \\
+  M \arrow{u}{\Delta_M} \arrow[swap]{r}{f}  \& N \arrow[swap]{u}{\Delta_N}
+  \end{tikzcd}
+  $$
+  commute. It is easy to check that setting $\delta_M = \Delta_M$ the diagonal embedding gives an ultramorphism.}
+
+  \definition{
+    \label{def-generalized-diagonal-embeddings} \label{def-delta-g}
+    The next least complicated example of an ultramorphism are the \tbf{generalized diagonal embeddings}. Here is how they arise: let $g : I \to J$ be a function between two indexing sets $I$ and $J$. $g$ induces a pushforward map $g_* : \beta I \to \beta J$ between the spaces of ultrafilters on $I$ and $J$, by $g_* \mc{U} \dfeq \{P \subseteq J \stbar g^{-1}(P) \in \mc{U}$. Fix $\mc{U} \in \beta I$ and put $\mc{V} \dfeq g_* \mc{U}$. Let $(M_j)_{j \in J}$ be a $J$-indexed family of models.
+
+    Then there is a canonical ``fiberwise diagonal embedding''
+    $$
+\Delta_g : \prod_{j \to \mc{V}} M_j \to \prod_{i \to \mc{U}} M_{g(i)}
+$$
+given on $[a_j]_{j \to \mc{V}}$ by replacing each entry $a_j$ with $g^{-1}(\{a_j\})$-many copies of itself.
+
+In terms of the definition \ref{def-ultramorphism} of an ultramorphism, the free nodes are $J$, and there are two bound nodes $k$ and $\ell$. To $k$ we assign the triple $\langle J, \mc{V}, \id_J \rangle$ and to $\ell$ we assign the triple $\langle I, \mc{U}, g \rangle$. Then $\Delta_g$ induces an ultramorphism $(k) \to (\ell)$.
+}
+
+
+\subsection{What it means for a pre-ultrafunctor to preserve an ultramorphism}
+Given the protytpical diagonal embedding ultramorphisms $\Delta_M$, we can say what it means that a pre-ultrafunctor $(X, \Phi)$ \emph{preserves} diagonal embeddings.
+
+\definition{
+  \label{def-delta-functor}
+  We say that a pre-ultrafunctor \ref{def-pre-ultrafunctor} $(X,\Phi)$ is a \tbf{$\Delta$-functor} if for every $I$, for every $\mc{U}$, and for every $M$ and the diagonal embedding $M \overset{\Delta_M}{\longrightarrow} M^{\mc{U}}$, the diagram
+  $$
+  \begin{tikzcd}[ampersand replacement = \&]
+    \& X\left(M^{\mc{U}}\right) \arrow{dd}{\Phi_{(M)}}\\
+X(M) \arrow{ur}{X(\Delta_M)} \arrow[swap]{dr}{\Delta_{X(M)}}    \& \\
+    \& X(M)^{\mc{U}}
+    \end{tikzcd}
+    $$
+    commutes.
+  }
+
+  Analogously, we can define what it means for $(X,\Phi)$ to preserve a general ultramorphism \ref{def-ultramorphism}. Let $(X,\Phi) : \ul{\mbf{K}} \to \ul{\mbf{S}}$ be a pre-ultrafunctor between the pre-ultracategories $\ul{\mbf{K}}$ and $\ul{\mbf{S}}$, and let $\delta$ be an ultramorphism in $\mbf{K}$ and $\delta'$ an ultramorphism in $\mbf{S}$, both of type $\langle \Gamma, k, \ell \rangle$.
+
+Recall that in the terminology of the definition \ref{def-ultramorphism}, $\delta$ is a natural transformation $(k) \overset{\delta}{\to} (\ell)$ of the evaluation functors $$(k), (\ell) : \Hom(\Gamma, \mbf{K}) \to \mbf{K}.$$ (Resp. $\delta'$, $\mbf{S}$.)
+
+One would like to be able to say that for any ultradiagram $\mscr{M} \in \Hom(\Gamma, \mbf{K})$, we can apply $X$ to produce a ``pushforward'' ultradiagram $X \circ \mscr{M}$ in $\Hom(\Gamma, \mbf{S})$. However, since we defined ultradiagrams ``strictly'' (by requiring that there is a literal equality between $\mscr{M}(\beta)$ for $\beta$ a bound node with ultraproduct data $(I, \mc{U}, g)$ and $\prod_{i \to \mc{U}} \mscr{M}(g(i))$), this only happens if $(X, \Phi)$ is a strict preultrafunctor (c.f. \ref{lemma-easy-calculation}). So, we will do the next best thing and ``strictify'' $X \circ \mscr{M}$.
+
+\definition{
+  \label{def-XM} (\cite{makkai-sdfol}, Section 3)
+  Let $(X,\Phi) : \ul{\mbf{K}} \to \ul{\mbf{S}}$ be a pre-ultrafunctor between the pre-ultracategories $\ul{\mbf{K}}$ and $\ul{\mbf{S}}$. We define an ultradiagram $X \mscr{M} : \Gamma \to \ul{\mbf{S}}$ as follows:
+  \begin{enumerate}
+  \item If $\gamma$ is a free node, then $X \mscr{M}(\gamma) \dfeq X \circ \mscr{M}(\gamma)$.
+    \item If $\beta$ is a bound node with ultraproduct data $(I, \mc{U}, g),$ then $X \mscr{M}(\beta) \dfeq \prod_{i \to \mc{U}} X \circ \mscr{M}(g(i))$.
+    \end{enumerate}
+
+    There is an obvious natural isomorphism of functors $\nu : X \circ \mscr{M} \simeq X \mscr{M}$ whose component $\nu_{\beta}$ at a bound node $\beta$ with ultraproduct data $(I, \mc{U}, g)$ is the appropriate component of the transition isomorphism $\nu_{\beta} \dfeq \Phi_{X \circ \mscr{M}(g(i))}$ and whose component at a free node $\gamma$ is just the identity map $\nu_{\gamma} \dfeq \id_{X \circ \mscr{M}(\gamma)}$.
+  }
+
+\definition{\label{def-preservation-of-ultramorphism}(\cite{makkai-sdfol}, Section 3)
+Let $(X,\Phi) : \ul{\mbf{K}} \to \ul{\mbf{S}}$ be a pre-ultrafunctor between the pre-ultracategories $\ul{\mbf{K}}$ and $\ul{\mbf{S}}$, and let $\delta$ be an ultramorphism in $\mbf{K}$ and $\delta'$ an ultramorphism in $\mbf{S}$, both of type $\langle \Gamma, k, \ell \rangle$.
+
+We say that $X$ \tbf{carries $\delta$ into $\delta'$} (prototypically, $\delta$ and $\delta'$ will both be canonically defined in the same way in both $\mbf{K}$ and $\mbf{S}$ and in this case we say that $\delta$ has been preserved) if for every ultradiagram $\mscr{M} \in \Hom(\Gamma, \mbf{K})$, the diagram
+$$
+\begin{tikzcd}[ampersand replacement = \&]
+X \left(\mscr{M}(k)\right) \arrow{r}{X(\delta_{\mscr{M}})} \arrow[swap]{d}{\nu_{k}} \& X\left(\mscr{M}(\ell)\right) \arrow{d}{\nu_{\ell}} \\
+(X \mscr{M})(k) \arrow[swap]{r}{\delta'_{X\mscr{M}}} \& (X \mscr{M})(\ell)
+\end{tikzcd}
+$$
+commutes.
+}
+
+\subsection{The definitions of ultracategory and ultrafunctor}
+Denote the class of all ultramorphisms in $\mbf{Set}$ by $\Delta(\mbf{Set})$.
+
+\definition{
+  \label{def-ultracategory} (\cite{makkai-sdfol}, Section 3)
+  An \tbf{ultracategory} $\mbf{K}$ is a pre-ultracategory (c.f. \ref{def-pre-ultracategory}) $K$ whose ultramorphisms are ``fibered over'' those of $\mbf{Set}$: we additionally require a specification of an ultramorphism $\delta_{\mbf{K}}$ associated with any $\delta \in \Delta(\mbf{Set})$ such that $\delta_{\mbf{K}}$ is of the same type $(\Gamma, k, \ell)$ as $\delta$.}
+
+  \definition{
+    \label{def-ultrafunctor} (\cite{makkai-sdfol}, Section 3)
+    We define an \tbf{ultrafunctor} $X : \mbf{K} \to \mbf{S}$ between ultracategories $\mbf{K}$, $\mbf{S}$ to be a pre-ultrafunctor (c.f. \ref{def-pre-ultrafunctor}) which respects the fibering over $\mbf{Set}$: for every $\delta \in \Delta(\mbf{Set})$, $X$ carries $\delta_{\mbf{K}}$ into $\delta_{\mbf{S}}$ (in the sense of the definition \ref{def-preservation-of-ultramorphism} above) for all $\delta \in \Delta(\mbf{Set})$.
+  }
+
+  \begin{defn} \label{def-ultrafunctor-morphism} A map between ultrafunctors is just an ultratransformation \ref{def-pre-ultrafunctor} of the underlying pre-ultrafunctors.
+
+    We write $\mathbf{Ult}(\operatorname{\mathbf{Mod}}(T), \mathbf{Set})$ for the category of ultrafunctors $\operatorname{\mathbf{Mod}}(T) \to \mathbf{Set}$.
+    \end{defn}
+
+\section{The ultracategory structure on $\Mod(T)$}
+$\Mod(T)$ is canonically equipped with the structure of a pre-ultracategory by ``lifting'' the canonical pre-ultracategory structure on $\Set$: an ultraproduct of models is just the ultraproduct of the underlying sets of the models.
+
+We now describe how to additionally canonically equip $\Mod(T)$ with the structure of an ultracategory (``lifting'', as before, the canonical ultracategory structure on $\Set$).
+
+\lemma{\label{lemma-easy-calculation}
+  Let $\mscr{M} : \Gamma \to \Mod(T)$ be an ultradiagram. Let $X : \Mod(T) \to \Set$ be a strict pre-ultrafunctor. Then:
+  \begin{enumerate}
+  \item $X \circ \mscr{M} : \Gamma \to \Set$ is an ultradiagram.
+    \item if $\eta : \mscr{M}_1 \to \mscr{M}_2$ is an ultradiagram morphism, then $X\eta \dfeq \{X\left(\eta_{\gamma}\right)\}_{\gamma \in \Gamma}$ is an ultradiagram morphism $X \circ \mscr{M}_1 \to X \circ \mscr{M}_2$.
+    \end{enumerate}
+    }
+
+  \begin{proof}
+        If $\beta$ is a bound node of $\Gamma$ with ultraproduct data $(I, \mc{U}, g)$, then
+\begin{enumerate}\item
+    $$
+X \circ \mscr{M}(\beta) = X\left( \prod_{i \to \mc{U}} \mscr{M}(g(i))\right) = \prod_{i \to \mc{U}} X \circ \mscr{M}(g(i)),
+$$
+whence strictness of the pre-ultrafunctor $X$. Thus the ultradiagram condition \ref{eqn-ultradiagram-condition} is satisfied.
+\item $$X \left(\eta_{\beta}\right) = X \left( \prod_{i \to \mc{U}} \eta_{g(i)} \right) = \prod_{i \to \mc{U}} X\left(\eta_{g(i)}\right),$$ whence strictness of the pre-ultrafunctor $X$. Thus the ultradiagram morphism condition \ref{eqn-ultradiagram-morphism-condition} is satisfied.
+  \end{enumerate}
+    \end{proof}
+  
+\definition{
+  \label{def-mod-t-ultracategory}(\cite{makkai-sdfol}, Section 3)
+  We make the pre-ultracategory $\Mod(T)$ into an ultracategory by specifying, for each ultramorphism $\delta$ in $\Delta(\Set)$ of type $(\Gamma, k, \ell)$, for every ultradiagram $\mscr{M} : \Gamma \to \Mod(T)$, and for every object $A \in \Def(T)$,
+  $$
+\left(\left(\delta_{\Mod(T)}\right)_{\mscr{M}}\right)_A \dfeq \delta_{\ev_A \circ \mscr{M}}.
+$$
+Remembering that $\delta_{\Mod(T)}$ is supposed to be a natural transformation of evaluation functors on ultradiagrams, and elementary embeddings are natural transformations, the equation displayed above reads: the component at the definable set $A$ of the component at $\mscr{M}$ of the ultramorphism $\delta_{\mscr{Mod}(T)}$ is defined to be the component at the ultradiagram $\ev_A \circ \mscr{M}$ of $\delta$.
+
+It is easy to verify that $\delta_{\mbf{Mod}(T)}$ so defined is an ultramorphism, using the previous lemma.
+}
+
+\proposition{
+  Let $A \in \Def(T)$. Then the strict pre-ultrafunctor $\ev_A : \Mod(T) \to \Set$ is an ultrafunctor.
+}
+
+\begin{proof}
+  Setting up the preservation of ultramorphisms condition \ref{def-preservation-of-ultramorphism}, it remains to check that the diagram
+  $$
+  \begin{tikzcd}[ampersand replacement = \&]
+    \ev_A(\mscr{M}(k)) \arrow[equals]{d} \arrow{r}{\ev_A\left(\left(\delta_{\Mod(T)}\right)_{\mscr{M}} \right)} \& \ev_A(\mscr{M}(\ell)) \arrow[equals]{d}\\
+\ev_A\left(\mscr{M}(k)\right)  \arrow[swap]{r}{\delta_{\ev_A \circ \mscr{M}}}\& \ev_A(\mscr{M}(\ell))
+  \end{tikzcd}
+  $$ commutes. So, $$\ev_A \left(  \left(\delta_{\Mod(T)}\right)_{\mscr{M}}\right) = \left(\left(\delta_{\Mod(T)}\right)_{\mscr{M}} \right)_{A},$$
+  which was defined above to be $\delta_{\ev A \circ \mscr{M}}$.
+\end{proof}
+
+\section{Strong conceptual completeness}
+ There is a canonical evaluation functor $$ \wt{\ev} : \Def(T) \to \Ult(\Mod(T), \Set) $$ sending each definable set $A \in T$ to its corresponding ultrafunctor $\wt{\ev}_A$, and we now have the following picture of factorizations of the original evaluation map $\ev : \Def(T) \to [\Mod(T) \to \Set]$:
+  $$
+  \begin{tikzcd}[ampersand replacement = \&]
+  \Def(T) \arrow[swap, bend right]{ddr}{\ev} \arrow[swap]{dr}{\wh{\ev}} \arrow{r}{\wt{\ev}} \& \Ult(\Mod(T),\Set) \arrow[hook]{d} \\
+    \& \PUlt(\Mod(T),\Set) \arrow{d} \\
+    \& \left[\Mod(T), \Set\right]
+    \end{tikzcd}
+  $$
+  Now, we can state strong conceptual completeness.
+  
+  \theorem{\label{thm-scc}(\cite{makkai-sdfol}, Section 4) $\wt{\ev} : \Def(T) \to \Ult(\Mod(T), \Set)$ is an equivalence of categories.}
+  
+% Write $e$ for $\wt{\ev}$ and $T'$ for the pretopos $\Ult(\Mod(T), \Set)$.
+
+% \definition{\label{def-conservative}
+%   Let $e : T \to T'$ be a pretopos morphism. For any $A \in T$, $e$ induces a homomorphism of subobject lattices
+%   $$ e^{(A)} : \Sub_T(A) \to \Sub_{T'}(e(A)) $$.
+%   We say that:
+%   \begin{enumerate}
+%   \item $e$ is \tbf{conservative} if for all $A$, $e^{(A)}$ is injective.
+%   \item $e$ is \tbf{full on subobjects} if for all $A$, $e^{(A)}$ is surjective.
+%     \item $e$ \tbf{finitely covers} $T'$ if for all $B \in T'$, there exist finitely many $A_1, \dots, A_n$, subobjects $B_i \hookrightarrow e(A_i)$ for each $i \leq n$, and maps $\phi_i : B_i \to B$ such that the images of the $\phi_i$ cover $B$.
+%     \end{enumerate}
+%   }
+
+%   \definition{\label{def-reflects-isomorphisms}
+% A functor $F : \mbf{C} \to \mbf{D}$ \tbf{reflects isomorphisms} if for every $f \in C_1$, $F(f)$ being an isomorphism implies that $f$ was an isomorphism.
+%     }
+  
+% \remark{In \cite{johnstone-elephant}, a functor is said to be conservative if it reflects isomorphisms. It is easy to show these two notions coincide for pretoposes (not necessarily Boolean).}
+  
+%   \lemma{
+% Let $T \overset{e}{\to} T'$ be a pretopos morphism. $e$ is conservative (in the sense of \ref{def-conservative} if and only if $e$ reflects isomorphisms.
+% }
+
+% \begin{proof}
+%   Suppose first that $e$ is conservative. Let $A \overset{f}{\to} B$ be a map in $T$. Suppose that $e(f)$ is an isomorphism. If $f$ is not an isomorphism, then $\im(f) \neq B$. Since $e^{(B)}$ is injective and pretopos morphisms commute with images, this means $\im(e(f)) \neq e(B)$. Therefore, $e(f)$ is not an isomorphism either, a contradiction. 
+
+% On the other hand, if $e$ is not conservative, then for some object $A \in T$, there are subobjects $A_1 \neq A_2$ of $A$ such that $e(A_1) = e(A_2)$. Since $A_1 \neq A_2$, the inclusion of subobjects $A_1 \hookrightarrow A_1 \land A_2$ (say) is not an isomorphism. Since $e(A_1) = e(A_2)$, $e(A_1) = e(A_1) \land e(A_2) = e(A_1 \land A_2)$, and this isomorphism is not reflected.
+% \end{proof}
+
+% \lemma{\label{lemma-scc}By the proof of \ref{thm-conceptual-completeness}, to check that $e$ is an equivalence, it suffices to check the following:
+%   \begin{enumerate}
+%   \item $e$ is conservative.
+%   \item $e$ is full on subobjects.
+%   \item $e$ finitely covers $T'$.
+%     \end{enumerate}
+%   }
+  
+%   \begin{proof}[Proof of \ref{thm-scc}, item $1$ of \ref{lemma-scc}.]
+%     If $e(f) : e(A) \to e(B)$ is an isomorphism, then by definition $e(f)$ is a natural isomorphism between the functors $e(A)$ and $e(B)$. That is, $M(f)$ is a bijection for every model $M$ of $T$.
+
+%     By the completeness theorem for first-order logic, this means that $f$ was an isomorphism in $T$.
+%   \end{proof}
+
+%   \begin{proof}[Proof of \ref{thm-scc}, item $2$ of \ref{lemma-scc}.]
+%     We begin with a claim:
+%     \begin{description}
+%     \item[Claim.]
+%       \label{lemma-scc-item-2-claim-1} Let $M$ and $N$ be models of $T$. Let $a \in M(A)$ and $b \in N(A)$ for some $A \in T$. Suppose that for all definable subobjects $\Sigma \in \Sub(A)$, whenever $b \in N(\Sigma)$, then we have that $a \in M(\Sigma)$. Then there is an ultrafilter $\mc{U}$ and a homomorphism of structures $h : N \to M^{\mc{U}}$ such that $\Delta_A(a) = h_A(b)$ where $\Delta$ is the diagonal embedding into the ultrapower $M^{\mc{U}}$.
+%       \end{description}
+%     \end{proof}

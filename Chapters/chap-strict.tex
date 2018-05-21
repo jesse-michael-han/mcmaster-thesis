@@ -1,0 +1,260 @@
+In this chapter, we prove a purely formal theorem comparing non-strict pre-ultrafunctors $\Mod(T) \to \Set$ (i.e. those whose transition isomorphisms are not all the identity map) with strict ones (i.e. those whose transition isomorphisms are all the identity map), showing how for any non-strict pre-ultrafunctor we may obtain an isomorphic strict pre-ultrafunctor. To carry out this construction we perform a transfinite induction on the ``ultraproduct complexity'' of models; this complexity is given in terms of an ordinal-valued rank.
+
+\section{Strict vs non-strict pre-ultrafunctors}
+Throughout, we will work with the usual (pre)ultracategory structures on $\Mod(T)$ and $\Set$. In particular, in Definition \ref{def-pre-ultracategory-set}, we fixed once and for all the ultraproduct functors $[U] : \Set^I \to \Set$, and whenever we talk about ultraproducts of sets, we understand that we are applying those specific ultraproduct functors. As we saw in Definition \ref{def-ultraproduct-of-models}, once the pre-ultracategory structure on $\Set$ has been fixed, this induces a ``standard'' pre-ultracategory structure on $\Mod(T)$, and so determines what the ultraproduct functors are for $\Mod(T)$, too.
+
+In general, pre-ultrafunctors $\Mod(T) \to \Set$ are only required to ``preserve ultraproducts up to a specified transition isomorphism'', which means that the squares
+$$
+\begin{tikzcd}[ampersand replacement = \&]
+X \left(\prod_{i \to \mc{U}} M_i\right) \arrow{r}{\Phi_{(M_i)}} \arrow[swap]{d}{X \left(\prod_{i \to \mc{U}} f_i \right)}  \& \prod_{i \to \mc{U}} X\left(M_i \right) \arrow{d}{\prod_{i \to \mc{U}} X \left(f_i\right)} \\
+X \left(\prod_{i \to \mc{U}} N_i \right) \arrow[swap]{r}{\Phi_{(<_i)}}   \& \prod_{i \to \mc{U}} X \left( N_i \right)
+\end{tikzcd}
+$$
+(ranging over all indexing sets $I$, ultrafilters $\mc{U}$ on $I$, and $I$-indexed sequences of elementary embeddings $(M_i \overset{f_i}{\to} N_i)$) commute, where $\Phi_{(M_i)}$ does not necessarily have to be the identity map, only some isomorphism.
+
+\definition{\label{def-strict-pre-ultrafunctor} If a pre-ultrafunctor $X$ \emph{does} have identity maps for all of it transition isomorphisms, we say that $X$ is \tbf{strict}.}
+
+\remark{\label{rem-evaluation-functors-are-strict}The proof of the {\L}os theorem \ref{thm-los-theorem} shows that the evaluation functors $M \mapsto M(X)$ for any (eq)-definable set $X$ is a strict pre-ultrafunctor.}
+
+\remark{
+One might worry about being able to achieve strictness in the situation where there is a way to write a model $N$ as two different ultraproducts, say $N = M^{\mc{U}}$ and $N = \prod_{i \to \mc{U}} M_i$; then, after applying a general pre-ultrafunctor $X$, we have
+  $$
+  \begin{tikzcd}[ampersand replacement = \&]
+ \arrow[swap]{d}{\Phi_{(M)}} X\left(M^{\mc{U}}\right) \arrow[equals]{r}  \& X \left(\prod_{i \to \mc{U}} M_i\right) \arrow{d}{\Phi_{(M_i)}}\\
+X(M)^{\mc{U}} \arrow{r}{\sim}    \& \prod_{i \to \mc{U}} X(M_i)
+    \end{tikzcd}
+    $$ where the bottom isomorphism is the unique map given by composing the isomorphisms in the rest of the diagram.
+
+If we try to make $X$ strict, say by setting $\Phi_{(M_i)}$ to be the identity, then we see that the other transition isomorphism $\Phi_{(M)}$ can't be the identity, which would present an obstruction to finding any strict pre-ultrafunctor on $\Mod(T)$.
+
+    However, as long as we are careful about what sets we assign to be ultraproducts (as when we made the conventions in Definition \ref{def-pre-ultracategory-set} about what the ultraproduct functors on $\Set$ precisely were), this situation never arises; we explain below.
+  }
+
+  \lemma{\label{lemma-stupid-thing-doesn't-happen}
+    If we have unidentical data $(I, \mc{U}, (M_i)_{i \in I}) \neq (I', \mc{U}', (M'_i)_{i \in I'})$, then $\prod_{i \to \mc{U}} M_i \neq \prod_{i \to \mc{U}'}, M'_i$.}
+  \begin{proof}
+    Recalling our conventions made in Definition \ref{def-pre-ultracategory-set} about how we construct products and quotients in $\Set$, we look at the three cases:
+    \begin{enumerate}
+    \item If $I \neq I'$, then for every definable set $A$, $$\prod_{i \to I} M_i(A) = \left\{\{(a, i) \stbar a \in M_i(A)\}_{i \in I}\right\} \neq \left\{\{(a', i') \stbar a' \in M'_{i'}(A)\}_{i' \in I'}\right\} = \prod_{i' \in I'} M_{i'},$$ and so their quotients, which we think of as collections of equivalence classes, cannot literally be the same set.
+    \item If $\mc{U} \neq \mc{U}'$, then even if all the other data were the same, the quotients of the $I$-indexed products by $\mc{U}$ and $\mc{U}'$, which we think of as collections of equivalence classes, cannot be the same since $\mc{U}$ and $\mc{U}'$ are distinct.
+    \item Even if $I = I'$ and $\mc{U} = \mc{U}'$, if for some $i \in I$, we have distinct models $M_i \neq M'_i$, then by definition, for some definable set $A$, the sets $M_i(A)$ and $M'_i(A)$ are distinct. Then the $I$-indexed products are distinct and so are the quotients by $\mc{U}$.
+      \end{enumerate}
+    \end{proof}
+
+  Strong conceptual completeness \cite{makkai-sdfol} tells us that ultrafunctors $\Mod(T) \to \mbf{Set}$ are definable, i.e. are isomorphic to evaluation functors of the kind in the previous paragraph. In particular, every ultrafunctor is isomorphic to a strict ultrafunctor, and we can think of the condition of preserving all ultramorphisms as forcing any non-identity transition isomorphisms of a given pre-ultrafunctor to be, in some way, ``canonical''.
+
+The purpose of this section is to show that any non-strict pre-ultrafunctor is isomorphic to a strict one, and that the construction of this isomorphism respects the preservation of ultramorphisms. In particular, any non-strict $\Delta$-functor is isomorphic to a strict $\Delta$-functor and this gives another proof that any non-strict ultrafunctor is isomorphic to a strict ultrafunctor.
+
+\section{The ultraproduct rank of a model}
+
+Now we introduce the \emph{ultraproduct rank} of a model, which will be an inductively-defined ordinal rank that measures how complicated it is to write a model up to isomorphism as a non-trivial ultraproduct of smaller models.
+
+To avoid quantifying over proper classes of isomorphism types of models, we make an auxiliary definition:
+
+\definition{
+Let $\kappa$ be a regular cardinal. A \tbf{$\kappa$-bounded model} of $T$ is a model $M' : \Def(T) \to \Set$ which factors through the full subcategory $\Set_{\kappa}$ of $\Set$ spanned by the hereditarily $\kappa$-small sets. (Equivalently, for any $A \in T$, $M'(A)$ must be a hereditarily $\kappa$-small set.
+}
+
+Since our theories have only a small number of definable sets, for any model $M : \Def(T) \to Set$, there exists some isomorphic $\kappa$-bounded model $M' : \Def(T) \to \Set_{\kappa}$.
+
+\definition{\label{def-ultraproduct-rank}
+  The \tbf{ultraproduct rank} of a model $M$ is an ordinal $\upc(M)$ which we define inductively as follows:
+  \bfenumerate{
+  \item If $M$ is not isomorphic to a non-trivial ultraproduct of $|M|^+$-bounded models, then put $\upc(M) \dfeq 0$.
+  \item Otherwise, put
+    $$
+\upc(M) \dfeq \inf_{\left\{(M_j) \stbar \prod_{j \to \mc{U}} M_j \simeq M \right\}} \sup_{j} \hspace{3mm} \upc(M_j)
+$$
+(here the infimum runs over all sequences of $|M|^+$-bounded models $(M_j)_{j \in J}$ such that $\prod_{j \to \mc{U}} M_j \simeq M$ for some non-principal ultrafilter $\mc{U}$ on $J$.)
+}
+}
+
+\remark{\label{rem-ultraproduct-rank-is-well-defined}
+In part $\bfe{ii}$ of the previous definition, we can derive from the cardinality of $M$ a bound on the cardinality of the possible indexing sets $J$, and there are only a set's worth of $\kappa$-bounded models of $T$, so for each $M$ we are only quantifying over a set's worth of things: the ultraproduct rank is well-defined.
+}
+
+To perform the construction in the next section, we will make some arbitrary choices. In particular, we will need to choose witnesses for the value of the ultraproduct rank.
+
+\definition{\label{def-witness}
+If $\upc(M) = \alpha$, we define a \tbf{witness} for this to be a sequence $(M_j)_{j \in J}$ and an ultrafilter $\mc{U}$ on $J$ such that $\prod_{h \to \mc{U}} M_j \simeq M$ and $\sup_j \upc(M_j) = \alpha$. Since the ordinals are well-ordered, witnesses always exist.
+  }
+
+\section{Constructing the isomorphism}
+
+\theorem{
+  \label{thm-non-strict-pre-ultrafunctors-are-isomorphic-to-strict-pre-ultrafunctors}
+For every non-strict pre-ultrafunctor $X : \Mod(T) \to \mbf{Set}$, there exists a strict pre-ultrafunctor $X' : \Mod(T) \to \mbf{Set}$ and an isomorphism $X \simeq X'$.
+}
+
+\begin{proof}
+
+  We start building $X'$  by asking that if $M_1$ and $M_2$ are rank $0$, then
+  $$
+X'\left(M_1 \overset{f}{\to} M_2 \right) \dfeq X(M_1) \overset{X(f)}{\to} X(M_2).
+$$
+This defines $X'$ on the full subcategory of rank $0$ models and completes the base of the induction.
+
+Now the induction step. If $X'$ has already been defined on the full subcategory $\mbf{C} \subseteq \Mod(T)$ of rank $< \alpha$ models, then fix choices of witnesses for anything in $\mbf{C}$ extending any choices of witnesses we have made at an earlier stage, and extend $X'$ to a full subcategory $\mbf{C}' \subseteq \Mod(T)$ made of anything that is an ultraproduct of objects of $\mbf{C}$ by setting $X'(M_1 \overset{f}{\to} M_2)$ to the dashed map below:
+$$
+\left. \begin{tikzcd}[ampersand replacement = \&]
+X'\left( \prod_{i \to \mc{U}} M_i \right) \arrow[swap]{d}{X'(f)}  \\
+X'\left( \prod_{j \to \mc{V}} N_j \right)
+\end{tikzcd} \right\} \dfeq \begin{tikzcd}[ampersand replacement = \&]
+\prod_{i \to \mc{U}} X'(M_i) \arrow[dashed, swap]{d}{!} \& X\left(\prod_{i \to \mc{U}} M_i \right) \arrow[swap]{l}{\Phi'_{(M_i)}} \arrow{d}{X(f)} \\
+\prod_{j \to \mc{V}} X'(N_j)  \& X \left( \prod_{j \to \mc{V}} N_j \right) \arrow{l}{\Phi'_{(N_j)}}
+  \end{tikzcd},
+  $$
+  where:
+  \bfenumerate{
+  \item $\Phi'_{(M_i)}$ (resp. $(N_j)$) is defined by the composition
+    $$
+    \begin{tikzcd}[ampersand replacement = \&]
+X\left(\prod_{i \to \mc{U}} M_i \right) \arrow[dashed]{r}{!} \arrow[swap]{d}{\Phi_{(M_i)}} \&\prod_{i \to \mc{U}} X'(M_i) \\
+\prod_{i \to \mc{U}} X(M_i) \arrow[swap]{ur}{\prod_{i \to \mc{U}} \sigma_i} \&
+      \end{tikzcd},
+      $$
+      and where:
+    \item $$\sigma_i \dfeq \begin{cases} \id_{X(M_i)} & \te{ if $\upc(M_i) = 0$, }\\
+        \Phi'_{(M^i_j)} & \parbox[t]{.6\textwidth}{if $X'(M_i)$ was defined at an earlier stage, and $\prod_{j \to \mc{W}} M^i_j = M_i$ is a witness for the nonzero ultraproduct rank of $M_i$.}
+        \end{cases}$$
+    }
+  
+    To complete the induction step, we have to extend $X'$ to \emph{all} the rank-$\alpha$ models (note that $N$ being a rank-$\alpha$ model only means that $N$ is \emph{isomorphic} to an ultraproduct of rank $<\alpha$ models, not necessarily that $N$ \emph{is} an ultraproduct of rank $<\alpha$ models), so we choose a witness $\prod_{i \to \mc{U}} M_i \simeq N$ that $\upc(N) = \alpha$ In particular, we have chosen an isomorphism $\prod_{i \to \mc{I}} M_i \simeq N$. We then extend $X'$ to the full subcategory of $\Mod(T)$ spanned by $\mbf{C}' \cup \{N\}$ by decreeing that $X'(N) = X'\left(\prod_{i \to \mc{U}} M_i\right)$, and that the chosen isomorphism is sent to the identity. Doing this for all $N$, we extend $X'$ to the full subcategory of rank-$\alpha$-models.
+    
+    Since we observed (Remark \ref{rem-ultraproduct-rank-is-well-defined}) that the ultraproduct rank is well-defined, every model is reached at some (possibly transfinite) stage of this construction.
+
+    $X'$ is a functor because conjugating by $\Phi'$'s cancels out.
+
+    To check pre-ultrafunctoriality, we need the diagrams
+    $$
+    \begin{tikzcd}[ampersand replacement = \&]
+X'\left(\prod_{i \to \mc{U}} M_i \right) \arrow[equals]{r} \arrow[swap]{d}{X' \left( \prod_{i \to \mc{U}} f_i \right)}  \& \prod_{i \to \mc{U}} X'(M_i) \arrow{d}{\prod_{i \to \mc{U}} X'(f_i)} \\
+X'\left(\prod_{i \to \mc{U}} N_i\right) \arrow[equals]{r}      \&\prod_{i \to \mc{U}} X'(N_i)
+      \end{tikzcd}
+    $$
+    to commute, i.e. that $X'\left(\prod_{i \to \mc{U}} f_i \right) = \prod_{i \to \mc{U}} X'(f_i)$.
+
+    So, unravelling the definitions, we calculate:
+    \begin{align*}
+      X'\left(\prod_{i \to \mc{U}} f_i \right) &\overset{?}{=} \prod_{i \to \mc{U}} X'(f_i) \\
+      \iff \Phi_{(N_i)}' \circ X \left(\prod_{i \to \mc{U}} f_i \right) \circ \left(\Phi'_{(M_i)}\right)^{-1} &\overset{?}{=}      \prod_{i \to \mc{U}} X'(f_i) \\
+\iff \prod_{i \to \mc{U}} \sigma_i^N \circ \Phi_{(N_i)} \circ X \left(\prod_{i \to \mc{U}} f_i \right) \circ \left(\Phi_{(M_i)}\right)^{-1} \circ \left(\prod_{i \to \mc{U}} \sigma_i^M \right)^{-1} &\overset{?}{=}      \prod_{i \to \mc{U}} X'(f_i) \\
+      \iff \prod_{i \to \mc{U}} \sigma_i^N \circ \prod_{i \to \mc{U}} X(f_i) \circ \left( \prod_{i \to \mc{U}} \sigma_i^M \right)^{-1}      &\overset{?}{=}      \prod_{i \to \mc{U}} X'(f_i) \\
+      \iff \prod_{i \to \mc{U}} \left(\sigma_i^N X(f_i) \left(\sigma_i^M\right)^{-1}\right)    &\overset{?}{=}      \prod_{i \to \mc{U}} X'(f_i)\\
+                                               &\overset{?}{=} \prod_{i \to \mc{U}} \Phi'_{N_i} X(f_i) \left(\Phi'_{M_i}\right)^{-1} \\
+                                                 &= \prod_{i \to \mc{U}} \sigma_i^N X(f_i) \left(\sigma^M_i\right)^{-1}.
+    \end{align*}
+In the final step, we are observing that since $\Phi'_{N_i}$ is $\id_{N_i}$ if $N_i$ was from the base case, $\Phi_{N_i}$ \emph{is} $\sigma_i^N$ (resp. $M_i$).
+\end{proof}
+
+%\remark{ When proving the theorem \ref{thm-non-strict-pre-ultrafunctors-are-isomorphic-to-strict-pre-ultrafunctors}, we did not use any facts particular to $\Mod(T)$ (nor $\mbf{Set}$) beyond their structures as pre-ultracategories. So the argument works to exhibit an isomorphism from any non-strict pre-ultrafunctor between pre-ultracategories with a strict one. }
+
+\section{Showing the constructed isomorphism respects preservation of ultramorphisms}
+
+Now we will show that the property of a pre-ultrafunctor $(X, \Phi)$ preserving an ultramorphism is invariant under the construction \ref{thm-non-strict-pre-ultrafunctors-are-isomorphic-to-strict-pre-ultrafunctors} of $X'$.
+
+Heuristically, this should be true because preserving ultramorphisms is a ``local'', component-by-component property of the transition isomorphisms $\Phi$, and the only source of the new data $\Phi'$ in the construction of $X'$ was taking ultraproducts of components of the old $\Phi$, with maybe some identity maps interspersed.
+
+Rigorously, this follows from some definition-unraveling. To give an idea for it, we will first prove the special case that the preservation of the diagonal maps $\Delta$ is invariant under the construction of $X'$.
+
+\proposition{\label{prop-diagonal-maps-are-preserved-by-X'}
+A pre-ultrafunctor $(X, \Phi)$ preserves the diagonal embeddings $\Delta$ if and only if $X'$ preserves the diagonal embeddings $\Delta$.
+}
+
+\begin{proof}
+  Suppose first that $X$ preserves the diagonal maps. The diagram
+$$  \begin{tikzcd}[ampersand replacement = \&]
+    \& X'\left(M^{\mc{U}}\right) \arrow[equals]{dd}\\
+X'(M) \arrow{ur}{X'\left(\Delta_M\right)} \arrow[swap]{dr}{\Delta_{X'(M)}}    \& \\
+    \& \left(X'(M)\right)^{\mc{U}}
+  \end{tikzcd}$$
+  commutes if and only if
+  $$
+X'(\Delta_M) = \Delta_{X'(M)}
+$$
+if and only if (note that since $M$ is being viewed as a trivial ultraproduct, $\Phi_M = \id_M$ and $\prod_{j \to \mc{V}} \sigma^M = \sigma^M$)
+\begin{align*}
+  X'(\Delta_M) &\overset{?}{=} \Delta_{X'(M)} \\
+\iff \Phi'_{M^{\mc{U}}} \circ X(\Delta_M) \circ \left( \Phi'_M\right)^{-1}               &\overset{?}{=} \Delta_{X'(M)} \\
+\iff \prod_{i \to \mc{U}} \sigma_i^{M^{\mc{U}}} \circ \Phi_{M^{\mc{U}}} \circ X(\Delta_M) \circ \Phi^{-1}_M \circ \left(\sigma^M\right)^{-1} &\overset{?}{=} \Delta_{X'(M)} \\
+\iff \prod_{i \to \mc{U}} \sigma_i^{M^{\mc{U}}} \circ \Delta_{X(M)} \circ \left(\sigma^M\right)^{-1}               &\overset{?}{=} \Delta_{X'(M)}.
+\end{align*}
+By chasing the diagram
+$$
+\begin{tikzcd}[ampersand replacement = \&]
+ X'(M) \arrow[swap]{d}{\Delta_{X'(M)}} \& X(M) \arrow[swap]{l}{\sigma^M} \arrow{d}{\Delta_{X(M)}} \\
+  X'(M)^{\mc{U}} \& X(M)^{\mc{U}} \arrow{l}{\prod_{i \to \mc{U}} \sigma_i^M}
+\end{tikzcd}
+$$
+clockwise, we see that
+$$
+\begin{tikzcd}[ampersand replacement = \&]
+x \arrow[mapsto]{r} \arrow[mapsto]{d}  \& \left(\sigma^M\right)^{-1} x \arrow[mapsto]{d} \\
+\left[x\right]_{i \to \mc{U}}  \& \left[\left(\sigma^{M}\right)^{-1} x \right]_{i \to \mc{U}} \arrow[mapsto]{l}
+\end{tikzcd}
+$$
+commutes, so the equation is true and $X'$ preserves the diagonal maps.
+
+Conversely, suppose $X'$ preserves the diagonal maps. Then multiplying the left and right sides of the equation
+$$
+\prod_{i \to \mc{U}} \sigma_i^{M^{\mc{U}}} \circ \Phi_{M^{\mc{U}}} \circ X(\Delta_M) \circ \Phi^{-1}_M \circ \left(\sigma^M\right)^{-1} = \Delta_{X'(M)}
+$$
+by $\left(\prod_{i \to \mc{U}} \sigma_i^{M^{\mc{U}}} \right)^{-1}$ and $\sigma^M$, respectively, yields
+$$
+\Phi_{(M)} \circ X(\Delta_M) = \left(\prod_{i \to \mc{U}} \sigma_i^{M^{\mc{U}}} \right)^{-1} \circ \Delta_{X'(M)} \circ \sigma^M \overset{?}{=} \Delta_{X(M)}.
+$$
+Checking the final equality can be done by a diagram chase entirely analogous to the one from the first half of the proof.
+\end{proof}
+
+Of course, the statement is true even when we replace $\Delta$ with general ultramorphisms.
+
+\theorem{\label{thm-ultramorphisms-are-preserved-by-X'}
+Let $\delta$ and $\delta'$ be ultramorphisms of type $\langle \Gamma, k, \ell \rangle$ in the ultracategories $\Mod(T)$ and $\mbf{Set}$, respectively. A pre-ultrafunctor $(X,\Phi) : \Mod(T) \to \mbf{Set}$ carries $\delta$ into $\delta'$ if and only if the $X'$ given by the construction \ref{thm-non-strict-pre-ultrafunctors-are-isomorphic-to-strict-pre-ultrafunctors} does also.
+}
+
+\begin{proof}
+  Suppose first that $X$ carries $\delta$ into $\delta'$.
+  
+  Let $\mscr{M}$ be an ultradiagram in $\Mod(T)$. By the definition \ref{def-preservation-of-ultramorphism}, $X$ carries $\delta$ into $\delta'$ if and only if
+  $$
+  \begin{tikzcd}[ampersand replacement = \&]
+    X(\mscr{M}(k)) \arrow{r}{X(\delta_{\mscr{M}})} \arrow[swap]{d}{\Phi_{\mscr{M}(k)}} \& X(\mscr{M}(\ell)) \arrow{d}{\Phi_{\mscr{M}(\ell)}}\\
+(X \mscr{M})(k) \arrow[swap]{r}{\delta'_{X \mscr{M}}}\& (X \mscr{M})(\ell)
+  \end{tikzcd}
+  $$
+  commutes. We need to check (whence strictness of $X'$) that
+  $$
+X'(\delta_{\mscr{M}}) \overset{?}{=} \delta'_{X' \mscr{M}},
+$$
+\begin{align*}
+\iff \Phi'_{\mscr{M}(\ell)} \circ X(\delta_{\mscr{M}}) \circ \left(\Phi'_{\mscr{M}(k)}\right)^{-1}  &\overset{?}{=} \delta'_{X' \mscr{M}} \\
+ \iff\prod_{i \to \mc{U}} \sigma_i^{\mscr{M}(\ell)} \circ \Phi_{\mscr{M}(\ell)} \circ X(\delta_{\mscr{M}}) \circ \left(\Phi_{\mscr{M}(k)}\right)^{-1} \circ \left(\prod_{i \to \mc{U}} \sigma_i^{\mscr{M}(k)}\right)^{-1}  &\overset{?}{=} \delta_{X' \mscr{M}} \\
+\iff \prod_{i \to \mc{U}} \sigma^{\mscr{M}(\ell)}_i \circ \delta'_{X \mscr{M}} \circ \left(\prod_{i \to \mc{U}} \sigma_i^{\mscr{M}(k)}\right)^{-1}     &\overset{?}{=} \delta'_{X' \mscr{M}}, \\
+  \end{align*}
+  which is true if and only if the diagram
+  $$
+  \begin{tikzcd}[ampersand replacement = \&]
+X \mscr{M}(k) \arrow{r}{\delta'_{X \mscr{M}}} \arrow[swap]{d}{\prod_{i \to \mc{U}} \sigma^{\mscr{M}(k)}_i}  \& X \mscr{M}(\ell) \arrow{d}{\prod_{i \to \mc{U}} \sigma_i^{\mscr{M}(\ell)} }\\ 
+X' \mscr{M}(k) \arrow[swap]{r}{\delta'_{X' \mscr{M}}}  \& X' \mscr{M}(\ell)
+  \end{tikzcd}
+  $$
+  commutes. Since $\delta'$ is a natural transformation of the evaluation functors $(k)$ and $\ell$, to check that this square commutes, it suffices to check that the vertical maps arise from a morphism between the ultradiagrams $X \mscr{M}$ and $X' \mscr{M}$ in $\Hom(\Gamma, \mbf{Set})$. The condition to check for this is
+  $$
+\Phi_{\beta} = \prod_{i \to \mc{U}_{\beta}} \Phi_{g_{\beta}(i)}
+$$
+for all bound nodes $\beta$, but this is easily seen to be true after we remember that if $k$ or $\ell$ are not bound, then their ultraproducts in the above square become trivial and $\prod_{i \to \mc{U}} \sigma_i^{\mscr{M}(k)}$ is just a map $\sigma_{\mscr{M}(k)}$.
+
+Therefore, $X'$ carries $\delta$ to $\delta'$.
+
+Conversely, suppose $X'$ carries $\delta$ to $\delta'$.
+
+We need to check that $$\delta'_{X \mscr{M}} \overset{?}{=} \Phi_{\mscr{M}(\ell)} \circ X(\delta_{\mscr{M}}) \circ \left(\Phi_{\mscr{M}(k)}\right)^{-1}.$$ Multiplying on the left by $\prod_{i \to \mc{U}} \sigma^{\mscr{M}(\ell)}_i$ and on the right by $\left(\prod_{i \to \mc{U}} \sigma^{\mscr{M}(k)}_i \right)^{-1}$, we get
+$$
+\prod_{i \to \mc{U}} \sigma^{\mscr{M}(\ell)}_i \circ \delta'_{X \mscr{M}} \circ \left(\prod_{i \to \mc{U}} \sigma^{\mscr{M}(k)}_i \right)^{-1} \overset{?}{=} X'(\delta_{\mscr{M}}),
+$$
+and by our assumption, the previous equation is true if and only if
+$$
+\delta'_{X' \mscr{M}} = X'(\delta_{\mscr{M}}),
+$$
+which is what we assumed.
+\end{proof}

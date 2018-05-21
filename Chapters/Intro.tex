@@ -1,0 +1,19 @@
+Let $T$ be a first-order theory. Any formula $\varphi(x)$ of $T^{\eq}$ (so a definable set of $T$ quotiented by a definable equivalence relation of $T$) induces a ``functor of points'' $\ev_{\varphi(x)}$ on the category $\Mod(T)$ of models of $T$ with maps the elementary embeddings, by sending $M \mapsto \varphi(M)$. In this way the category $\Def(T)$ of $0$-definable sets of $T$ embeds into the category of functors $[\Mod(T), \Set]$, via the ``evaluation map'' $\ev : T \to [\Mod(T), \Set]$.
+
+Here is the motivating problem: how do we recognize, up to isomorphism, the image of $\ev$ inside $[\Mod(T), \Set]$? This would give a way of reconstructing the theory $T$ from its category of models $\Mod(T)$. That is, given an arbitrary functor $X : \Mod(T) \to \Set$---some way of attaching a set to every model of $T$, functorial with respect to elementary embeddings---how can we tell if $X$ was isomorphic to some functor of points $\ev_{\varphi(x)}$ for some formula $\varphi(x) \in T^{\eq}$? We call such functors $X$ \emph{definable}.
+
+A necessary condition for definability is compatibility with ultraproducts. {\L}os' theorem \ref{thm-los-theorem} tells us that evaluation functors $\ev_{\varphi(x)}$ commute with ultraproducts, that is,
+$$
+\varphi\left(\prod_{i \to \mc{U}} M_i \right) = \prod_{i \to \mc{U}} \varphi(M_i).
+$$
+
+Strong conceptual completeness for first-order logic, as proved by Makkai in \cite{makkai-sdfol}, provides a sort of converse to {\L}os' theorem, and says that the definable functors are precisely the ones which preserve ultraproducts and certain formal comparison maps between ultraproducts, called \emph{ultramorphisms}, which generalize the diagonal embeddings of models into their ultrapowers. This recovers $T$ up to bi-interpretability. To precisely state Makkai's result, we must formalize what it means for an arbitrary functor $X : \Mod(T) \to \Set$ to ``preserve ultraproducts'' and ``preserve'' these ultramorphisms. This motivates the formalism of ultracategories, which we review in \autoref{chap-ultracategories}.
+
+Any general framework which recovers theories from their categories of models should be considerably simplified for $\aleph_0$-categorical theories, whose definable sets are exceptionally easy to understand (being precisely the finite disjoint unions of orbits of the automorphism group) and in fact are determined up to bi-interpretability by the automorphism group of the unique countable model topologized by pointwise convergence.
+
+We will show (Theorem \ref{thm-main-theorem}) that when $T$ is $\aleph_0$-categorical, we can check definability by checking compatibility with ultraproducts and just diagonal embeddings into ultrapowers, so that for $\aleph_0$-categorical theories, the definability criteria provided by strong conceptual completeness can indeed be simplified.
+
+By modifying our techniques, we will deduce the full statement of strong conceptual completeness for $\aleph_0$-categorical $T$ (Theorem \ref{thm-other-main-theorem}) from just the preservation of diagonal embeddings into ultrapowers. This will follow as a corollary of a general definability criterion (Theorem \ref{thm-ultraproduct-coherence}) for recognizing the evaluation functors of definable sets among the evaluation functors for objects in the classifying topos of any first-order theory $T$.
+
+Finally, in \autoref{chap-exotic-functors}, we construct counterexamples to Theorem \ref{thm-other-main-theorem} when the assumption of $\aleph_0$-categoricity is removed.
+

@@ -1,0 +1,48 @@
+This is BibTeX, Version 0.99d (TeX Live 2017/Arch Linux)
+Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
+The top-level auxiliary file: main.aux
+The style file: siam.bst
+Database file #1: /home/pv/org/projects/mcmaster-thesis/jmhbib.bib
+Warning--empty year in sga4
+You've used 14 entries,
+            2030 wiz_defined-function locations,
+            567 strings with 5403 characters,
+and the built_in function-call counts, 3506 in all, are:
+= -- 288
+> -- 146
+< -- 0
++ -- 61
+- -- 45
+* -- 246
+:= -- 588
+add.period$ -- 14
+call.type$ -- 14
+change.case$ -- 57
+chr.to.int$ -- 0
+cite$ -- 15
+duplicate$ -- 189
+empty$ -- 313
+format.name$ -- 45
+if$ -- 726
+int.to.chr$ -- 0
+int.to.str$ -- 14
+missing$ -- 22
+newline$ -- 45
+num.names$ -- 27
+pop$ -- 92
+preamble$ -- 1
+purify$ -- 51
+quote$ -- 0
+skip$ -- 108
+stack$ -- 0
+substring$ -- 144
+swap$ -- 47
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 40
+warning$ -- 1
+while$ -- 34
+width$ -- 16
+write$ -- 117
+(There was 1 warning)

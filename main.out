@@ -1,0 +1,61 @@
+\BOOKMARK [0][-]{chapter.1}{Introduction}{}% 1
+\BOOKMARK [0][-]{chapter.2}{Basic model theory and categorical logic}{}% 2
+\BOOKMARK [1][-]{section.2.1}{Introduction}{chapter.2}% 3
+\BOOKMARK [2][-]{subsection.2.1.1}{Notation and conventions}{section.2.1}% 4
+\BOOKMARK [1][-]{section.2.2}{Basic notions}{chapter.2}% 5
+\BOOKMARK [2][-]{subsection.2.2.1}{The category of definable sets}{section.2.2}% 6
+\BOOKMARK [2][-]{subsection.2.2.2}{Logical categories and elementary functors}{section.2.2}% 7
+\BOOKMARK [1][-]{section.2.3}{Interpretations between theories and interpretations between structures}{chapter.2}% 8
+\BOOKMARK [2][-]{subsection.2.3.1}{Concrete interpretations}{section.2.3}% 9
+\BOOKMARK [2][-]{subsection.2.3.2}{Abstract interpretations}{section.2.3}% 10
+\BOOKMARK [2][-]{subsection.2.3.3}{Comparing abstract and concrete interpretations}{section.2.3}% 11
+\BOOKMARK [1][-]{section.2.4}{Interpretations as elementary functors}{chapter.2}% 12
+\BOOKMARK [1][-]{section.2.5}{Models as elementary functors}{chapter.2}% 13
+\BOOKMARK [2][-]{subsection.2.5.1}{Elementary embeddings as natural transformations of elementary functors}{section.2.5}% 14
+\BOOKMARK [1][-]{section.2.6}{Pretoposes and the \(-\)eq-construction}{chapter.2}% 15
+\BOOKMARK [1][-]{section.2.7}{The 2-category of structures and interpretations}{chapter.2}% 16
+\BOOKMARK [1][-]{section.2.8}{More on Mod\(T\)}{chapter.2}% 17
+\BOOKMARK [2][-]{subsection.2.8.1}{Equivalences of theories induce equivalences of categories of models}{section.2.8}% 18
+\BOOKMARK [2][-]{subsection.2.8.2}{Accessibility of Mod\(T\)}{section.2.8}% 19
+\BOOKMARK [1][-]{section.2.9}{0-categorical structures and theories}{chapter.2}% 20
+\BOOKMARK [2][-]{subsection.2.9.1}{The Ryll-Nardzewski theorem}{section.2.9}% 21
+\BOOKMARK [2][-]{subsection.2.9.2}{The Coquand-Ahlbrandt-Ziegler theorem}{section.2.9}% 22
+\BOOKMARK [1][-]{section.2.10}{Recovering Mod\(T\) from End\(M\)}{chapter.2}% 23
+\BOOKMARK [0][-]{chapter.3}{Ultraproducts, ultracategories, and Makkai's strong conceptual completeness}{}% 24
+\BOOKMARK [1][-]{section.3.1}{Introduction}{chapter.3}% 25
+\BOOKMARK [1][-]{section.3.2}{Basic notions}{chapter.3}% 26
+\BOOKMARK [2][-]{subsection.3.2.1}{The \225os theorem}{section.3.2}% 27
+\BOOKMARK [2][-]{subsection.3.2.2}{Frayne's lemma and Scott's lemma}{section.3.2}% 28
+\BOOKMARK [2][-]{subsection.3.2.3}{The Beth definability theorem}{section.3.2}% 29
+\BOOKMARK [2][-]{subsection.3.2.4}{Conceptual completeness}{section.3.2}% 30
+\BOOKMARK [1][-]{section.3.3}{Ultracategories and ultrafunctors}{chapter.3}% 31
+\BOOKMARK [2][-]{subsection.3.3.1}{Pre-ultracategories and pre-ultrafunctors}{section.3.3}% 32
+\BOOKMARK [2][-]{subsection.3.3.2}{Ultramorphisms}{section.3.3}% 33
+\BOOKMARK [2][-]{subsection.3.3.3}{What it means for a pre-ultrafunctor to preserve an ultramorphism}{section.3.3}% 34
+\BOOKMARK [2][-]{subsection.3.3.4}{The definitions of ultracategory and ultrafunctor}{section.3.3}% 35
+\BOOKMARK [1][-]{section.3.4}{The ultracategory structure on Mod\(T\)}{chapter.3}% 36
+\BOOKMARK [1][-]{section.3.5}{Strong conceptual completeness}{chapter.3}% 37
+\BOOKMARK [0][-]{chapter.4}{-functors and definability for 0-categorical theories}{}% 38
+\BOOKMARK [1][-]{section.4.1}{-functors and the finite support property}{chapter.4}% 39
+\BOOKMARK [1][-]{section.4.2}{Failure of F to preserve the ultracategory structure}{chapter.4}% 40
+\BOOKMARK [1][-]{section.4.3}{A definability criterion for 0-categorical theories}{chapter.4}% 41
+\BOOKMARK [2][-]{subsection.4.3.1}{Aut\(M\)U orbit-counting}{section.4.3}% 42
+\BOOKMARK [0][-]{chapter.5}{Strictifications of pre-ultrafunctors}{}% 43
+\BOOKMARK [1][-]{section.5.1}{Strict vs non-strict pre-ultrafunctors}{chapter.5}% 44
+\BOOKMARK [1][-]{section.5.2}{The ultraproduct rank of a model}{chapter.5}% 45
+\BOOKMARK [1][-]{section.5.3}{Constructing the isomorphism}{chapter.5}% 46
+\BOOKMARK [1][-]{section.5.4}{Showing the constructed isomorphism respects preservation of ultramorphisms}{chapter.5}% 47
+\BOOKMARK [0][-]{chapter.6}{Classifying toposes of first-order theories}{}% 48
+\BOOKMARK [1][-]{section.6.1}{Preliminaries on the classifying topos}{chapter.6}% 49
+\BOOKMARK [2][-]{subsection.6.1.1}{Computing the associated inverse image functor }{section.6.1}% 50
+\BOOKMARK [1][-]{section.6.2}{Coherence, compactness and definability in E\(T\)}{chapter.6}% 51
+\BOOKMARK [0][-]{chapter.7}{Ultraproducts and coherence in the classifying topos}{}% 52
+\BOOKMARK [1][-]{section.7.1}{Compact non-coherent objects in E\(T\)}{chapter.7}% 53
+\BOOKMARK [1][-]{section.7.2}{The coherence criterion}{chapter.7}% 54
+\BOOKMARK [0][-]{chapter.8}{Exotic functors Mod\(T\) Set}{}% 55
+\BOOKMARK [1][-]{section.8.1}{Counterexamples to Theorem 7.2.2 in the non-0-categorical case}{chapter.8}% 56
+\BOOKMARK [2][-]{subsection.8.1.1}{The exotic -functor}{section.8.1}% 57
+\BOOKMARK [2][-]{subsection.8.1.2}{The exotic pre-ultrafunctor}{section.8.1}% 58
+\BOOKMARK [1][-]{section.8.2}{Further directions}{chapter.8}% 59
+\BOOKMARK [2][-]{subsection.8.2.1}{Non-definable counterexamples}{section.8.2}% 60
+\BOOKMARK [0][-]{chapter*.7}{References}{}% 61

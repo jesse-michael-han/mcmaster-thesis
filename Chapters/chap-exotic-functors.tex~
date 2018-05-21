@@ -1,0 +1,558 @@
+In this chapter, we will construct for, certain theories $T$, ``exotic'' functors $\Mod(T) \to \Set$ which will exhibit the failure of \ref{thm-other-main-theorem} when the assumption of $\aleph_0$-categoricity is removed.
+
+\section{Counterexamples to Theorem \ref{thm-other-main-theorem} in the non-$\aleph_0$-categorical case}
+\label{first-batch}
+The basis for our  counterexamples is the theory of an infinite set, expanded by countably many distinct constants. We will construct an example of a pre-ultrafunctor which is not a $\Delta$-functor, and an example of a $\Delta$-functor which is not an ultrafunctor (specifically, we will find an example which fails to preserve the generalized diagonal embeddings \ref{def-generalized-diagonal-embeddings}).
+
+For the rest of this section, $T$ will mean the theory of an infinite set with countable many distinct constants $\{c_i\}_{i \in \omega}$. In a single variable, $T$ has a unique non-isolated type $p(x)$, whose realizations are those elements which are not any constants.
+
+\definition{\label{def-underlying-functor}
+  The underlying functor $X$ for the pre-ultrafunctors we will construct will be given on the objects of $\Mod(T)$ by:
+  $$
+X(M) \dfeq p(M) \cup \left\{c_{k}^M \stbar k \te{ is even}\right\}.
+$$
+
+On elementary embeddings $f : M \to N$, we set $X(f)$ to just be the restriction of $f$ to $X(M)$.
+}
+
+There is an obvious map which compares $\prod_{i \to \mc{U}} X(M_i)$ with $X \left(\prod_{i \to \mc{U}} M_i \right)$, namely the inclusion of the former in the latter. However, this cannot be an isomorphism, since any unbounded increasing sequence of odd constants will realize $p$ in an ultrapower. To complete the construction of the counterexamples, it remains to construct transition isomorphisms for $X$.
+
+For our convenience, we record an analysis of the automorphisms of the functor $X$ which will be useful in the construction of the exotic $\Delta$-functor \ref{exotic-delta-functor}.
+
+\lemma{\label{lemma-automorphisms-of-X} Any automorphism $\eta : X \to X$ of $X$ satisfies the following property: for every $M \models T$, $\eta_M : X(M) \to X(M)$ permutes the constants and fixes the nonconstants.}
+
+\begin{proof}
+  Fix an arbitrary model $M$, let $\Delta_M : M \to M^{U}$ be the diagonal embedding into some ultrapower $M^{\mc{U}}$, and consider the naturality diagram which must be satisfied by the components $\{\eta_M\}_{M \in \Mod(T)}$ of $\eta$:
+  $$
+\betternaturalitysquare{X}{\eta}{X}{M}{\Delta_M}{M^{\mc{U}}}
+    $$
+    Suppose $\eta_M$ sends a constant $c$ to a nonconstant $\eta_M(c)$. Then the commutativity of the naturality diagram tells us $\eta_{M^{\mc{U}}}$ sends $X(\Delta_M)(c) = \Delta_M(c)$ to $X(\Delta_M)(\eta_M(c)) = \Delta_M(\eta_M(c))$. However, any injection $M \to M^U$ which identifies constants with constants and sends nonconstants to nonconstants is an elementary embedding, and we can certainly find an embedding $f : M \to M^{U}$ which does not send the nonconstant $\eta_M(c)$ to $\Delta_M(\eta_M(c))$. Then, since elementary embeddings fix constants, the naturality diagram
+  $$
+\betternaturalitysquare{X}{\eta}{X}{M}{f}{M^{\mc{U}}}
+    $$
+    would not commute. So, $\eta_M$ must send constants to constants. Since $\eta$ is an isomorphism and hence invertible, $\eta_M$ cannot send nonconstants to constants either.
+
+    Now suppose that $\eta_M$ does not fix the nonconstants, so that for some nonconstant $d$, $d \neq \eta_M(d)$, with $\eta_M(d)$ a nonconstant.  Consider again the naturality diagram for $\Delta_M : M \to M^{\mc{U}}$:
+    $$
+\betternaturalitysquare{X}{\eta}{X}{M}{\Delta_M}{M^{\mc{U}}}
+    $$
+    This tells us that $\eta_{M^{\mc{U}}}(\Delta_M(d)) = \Delta_M(\eta_M(d))$.
+
+    Let $d'$ stand for $\Delta_M(\eta_M(d))$, and let $e$ be another nonconstant in $M^{\mc{U}}$, distinct from $\Delta_M(d)$ and $d'$. Since $d'$ and $e$ are nonconstants, we can find an automorphism $\sigma : M^{\mc{U}} \to M^{\mc{U}}$ which fixes $\Delta_M(d)$ but which moves $d'$ to $e$. Then the naturality diagram for $\sigma$
+$$
+\betternaturalitysquare{X}{\eta}{X}{M^{\mc{U}}}{\sigma}{M^{\mc{U}}}
+$$
+tells us that
+\begin{align*}
+  \sigma \circ \eta_{M^{\mc{U}}}(\Delta_M(d)) &= \eta_{M^{\mc{U}}} \circ \sigma(\Delta_M(d)) \\
+  = \sigma(d') &= \eta_M^{\mc{U}}(\Delta_M(d)) \\
+                 = e &= d',
+\end{align*}
+a contradiction. Therefore, $\eta_M$ fixes the nonconstants.
+\end{proof}
+
+Finally, we remark that \emph{any} permutation of the constants can be realized in an automorphism $\eta : X \to X$, and in fact $\Aut(X) \simeq \Sym(\omega)$.
+
+\subsection{The exotic $\Delta$-functor}
+\label{exotic-delta-functor}
+Now we will construct a transition isomorphism $\Phi$ for $X$ such that $(X, \Phi)$ is a $\Delta$-functor which is not an ultrafunctor (and, in fact, which fails to preserve the generalized diagonal embeddings \ref{def-generalized-diagonal-embeddings}).
+
+Fix $I$ and a non-principal ultrafilter $\mc{U}$. Let $(M_i)_{i \in I}$ be an $I$-indexed sequence of models. Consider $X\left(\prod_{i \to \mc{U}} M_i\right)$, in which we can canonically identify $\prod_{i \to \mc{U}} X(M_i)$ as a subset.
+
+\definition{\label{def-a-b}
+  Let $A_{(M_i)}$ be the complement of $\prod_{i \to \mc{U}} X(M_i)$ inside $X \left(\prod_{i \to \mc{U}} M_i \right)$. $A_{(M_i)}$ consists of those elements $[x_i]_{i \to \mc{U}}$ of $\prod_{i \to \mc{U}} M_i$ which:   \begin{enumerate}
+  \item realize the non-isolated type $p(x)$, i.e. are not constants, and
+  \item such that any representative sequence $(x_i)_{i \to \mc{U}}$ is $\mc{U}$-often an odd constant (equivalently, can be represented by a sequence made up entirely of odd constants).
+    \end{enumerate}
+
+  Let $B_{(M_i)}$ be the subset of $\prod_{i \to \mc{U}} X(M_i)$ which consists of those elements $[x_i]_{i \to \mc{U}}$ of $\prod_{i \to \mc{U}}$ which:
+  \begin{enumerate}
+  \item realize the non-isolated type $p(x)$, i.e. are not constants, and
+  \item such that any representative sequence $(x_i)_{i \to \mc{U}}$ is $\mc{U}$-often an even constant (equivalently, can be represented by a sequence made up entirely of even constants).
+    \end{enumerate}
+
+    Finally, let $C_{(M_i)}$ be the complement of $B_{(M_i)}$ inside $\prod_{i \to \mc{U}} X(M_i)$.}
+
+  Note that $C_{(M_i)}$ consists precisely of those elements of $X\left(\prod_{i \to \mc{U}} M_i\right)$ which are either constants or which are nonconstants $[x_i]_{i \to \mc{U}}$ for which any representative sequence $(x_i)_{i \to \mc{U}}$ is $\mc{U}$-often a nonconstant.
+
+  Since elementary embeddings preserve the property of a tuple being constant or nonconstant, for any sequence of elementary embeddings $(f_i : M_i \to N_i)_{i \to \mc{U}}$, we have that $[f_i]_{i \to \mc{U}}$ restricts to a map $C_{(M_i)} \to C_{(N_i)}$, and furthermore because elementary embeddings fix constants, $[f_i]_{i \to \mc{U}}$ restricts to bijections $A_{(M_i)} \to A_{(N_i)}$ and $B_{(M_i)} \to B_{(N_i)}$.
+
+Now, we have disjoint unions
+  $$
+  X \left(\prod_{i \to \mc{U}} M_i \right) = A_{(M_i)} \sqcup B_{(M_i)} \sqcup C_{(M_i)} \hspace{3mm} \te{ and } \hspace{3mm} \prod_{i \to \mc{U}} X(M_i) = B_{(M_i)} \sqcup C_{(M_i)},
+  $$
+  and our task is to find a transition isomorphism $\Phi_{(M_i)} : A_{(M_i)} \sqcup B_{(M_i)} \sqcup C_{(M_i)} \overset{\sim}{\longrightarrow} B_{(M_i)} \sqcup C_{(M_i)}$.
+
+We define $\Phi_{(M_i)}$ to be the identity on $C_{(M_i)}$. It remains to specify a bijection $\sigma : A_{(M_i)} \sqcup B_{(M_i)} \simeq B_{(M_i)}$. Since any such $\sigma$ only involves identifying certain ultraproducts of constants with other ultraproducts of constants, then after fixing a $\sigma$ we can use $\sigma$ to define $\Phi_{(N_i)}$ for arbitrary $I$-indexed sequences of models $(N_i)$. With this setup, we will show that any choice of $\sigma$ works.
+
+  While in general, transition isomorphisms depend on the three pieces of information $I, \mc{U}$ and $(M_i)$, we have constructed candidate transition isomorphisms by making a choice $\sigma$ which only depends on $I$ and $\mc{U}$, so we make this explicit by writing $\sigma_{I, \mc{U}}$.
+
+Now, fix $\sigma_{I, \mc{U}}$ and let $(M_i \overset{f_i}{\to} N_i)_{i \in I}$ be an $I$-indexed sequence of elementary embeddings, and consider the pre-ultrafunctor diagram
+$$
+\begin{tikzcd}[ampersand replacement = \&]
+X\left(\prod_{i \to \mc{U}} M_i\right)   \arrow{r}{\Phi_{(M_i)}} \arrow[swap]{d}{X([f_i]_{i \to \mc{U}})} \& \prod_{i \to \mc{U}} X(M_i) \arrow{d}{[X(f_i)]_{i \to \mc{U}}} \\
+X\left(\prod_{i \to \mc{U}} N_i\right)  \arrow[swap]{r}{\Phi_{(N_i)}}  \& \prod_{i \to \mc{U}} X(N_i).
+\end{tikzcd}
+$$
+To show it commutes, consider an arbitrary element $[x_i]_{i \to \mc{U}}$ of the top left corner $X \left(\prod_{i \to \mc{U}} M_i \right)$. There are three cases: \label{three-cases}
+  \begin{enumerate}
+  \item $[x_i]_{i \to \mc{U}}$ is in $C_{M_i}$.  Recall that $\Phi_{(M_i)}$ and $\Phi_{(N_i)}$ were defined to be the identities on $C_{(M_i)}, C_{N_i)}$, and that $[f_i]_{i \to \mc{U}}$ restricts to a map $C_{(M_i)} \to C_{(N_i)}.$ Chasing $[x_i]_{i \to \mc{U}}$ through the diagram, we get
+    $$
+    \begin{tikzcd}[ampersand replacement = \&]
+\left[x_i\right]_{i \to \mc{U}} \arrow[mapsto]{r} \arrow[mapsto ]{d}\& \left[x_i\right]_{i \to \mc{U}} \arrow[mapsto]{d}  \\
+      \left[f_i x_i\right]_{i \to \mc{U}} \arrow[mapsto]{r} \& \left[f_i x_i\right]_{i \to \mc{U}}.
+      \end{tikzcd}
+    $$
+  \item $[x_i]_{i \to \mc{U}}$ is in $A_{(M_i)}$. Recall that $[f_i]_{i \to \mc{U}}$ restricts to bijections $A_{(M_i)} \to A_{(N_i)}$ and $B_{(M_i)} \to B_{(N_i)}$.
+    Chasing $[x_i]_{i \to \mc{U}}$ through the diagram, we get
+    $$
+    \begin{tikzcd}[ampersand replacement = \&]
+\left[x_i\right]_{i \to \mc{U}} \arrow[mapsto]{r} \arrow[mapsto ]{d}\& \left[\sigma_{I, \mc{U}} x_i\right]_{i \to \mc{U}} \arrow[mapsto]{d}  \\
+      \left[x_i\right]_{i \to \mc{U}} \arrow[mapsto]{r} \& \left[\sigma_{I, \mc{U}} x_i\right]_{i \to \mc{U}}.
+      \end{tikzcd}
+    $$
+  \item $[x_i]_{i \to \mc{U}}$ is in $B_{(M_i)}$. Recall that $[f_i]_{i \to \mc{U}}$ restricts to bijections $A_{(M_i)} \to A_{(N_i)}$ and $B_{(M_i)} \to B_{(N_i)}$.
+    Chasing $[x_i]_{i \to \mc{U}}$ through the diagram, we get
+    $$
+    \begin{tikzcd}[ampersand replacement = \&]
+\left[x_i\right]_{i \to \mc{U}} \arrow[mapsto]{r} \arrow[mapsto ]{d}\& \left[\sigma_{I, \mc{U}} x_i\right]_{i \to \mc{U}} \arrow[mapsto]{d}  \\
+      \left[x_i\right]_{i \to \mc{U}} \arrow[mapsto]{r} \& \left[\sigma_{I, \mc{U}} x_i\right]_{i \to \mc{U}}.
+      \end{tikzcd}
+      $$
+
+    \end{enumerate}
+    
+      Therefore, after making choices of bijections $\sigma_{I, \mc{U}}$ for every $I$ and $\mc{U}$, we obtain a transition isomorphism $\Phi$ such that $(X,\Phi)$ is a pre-ultrafunctor.
+
+      $(X,\Phi)$ is also a $\Delta$-functor: for any ultrapower $M^{\mc{U}}$, recall that the subset $C_{(M_i)}$ \ref{def-a-b} of $X\left(M^{\mc{U}}\right)$ contains all those elements which are constants or nonconstants that are ultraproducts of nonconstants. In particular, if $a \in M$, then $\Delta_M(a) = [a]_{i \to \mc{U}}$ is a constant if $a$ is a constant or a nonconstant which is an ultraproduct of nonconstants if $a$ is a nonconstant, so the image of $\Delta_{X(M)}$ is contained inside $C_{(M_i)} \subseteq X(M)^{\mc{U}}$. $X(\Delta_M)$ is just the restriction of $\Delta_M$ to $X(M)$, so the image of $X(\Delta_M)$ also lies in $C_{(M)}$ and agrees with the image of $\Delta_{X(M)}$. This means in the below diagram, the upper-left and lower-left triangles commute:
+      $$
+      \begin{tikzcd}[ampersand replacement = \&]
+         \& X\left(M^{\mc{U}}\right) \arrow[bend left]{dddd}{\Phi_{(M)}}\\
+         \&  \\
+       X(M) \arrow{r} \arrow[swap]{ddr}{\Delta_{X(M)}} \arrow{uur}{X \left(\Delta_M\right)}  \& C_{(M)} \arrow{uu} \arrow{dd}\\
+       \& \\
+       \& X(M)^{\mc{U}}.
+        \end{tikzcd}
+        $$
+         Furthermore, $\Phi_{(M)}$ was defined to be the identity on $C_{(M)}$, so the curved subdiagram on the right commutes. Therefore, the entire diagram commutes; in particular, the outer triangle from the definition \ref{def-delta-functor} of a $\Delta$-functor commutes, so $(X,\Phi)$ is a $\Delta$-functor.
+
+         The theory $T$ is countable, and by strong conceptual completeness there as many isomorphism classes of ultrafunctors as there are definable sets of $T$. But for any $I$ and $\mc{U}$, \emph{any} choice of a bijection $\sigma_{I, \mc{U}}$ worked. We will show that there are at least uncountably many isomorphism classes of $\Delta$-functors $(X,\Phi)$ that arise from our construction. This will imply that there is some choice of $\Phi$ such that $(X, \Phi)$ is not an ultrafunctor.
+
+         Let $I$ now be countable, and let $\Phi$ and $\Phi'$ be two different transition isomorphisms which arise from making the choices of $\sigma_{I, \mc{U}}$ and $\sigma'_{I, \mc{U}}$ during our construction. An isomorphism of pre-ultrafunctors $(X, \Phi) \to (X, \Phi')$ is an automorphism $\eta : X \to X$ such that, additionally, all diagrams of the form
+         $$
+         \begin{tikzcd}[ampersand replacement = \&]
+         X\left(\prod_{i \to \mc{U}} M_i \right) \arrow[swap]{d}{\eta_{\prod_{i \to \mc{U}} M_i}} \arrow{r}{\Phi} \& \prod_{i \to \mc{U}} X(M_i) \arrow{d}{\prod_{i \to \mc{U}} \eta_{M_i}} \\
+          X \left(\prod_{i \to \mc{U}} M_i \right) \arrow[swap]{r}{\Phi'} \& \prod_{i \to \mc{U}} X(M_i)
+           \end{tikzcd}
+         $$
+         commute.
+
+         By our earlier analysis \ref{lemma-automorphisms-of-X} of the automorphisms of $X$, it is easy to see that when restricted to $C_{(M_i)}$, the above diagram commutes.
+
+         However, if we restrict to $A_{(M_i)} \sqcup B_{(M_i)}$, then chasing an element around the diagram
+         $$
+         \begin{tikzcd}[ampersand replacement = \&]
+        A_{(M_i)} \sqcup B_{(M_i)} \arrow{r}{\sigma_{I, \mc{U}}} \arrow[swap]{d}{\eta_{\prod_{i \to \mc{U}} M_i}}  \& B_{(M_i)} \arrow{d}{\prod_{i \to \mc{U}} \eta_{M_i}}\\
+        A_{(M_i)} \sqcup B_{(M_i)} \arrow[swap]{r}{\sigma'_{I, \mc{U}}}          \& B_{(M_i)}
+      \end{tikzcd}
+      $$
+      yields the tentative equality
+      $$
+      \begin{tikzcd}[ampersand replacement = \&]
+        \left[x_i\right]_{i \to \mc{U}} \arrow[mapsto]{r} \arrow[mapsto]{d}\& \sigma_{I, \mc{U}}(\left[x_i\right]_{i \to \mc{U}} \arrow[mapsto]{d}\\
+       \left[x_i\right]_{i \to \mc{U}} \arrow[mapsto]{r} \& \sigma'_{I, \mc{U}}(\left[x_i\right]) \overset{?}{=} \prod_{i \to \mc{U}} \eta_{M_i} \left(\sigma_{I, \mc{U}}\left(\left[x_i\right]_{i \to \mc{U}}\right)\right)
+        \end{tikzcd}
+        $$
+        so we see that if the transition isomorphisms $\Phi$ and $\Phi'$ induced by $\sigma_{I, \mc{U}}$ and $\sigma'_{I, \mc{U}}$ are isomorphic, then there is an automorphism $\eta : X \to X$ such that $\prod_{i \to \mc{U}} \eta_{M_i} \circ \sigma_{I, \mc{U}} = \sigma'_{I, \mc{U}}$. Therefore, defining $G$ to consist of all ultraproducts $\prod_{i \to \mc{U}} \eta_{(M_i)}$ admissible in the above diagram (so only those which restrict to a permutation on $B_{(M_i)}$), the number of isomorphism classes among the $(X,\Phi)$ is bounded from below by the number of orbits of the action by composition
+        $$
+G \curvearrowright \te{Bijections}\left(A_{(M_i)} \sqcup B_{(M_i)}, B_{(M_i)}\right).
+$$
+
+However, $G$ can be identified with a subgroup of $\Sym(\omega)^{\mc{U}}$. Since $I$ was countable, $\Sym(\omega)^{\mc{U}}$ has size $\leq \mf{c}$ the size of the continuum.
+
+On the other hand, the set on which $G$ acts has the same cardinality as $|\Sym\left(B_{(M_i)}\right)| \geq 2^{\mf{c}}$.
+
+Therefore, this action has uncountably many orbits, and so there are uncountably many isomorphism classes of $(X,\Phi)$ arising from our construction. So, one of them cannot be an ultrafunctor.
+
+We can also see that $\Phi$ can be chosen to violate a generalized diagonal embedding \ref{def-generalized-diagonal-embeddings}. Fix indexing sets $I$ and $J$ such that $|I| > |J|$, a surjection $g : I \twoheadrightarrow J$, and $\mc{U}$ an ultrafilter on $I$ with $\mc{V}$ its pushforward $g_* \mc{U}$. Let $(M_j)_{j \in J}$ be a $J$-indexed sequence of models.
+
+Then the associated generalized diagonal embedding $\Delta_g : \prod_{j \to \mc{V}} M_j \to \prod_{i \to \mc{UV}} M_{g(i)}$ induces, informally speaking, a relationship between ultraproducts computed with respect to different indexing sets and ultrafilters: for it to be preserved, the diagram
+$$
+\begin{tikzcd}[ampersand replacement = \&]
+X \left( \prod_{j \to \mc{V}} M_j\right) \arrow[swap]{d}{\Phi_{(M_j)}} \arrow{r}{X(\Delta_g)} \& X\left(\prod_{i \to \mc{U}} M_{g(i)}\right) \arrow{d}{\Phi_{(M_{g(i)})}}\\
+ \prod_{j \to \mc{V}} X(M_j) \arrow[swap]{r}{\Delta_{X(g)}} \& \prod_{i \to \mc{U}} X(M_{g(i)})
+  \end{tikzcd}
+$$
+must commute, for all choices of $(M_j)$. However, our construction of $\Phi$ involved a specification of $\Phi_{(M_j)}$ based on a choice of $\sigma_{J, \mc{V}}$ which is independent of the choice of $\sigma'_{I, \mc{U}}$ used to specify $\Phi_{(M_{g(i)})}$. To make this concrete, if for a given $\Phi$ and $(M_j)$ the diagram above happens to commute, then for any $a \in A_{(M_j)}$ in the upper-left corner which gets sent to some $b \in B_{(M_{g(i)})}$ in the lower-right corner, we can change our choice of $\Phi_{(M_j)}$ so that $\Delta_{X(g)} \circ \Phi_{(M_j)}$ sends $a$ to a different $b' \neq b$ while keeping the rest of $\Phi$ the same, with the modified transition isomorphism $\Phi'$ still making $(X,\Phi')$ a $\Delta$-functor.
+
+\subsection{The exotic pre-ultrafunctor}
+\label{exotic-pre-ultrafunctor}
+In the previous section, the transition isomorphisms $\Phi$ making $(X,\Phi)$ a $\Delta$-functor were constructed to be the identity on $C_{(M)}$, and hence also restricted to the identity on the image of diagonal embeddings $\Delta_M : M \to M^{\mc{U}}$.
+
+In general, $C_{(M_i)}$ splits into a disjoint union of even constants and nonconstants which are ultraproducts of nonconstants of $M_i$: $$C_{(M_i)} = C_{(M_i)}^c \sqcup C_{(M_i)}^{nc}.$$
+
+We can easily modify the construction of the transition isomorphism to \emph{not} preserve the diagonal map, by requiring that $\Phi$ restricts to the identity only on $C_{(M_i)}^{nc}$, while on $C_{(M_i)}^c$, we now require that $\Phi$ restricts to any permutation $C_{(M_i)} \to C_{(M_i)}$, while keeping the rest of the construction the same.
+
+Now we verify the pre-ultrafunctor condition. When we verified the pre-ultrafunctor condition during the construction of the exotic Delta-functor, we had three cases \ref{three-cases}, according to whether an element $[x_i]_{i \to \mc{U}} \in X \left( \prod_{i \to \mc{U}} M_i \right)$ was in $A_{(M_i)}, B_{(M_i)}$ or $C_{(M_i)}$. With the new definition, the verification of the first two cases remains the same, but the case of $C_{(M_i)}$ splits into the two cases of whether $[x_i]_{i \to \mc{U}} \in C_{(M_i)}$ is a constant or nonconstant. If $[x_i]_{i \to \mc{U}}$ is a nonconstant, then since $\Phi$ still acts as the identity on $[x_i]_{i \to \mc{U}}$, the diagram commutes. If $[x_i]_{i \to \mc{U}}$ is a constant, then even if $\Phi$ restricts to a nontrivial permutation of $C_{(M_i)}$, the diagram commutes because elementary embeddings preserve constants.
+
+However, when $\Phi$ restricts to a nontrivial permutation on the even constants, the diagonal embedding $\Delta_M : M \to M^{\mc{U}}$ is \emph{not} preserved, i.e. the triangle diagram in \ref{def-delta-functor} does \emph{not} commute. For any even constant $c$ in $X(M)$ which is not fixed by $\Phi$ (and identifying $X(M)^{\mc{U}}$ as a subset of $X\left(M^{\mc{U}}\right)$, and this as a subset of $M^{\mc{U}}$, $X(\Delta_M)(c)= \Delta_{X(M)}(c) = \Delta_M(c)$, but $\Phi(\Delta_{X(M)}(c)) \neq \Delta_{M}(c)$. 
+  
+% \section{Counterexamples to Theorem \ref{thm-main-theorem} in the non-$\aleph_0$-categorical case}
+% \label{second-batch}
+
+% In the previous section, the theory chosen for the construction of the counterexamples \ref{exotic-delta-functor}, \ref{exotic-pre-ultrafunctor} was particularly simple: an expansion of the theory of equality on an infinite set by infinitely many distinct constants. This made specifying our transition isomorphisms $\Phi$ easy.
+
+% However, while our choice of theory made it easy to construct pre-ultrafunctors $(X, \Phi)$ which were not ultrafunctors (and hence provide counterexamples to the conclusion of \ref{thm-other-main-theorem} with the $\aleph_0$-categoricity assumption removed), our first batch of constructions are \emph{not} counterexamples to the weaker statement \ref{thm-main-theorem}: $X$ is isomorphic as a functor to $\ev_{x = x}$ (taking points of the $1$-sort). We can construct a natural isomorphism $\eta : \ev_{x = x} \overset{\sim}{\longrightarrow} X$ by making $\eta$ reindex constants
+% $$
+% \eta(c_i) \dfeq c_{2 \cdot i}
+% $$
+% and then making $\eta$ be the identity on the nonconstants. Then, since elementary embeddings fix the constants, and $X(f)$ is just the restriction of $f$ to $X(M)$, the naturality squares
+% $$
+% \betternaturalitysquare{\ev_{x = x}}{\eta}{X}{M}{f}{N}
+% $$
+% all commute. So while our constructed pre-ultrafunctors $(X, \Phi)$ are not ultrafunctors, the underlying functor $X$ \emph{is} definable, and so cannot be a counterexample to \ref{thm-main-theorem}.
+
+% In this section, we aim to adapt our construction from \autoref{first-batch} to more complicated theories $T_{PQ}, T_{\ol{PQ}}$, and $T_{\ol{\ol{PQ}}}$ to provide counterexamples to \ref{thm-main-theorem}.
+
+% \subsection{A non-definable, non-$\Delta$ pre-ultrafunctor}
+
+% \definition{\label{def-T-PQ}
+%   Define the theory $T_{PQ}$ as the theory of two countably infinite families of predicates $\{P_i\}_{i \in \omega}$ and $\{Q_i\}_{i \in \omega}$, with the following axioms:
+%   \bfenumerate{
+%   \item The $(P_i)$ are ``maximally independent'' of each other and the $(Q_i)$ are ``maximally independent'' of each other---this means every possible boolean combination of just the $P_i$s (resp. just the $Q_i$'s) is infinite.
+%   \item For every $i$ and $j$ in $\omega$, $Q_i \rightarrow P_j$. (Therefore, in every model, $Q_i \subseteq \bigcap_{i \in I} P_i$.)
+%     }
+% }
+
+% \definition{\label{def-P-type-and-Q-type}
+%   A \emph{$P$-type} (resp. $Q$-type) is an infinite boolean combination of all the $P_i$s (resp. $Q_i$s).
+
+%   Formally put, a $P$-type (resp. $Q$-type) is a sequence
+%   $$
+% \{\sigma(k_i) P_i\}_{i \in \omega}
+% $$
+% where $(k_i)_{i \in \omega}$ is some binary sequence of $0$s and $1$s, and $\sigma(1)$ means $\neg$ and $\sigma(0)$ means ``true''.
+
+% Let $\St(P)$ (resp. $\St(Q)$) stand for the sets of $P$- and $Q$-types.
+% }
+
+% \definition{\label{def-alpha-beta}
+% We will define two ``right-shift'' functions $\alpha : \St(P) \to \St(Q)$ and $\beta : \St(Q) \to \St(Q)$.
+%   \begin{description}
+%   \item[$(\alpha):$] If $p \in \St(P)$, then thinking of the $P$-type $p$ as a sequence $(\sigma(k_i) P_i)_{i \in \omega}$, define
+%     $$
+% \alpha(p) \dfeq (\neg Q_0) \cup (\neg \sigma(k_{i - 1}) Q_{i - 1})_{i \in \omega}
+% $$
+% (``replace $P_i$ with $Q_i$, insert $Q_0$ at the beginning, and negate everything''.)
+
+%   \item[$(\beta):$] If $q \in \St(Q)$, then thinking of the $Q$-type $q$ as a sequence $(\sigma(k_i) Q_i)_{i \in \omega}$, define
+%     $$
+% \beta(q) \dfeq (Q_0) \cup (\sigma(k_{i - 1}) Q_{i - 1})_{i \in \omega}
+% $$
+% (``insert $Q_0$ at the beginning''.)
+%     \end{description}
+%   }
+
+%   \definition{
+%   \label{def-matching-family} Let $I$ index both $\{P_i\}_{i \in I}$ and $\{Q_i\}_{i \in I}$. Say that an $I$-indexed collection of definable functions $\left(f_i : P_i \to Q_i\right)$ is a \emph{matching family} if the $f_i$ satisfy the condition in the lemma \ref{lemma-matching-family} above, namely
+%   $$
+% \forall i_1, i_2 \in I, \hspace{2mm} \medleft f_{i_1} \restr P_{i_1} \cap P_{i_2} : P_{i_1} \cap P_{i_2} \to Q_{i_1} \cap Q_{i_2} \medright = \medleft f_{i_2} \restr P_{i_1} \cap P_{i_2} : P_{i_1} \cap P_{i_2} \to Q_{i_1} \cap Q_{i_2} \medright.
+% $$
+% }
+
+% Let us motivate the previous definition with some discussion. If we have functions $f_1 : P_1 \to Q_1$ and $f_2 : P_2 \to Q_2$, then \emph{a priori} there is no guarantee that $f_1$ sends $P_1 \cap P_2$ to the same place that $f_2$ sends $P_2 \cap Q_2$. So in the definition of a matching family, we ask that this \emph{does} happen, and furthemore that $f_1$ agrees with $f_2$ pointwise over $P_1 \cap P_2$. Extending this to all finite intersections of formulas in some type, we get the notion of a matching family.
+
+% \lemma{\label{lemma-matching-family}Let $\{P_i\}_{i \in \omega}$ and $\{Q_i\}_{i \in \omega}$ be two families of definable sets in a theory $T$.
+%   If for each $i \in \omega$ there exists a definable bijection $f_i : P_i \to Q_i$ such that for any $i_1, i_2 \in \omega$,
+%   $$
+% \medleft f_{i_1} \restr P_{i_1} \cap P_{i_2} : P_{i_1} \cap P_{i_2} \to Q_{i_1} \cap Q_{i_2} \medright = \medleft f_{i_2} \restr P_{i_1} \cap P_{i_2} : P_{i_1} \cap P_{i_2} \to Q_{i_1} \cap Q_{i_2} \medright,
+% $$
+% then in every model $M \models T$, $\bigcap_{i \in \omega} f_i$ is a well-defined bijection from $\bigcap_{i \in \omega} P_i \to \bigcap_{i \in \omega} Q_i$.
+% }
+
+% \begin{proof}
+% By assumption, in every model every $f_i$ restricts to the same function on $\bigcap_{i \in \omega} P_i$. This clearly injects into $\bigcap_{i \in \omega} Q_i$. On the other hand, if $q \in \bigcap_{i \in \omega} Q_i$, then for every $i$ and $j$, $f^{-1}_i(q) = f^{-1}_j(q) \in \bigcap_{i \in \omega} P_i$, so it is bijective.
+%   \end{proof}
+
+% \definition{\label{def-T-PQ-bar}
+%   Define the theory $T_{\ol{PQ}}$ as the expansion of $T_{PQ}$ by families of function symbols $$(f^r_i)_{i \in \omega},$$
+%   where $r$ runs over $\St(P) \backslash \{P_i\}_{i \in \omega} \sqcup \St(Q) \backslash \{\neg Q_i\}_{i \in \omega}$.
+
+%   We axiomatize $T_{\ol{PQ}}$ by requiring that these new function symbols satisfy:
+%   \bfenumerate{    
+%   \item If $r$ is a $P$-type, then the family $(f^r_{i})_{i \in \omega}$ is a matching family between the types $r$ and $\alpha(r)$
+%       \item If $r$ is a $Q$-type, then the family $(f^r_{i})_{i \in \omega}$ is a matching family between the types $r$ and $\beta(r)$.
+%       }
+% Note that because we have disregarded $\{P_i\}_{i \in \omega}$ and $\{\neg Q_i\}_{i \in \omega}$, in every model these matching families will restrict to bijections between realizations of complete $0$-definable $1$-types.
+%   }
+
+% \theorem{\label{thm-non-definable-non-delta-pre-ultrafunctors-exist}
+%   Let $X : \Mod(T_{\ol{PQ}}) \to \mbf{Set}$ be induced by sending $$M \models T_{\ol{PQ}} \hspace{5mm}\mapsto \hspace{5mm} \left(\bigcap_{i \in \omega} M(P_i)\right).$$
+
+%   Then there exists a transition isomorphism $\Phi$ making $X$ a non-definable non-$\Delta$ pre-ultrafunctor.
+% }
+% \begin{proof}
+%   \begin{itemize}
+%   \item First, we check that $X$ is a pre-ultrafunctor. To do this, we must provide for every $(M_i)_{i \in I}$ and every ultrafilter $\mc{U}$ on $I$ a transition isomorphism
+%     $$
+% \Phi_{(M_i)} : X \left(\prod_{i \to \mc{U}} M_i \right) \overset{\sim}{\longrightarrow} \prod_{i \to \mc{U}} X(M_i)
+% $$
+% such that:
+% \bfenumerate{
+% \item\label{cond-pre-ultrafunctor} For any sequence of elementary embeddings $\left(f_i : M_i \to N_i\right)$ is a matching family 
+%   $$
+%   \begin{tikzcd}[ampersand replacement = \&]
+% X \left(\prod_{i \to \mc{U}} M_i \right) \arrow{r}{\Phi_{(M_i)}} \arrow[swap]{d}{X \left(\prod_{i \to \mc{U}} f_i\right)} \&  \prod_{i \to \mc{U}} X(M_i) \arrow{d}{\prod_{i \to \mc{U}} X(f_i)} \\
+% X \left(\prod_{i \to \mc{U}} N_i \right)  \arrow[swap]{r}{\Phi_{(N_i)}}  \& \prod_{i \to \mc{U}} X(N_i)
+%   \end{tikzcd}
+%   $$
+%   commutes.
+% }
+
+% To do this, first we observe that $X\left( \prod_{i \to \mc{U}} M_i \right)$ and $\prod_{i \in \mc{U}} X(M_i)$ can be naturally partitioned into certain classes:
+
+% \begin{description}
+% \item[Claim 1.]\label{thm-non-definable-non-delta-pre-ultrafunctors-exist-claim-1} $\prod_{i \in \mc{U}} X(M_i)$ naturally embeds into $X\left( \prod_{i \to \mc{U}} M_i \right)$, and if $[x_i]_{i \in \omega} \in X\left( \prod_{i \to \mc{U}} M_i \right)$ is in the complement of $\prod_{i \in \mc{U}} X(M_i)$, then there is some $S \in \mc{U}$ such that for all $j \in S$, $x_j \not \in \bigcap_{i \in \omega} P_i$.
+
+%     \begin{proof}[Proof of Claim 1.]
+% If $[x_i]_{i \in I}$ is not in $\prod_{i \in \mc{U}} X(M_i)$, then for every $S \in \mc{U}$ there exists some $j_S$ such that $x_{j_S}$ is not in $X(M_{j_S})$. The set $S' \dfeq \{j_S \stbar S \in \mc{U}\}$ must itself be in $\mc{U}$, because otherwise $\neg S' \in \mc{U}$, which must then contain a $j_{S'}$, which must then must be in $S'$.
+% \end{proof}
+
+% \end{description}
+
+% We therefore call the complement of $\prod_{i \to \mc{U}} X(M_i)$ inside $X \left(\prod_{i \to \mc{U}} M_i\right)$ $$\Ex_{\mc{U}}(P_i) \dfeq\left\{[x_i]_{i \to \mc{U}} \stbar \exists S \in \mc{U} \te{ on which $(x_i)$ is not in $\bigcap_{i \in \omega} P_i$}\right\}$$
+% (for ``external members'' of $\bigcap_{i \in \omega} P_i\left(\prod_{i \to \mc{U}} M_i \right)$).
+
+% By imitating the proof of Claim 1, we obtain:
+
+% \begin{description}
+% \item[Claim 2.]\label{thm-non-definable-non-delta-pre-ultrafunctors-exist-claim-2}
+%   $$
+% \prod_{i \to \mc{U}} X(M_i) \simeq \prod_{j \to \mc{U}} \left(\bigcup_{i \in \omega} Q_i\right)(M_j) \sqcup \prod_{j \to \mc{U}} \left( \left(\bigcap_{i \in \omega} P_i \backslash \bigcup_{i \in \omega} Q_i \right) (M_j) \right),
+% $$
+% and furthermore (dually to Claim 1), $$\te{$\bigcup_{i \in \omega} Q_i \left(\prod_{j \to \mc{U}} M_j \right)$ naturally embeds into $\prod_{j \to \mc{U}} \left(\bigcup_{i \in \omega} Q_i\right)(M_j)$},$$
+% and in fact
+% $$
+% \prod_{j \to \mc{U}} \left(\bigcup_{i \in \omega} Q_i\right)(M_j) \simeq \bigcup_{i \in \omega} Q_i \left(\prod_{i \to \mc{U}} M_i \right) \sqcup \Out_{\mc{U}}(Q_i),
+% $$
+% where
+% $$
+% \Out_{\mc{U}}(Q_i) \dfeq \left\{[x_i]_{i \to \mc{U}} \in \bigcap_{i \in \omega} \neg Q_i\left(\prod_{j \to \mc{U}} M_j \right) \stbar \exists S \in \mc{U} \te{ on which $(x_i) \in \bigcup_{i \in \omega} Q_i \left( \prod_{j \to \mc{U}} M_j \right)$}\right\}.
+% $$
+% (for ``outer members'' of $\prod_{j \to \mc{U}} \left(\bigcup_{i \in \omega} Q_i (M_j) \right)$; note that $\Out_{\mc{U}}(Q_i) = \Ex_{\mc{U}}(\neg Q_i)$.)
+% \end{description}
+
+% Let $$Y\left((M_j)_{j \in J}\right) \dfeq \prod_{j \to \mc{U}} \left( \left(\bigcap_{i \in \omega} P_i \backslash \bigcup_{i \in \omega} Q_i \right) (M_j) \right).$$
+% Then our transition maps $\Phi_{(M_i)}$ have to go between
+% $$\begin{tikzcd}[ampersand replacement = \&]
+% X \left(\prod_{j \to  \mc U} M_j \right) \arrow[equals]{r} \arrow[swap]{dd}{\Phi_{(M_i)}}  \& \Ex_{\mc{U}}(P_i) \sqcup \Out_{\mc{U}}(Q_i) \sqcup \bigcup_{i \in \omega} Q_i \left(\prod_{j \to \mc{U}} M_j\right) \sqcup Y\left((M_j)_{j \in J}\right) \arrow{dd}{\Phi_{(M_i)}} \\
+%  \& \\
+%  \prod_{j \to \mc{U}} X(M_j) \arrow[equals]{r} \& \Out_{\mc{U}}(Q_i) \sqcup \bigcup_{i \in \omega} Q_i \left(\prod_{j \to \mc{U}} M_j\right) \sqcup Y\left((M_j)_{j \in J}\right).
+% \end{tikzcd}
+% $$
+
+% %%%% NEW 2017-07-31T19:42:53
+% Before we proceed, we must further partition $\bigcup_{i \in \omega} Q_i \left(\prod_{j \to \mc{U}} M_j \right)$. Define
+% $$
+% Q_{\leq k}\left(\prod_{j \to \mc{U}} M_j \right) \dfeq \bigcup_{i = 0}^k Q_i\left(\prod_{j \to \mc{U}} M_j \right) \backslash \bigcup_{i > k} Q_i \left(\prod_{j \to \mc{U}} M_j \right).
+% $$
+
+% (Note: under this notation, $\Out_{\mc{U}}(Q_i)$ could be called $Q_{< 0}$.)
+
+% Let  $Q_{\mrm{fin}} \dfeq \bigcup_{k \in \omega} Q_{\leq k}$ and $Q_{\mrm{cofin}}$ be its complement in $\bigcup_{i \in \omega} \left(\prod_{j \to \mc{U}} M_j \right)$.
+% %%%%
+
+% We are going to set $\Phi_{(M_i)}$ to be the identity on $Q_{\mrm{cofin}} \sqcup Y\left((M_j)_{j \in J}\right)$, so that it remains to define the rest of $\Phi_{(M_i)}$ as a bijection
+% $$
+% \Ex_{\mc{U}}(P_i) \sqcup \Out_{\mc{U}}(Q_i) \sqcup Q_{\mrm{fin}} \overset{\sim}{\longrightarrow} \Out_{\mc{U}}(Q_i) \sqcup Q_{\mrm{fin}},
+% $$
+% so that the condition \ref{cond-pre-ultrafunctor} specializes to requiring that the diagram
+% $$
+% \begin{tikzcd}[ampersand replacement = \&]
+%   \Ex_{\mc{U}}(P_i) \sqcup \Out_{\mc{U}}(Q_i) \sqcup Q_{\mrm{fin}}\left(M_i\right) \arrow{r}{\Phi_{(M_i)}} \arrow[swap]{d}{\prod_{i \to \mc{U}} f_i}\& \Out_{\mc{U}}(Q_i) \sqcup Q_{\mrm{fin}}\left(M_i \right) \arrow{d}{\prod_{i \to \mc{U}} f_i}\\
+%  \Ex_{\mc{U}}(P_i) \sqcup \Out_{\mc{U}}(Q_i) \sqcup Q_{\mrm{fin}}\left(N_i\right) \arrow[swap]{r}{\Phi_{(N_i)}} \& \Out_{\mc{U}}(Q_i) \sqcup Q_{\mrm{fin}}\left(N_i \right)
+% \end{tikzcd}
+% $$
+% commutes.
+
+% To satisfy this commutativity condition \ref{cond-pre-ultrafunctor}, $\Phi_{(M_i)}$ would necessarily have to extend along the quotient map $[x_i]_{i \to \mc{U}} \mapsto [\tp(x_i)]_{i \to \mc{U}}$.
+
+% \begin{description}
+% \item[Claim 3.] Modulo (ultraproducts of) types, $p \mapsto \alpha(p)$, resp. $q \mapsto \beta(q)$ ($\alpha, \beta$ as in \ref{def-alpha-beta}), makes the square above commute.
+%   \begin{proof}[Proof of Claim 3.]\label{thm-non-definable-non-delta-pre-ultrafunctors-exist-claim-3}
+%     Of course, since ultraproducts of elementary embeddings preserve ultraproducts of types, the real content of this claim is that $\alpha$ and $\beta$ restrict to well-defined maps between the ultraproducts of types from $\Ex_{\mc{U}}(P_i) \sqcup \Out_{\mc{U}}(Q_i) \sqcup Q_{\mrm{fin}}\left(M_i\right)$ to the ultraproducts of types from $\Out_{\mc{U}}(Q_i) \sqcup Q_{\mrm{fin}}\left(M_i \right)$.
+
+%     Note that for any $x \not \in \bigcap_{i \in \omega} P_i$, the complete type of $x$ depends on the $P$-type of $x$ (resp. for any $x \in \bigcap_{i \in \omega} P_i$, the complete type of $x$ then depends on the $Q$-type of $x$).
+
+%     The plan is to identify $\Ex_{\mc{U}}(P_i)$ with $\Out_{\mc{U}}(Q_i)$, $\Out_{\mc{U}}(Q_i)$ with $Q_{\leq 0}\left(\prod_{j \to \mc{U}} M_j \right)$, and thereafter each $Q_{\leq k}\left(\prod_{j \to \mc{U}} M_j \right)$ with $Q_{\leq k+1} \left(\prod_{j \to \mc{U}} M_j \right)$.
+
+%     \begin{description}
+%     \item[Claim 3a.] Applying the ``right-shift'' map $p \mapsto \alpha(p)$ componentwise induces a bijection on (ultraproducts of) types $\Ex_{\mc{U}}(P_i) \simeq \Out_{\mc{U}}(Q_i)$.
+
+%       \begin{proof}[Proof of Claim 3a.]
+%         Let $(p_i)_{i \in I}$ be the sequence of $P$-types of some $[x_i]_{i \to \mc{U}} \in \Ex_{\mc{U}}(P_i)$. By Claim 1 \ref{thm-non-definable-non-delta-pre-ultrafunctors-exist-claim-1} and the definition of $\Ex_{\mc{U}}(P_i)$, this means there is an $S \in \mc{U}$ such that for every $j \in S$ there exists some $i_j \in \omega$ such $\neg P_{i_j} \in p_{j}$, and for every $i \in \omega$, the set $\{j \in I \stbar P_i \in p_j\} \in \mc{U}$.
+
+%         $(\alpha(p_i))$ is the sequence of $Q$-types of some $[y_j]_{i \to \mc{U}} \in \Out_{\mc{U}}(Q_i)$ if and only if it satisfies the two analogous conditions: there must exist $S' \in \mc{U}$ such that for every $j \in S'$ there exists $i_j$ such that $Q_{i_j} \in \alpha(p_j)$, and for every $i \in \omega$, the set $\{j \in I \stbar \neg Q_i \in \alpha(p_j)\}$ must be in $\mc{U}$.
+
+%         By the definition \ref{def-alpha-beta} of $\alpha$, we can just take $S' = S$ (the $P_{i_j}$ will change to $\neg Q_{i_j + 1}$). And by definition of $\alpha$, we have shifted all these $\mc{U}$-large sets of indices supporting $P_i$ to the same $\mc{U}$-large sets of indices, just now supporting $\neg Q_{i + 1}$. And in the $0$th component we uniformly have $\neg Q_0$, and since $\mc{U}$ was an ultrafilter on $I$, $I \in \mc{U}$.
+
+%         To see that it is bijective, let $(q_i)_{i \in I}$ be the componentwise $Q$-types of some $[y_i]_{i \in I}$ from $\Out_{\mc{U}}(Q_i)$. There exists a sequence $(p_i)_{i \in I}$ of $P$-types from $\Ex_{\mc{U}}(P_i)$ (e.g. by taking the componentwise left shift of the $q_i$s) such that $(\alpha(p_i))_{i \in I}$ is the same as $(q_i)_{i \in I}$ except maybe in the $0$th component.
+
+%         But since $(q_i)_{i \in I}$ came from $\Out_{\mc{U}}(Q_i)$, its $0$th component must support $\neg Q_0$ on a $\mc{U}$-large set of indices. Therefore, $(q_i)$ and $\alpha(p_i)$ only differ on a $\mc{U}$-small set of indices, so $[q_i]_{i \to \mc{U}} = [\alpha(p_i)]_{i \to \mc{U}}$. This gives surjectivity, and $\alpha$ was clearly injective.
+%       \end{proof}
+
+%     \item[Claim 3b.] Applying the ``right-shift'' map $q \mapsto \beta(q)$ componentwise induces a bijection on (ultraproducts of) types $\Out_{\mc{U}}(Q_i) \simeq Q_{\leq 0}\left(\prod_{j \to \mc{U}} M_j \right).$
+
+%       \begin{proof}[Proof of Claim 3b.]
+%         The proof of bijectivity is the same as in the proof of Claim 3a. To see that this is well-defined, note that if for $(q_i)_{i \in I}$ there is $S \in \mc{U}$ such that for all $j \in S$ there exists $i_j$ such that $Q_{i_j} \in q_j$, then, as above, the same $S$ works for $(\beta(q_i))_{i \in I}$.
+
+%         A sequence of $Q$-types $(\alpha(q_i))_{i \in I}$ will come from $Q_{\leq 0}$ if and only if there is that $S$ (which we have already found) and if for $i \leq 0$, $Q_i$ is supported on the $i$th component on a $\mc{U}$-large set of indices, and for $i > 0$ $\neg Q_i$ is supported on the $i$th component on a $\mc{U}$-large set of indices.
+
+%         But since the sequence $(q_i)_{i \in I}$ was originally from $\Out_{\mc{U}}(Q_i)$ and $\alpha$ right-shifts everything by $1$ and then pads on the left by $Q_0$, the condition in the previous condition is satisfied.
+%       \end{proof}
+
+%     \item[Claim 3c.] Applying ``right-shift'' map $q \mapsto \beta(q)$ componentwise induces a bijection on (ultraproducts of) types $Q_{\leq k}\left(\prod_{j \to \mc{U}} M_j \right) \simeq Q_{\leq k + 1} \left(\prod_{j \to \mc{U}} M_j \right)$.
+
+%       \begin{proof}[Proof of Claim 3c.]
+% The proof of bijectivity is the same as in the proof of Claim 3a, and the proof of well-definedness is the same as in the proof of Claim 3b (replacing ``$0$'' with ``$k$'').
+%         \end{proof}
+%       \end{description}
+%     \end{proof}
+%   \end{description}
+
+% To complete our definition of $\Phi_{(M_i)}$, we must lift this bijection at the level of types to the realizations of these types. To do this, we use the matching families of functions from the definition \ref{def-T-PQ-bar} of $T_{\ol{PQ}}$ (these were designed precisely to lift $\alpha$ and $\beta$), by sending
+% $$
+% [x_i]_{i \to \mc{U}} \hspace{3mm} \overset{\Phi_{(M_i)}}{\mapsto} \hspace{3mm} \left[f^{P\te{-}\mathrm{tp}(x_i)}(x_i)\right]_{i \to \mc{U}}
+%   $$
+%   (resp. with $f^{Q\te{-}\mathrm{tp}}$ instead if $[x_i]_{i \to \mc{U}}$ was in $\Out_{\mc{U}}(Q_i)$.)
+
+%   Then the square commutes, since this function was induced by restricting a definable function, and ultraproducts of elementary maps must respect the graphs of definable functions. So $X$ is a pre-ultrafunctor.
+
+%   To see that these $\Phi_{(M_i)}$'s don't make the triangle
+%     $$
+%   \begin{tikzcd}[ampersand replacement = \&]
+%   X\left(M^{\mc{U}}\right) \arrow{rr}{\Phi_{(M)}}  \& \& \left(X(M)\right)^{\mc{U}} \\
+%     \& X(M) \arrow{ul}{X\left(\Delta_M\right)} \arrow[swap]{ur}{\Delta_{X(M)}} \& 
+%   \end{tikzcd}
+%   $$
+%   commute, note that for any $x$ which is in only finitely many of the $Q_i$'s, the ultralimit of the constant sequence $[x]_{i \to \mc{U}}$ will live in some $Q_{\leq k}$. Since $X(\Delta_M)$ and $\Delta_{X(M)}$ are the same map and $\Phi_{(M_i)}$ does not act as the identity on $Q_{\leq k}$, $X$ is not a $\Delta$-functor.
+  
+%     \item By strong conceptual completeness, if $X$ were definable it would also be a $\Delta$-functor. So $X$ is not definable.
+%     \end{itemize}
+% \end{proof}
+
+% \subsection{A non-definable $\Delta$-functor}
+% What stopped $X$ from \ref{thm-non-definable-non-delta-pre-ultrafunctors-exist} from being a $\Delta$-functor was that we were forced to make $\Phi_{(M_i)}$ act nontrivially on parts of $\bigcup_{i \in \omega} Q_i \left( \prod_{j \to \mc{U}} M_j \right)$. If we are to obtain a non-definable $\Delta$-functor while keeping the same flavor of example as $T_{\ol{PQ}}$, then we have to confine the nontriviality of $\Phi_{(M_i)}$ to a bijection
+% $$
+% \Ex_{\mc{U}}(P_i) \sqcup \Out_{\mc{U}}(Q_i) \overset{\sim}{\longrightarrow} \Out_{\mc{U}}(Q_i).
+% $$
+
+% We will be able to do this, but at the expense of no longer being able to construct $\Phi_{(M_i)}$ uniformly in $I$ and $\mc{U}$. (This is fine, since the transition isomorphisms $\Phi_{(M_i)}$ are \emph{a priori} allowed to depend on $I$ and $\mc{U}$.)
+
+% \definition{
+%   \label{def-T-PQ-bar-bar}
+%   Define $T_{\ol{\ol{PQ}}}$ to be the expansion of $T_{PQ}$ \ref{def-T-PQ} by matching families which restrict to definable functions
+%   $$
+% f^{(p,q)} : p \to q, \te{ for any $p \in \St(P) \backslash \{P_i\}_{i \in \omega}, q \in \St(Q) \backslash \{\neg Q_i\}_{i \in \omega}$.}
+% $$
+% }
+
+% \theorem{
+%   \label{thm-non-definable-delta-functors-exist} Let $X : \Mod(T_{\ol{\ol{PQ}}}) \to \mbf{Set}$ be induced by
+%   $$
+% M \mapsto \bigcap_{i \in \omega} M(P_i).
+% $$
+
+% Then there exists a transition isomorphism $\Phi$ making $X$ a non-definable $\Delta$-functor.
+% }
+
+% \begin{proof}
+%   \begin{itemize}
+%   \item We define the transition isomorphism by setting it to be the identity except for bijections $\Ex_{\mc{U}}(P_i) \sqcup \Out_{\mc{U}}(Q_i) \overset{\sim}{\longrightarrow} \Out_{\mc{U}}(Q_i)$. Fix $I, \mc{U}$, and a sequence of models $(M_i)$. We define the bijection
+%   $$
+% \Phi_{(M_i)} : \Ex_{\mc{U}}(P_i) \sqcup \Out_{\mc{U}}(Q_i) \overset{\sim}{\longrightarrow} \Out_{\mc{U}}(Q_i)
+% $$
+% as follows: at the level of ultraproducts of types, \emph{choose} one (either side has the same cardinality). Call this chosen bijection between ultraproducts of types $\gamma_{I, \mc{U}}$. This means to each ultraproduct of $P$- (resp. ultraproduct of $Q$-)types $[r_i]_{i \to \mc{U}}$ from $\Ex_{\mc{U}}(P_i) \sqcup \Out_{\mc{U}}(Q_i)$, $\gamma_{I, \mc{U}}$ assigns an ultraproduct of $Q$-types $[q_i]_{i \to \mc{U}}$.
+
+% Lift this assignment by defining $\Phi_{(M_i)}$ on the realizations of $[r_i]_{i \to \mc{U}}$ to be $\left[f^{(r_i, q_i)}\right]_{i \to \mc{U}}$ (function symbols from from the definition of $T_{\ol{\ol{PQ}}}$ \ref{def-T-PQ-bar-bar}.)
+
+% Repeating this (since $\Ex_{\mc{U}}(P_i) \sqcup \Out_{\mc{U}}(Q_i)$ splits into these ultraproducts of orbits) for every such $[r_i]_{i \to \mc{U}}$, we have completed our definition of $\Phi_{(M_i)}$.
+
+% Now, the pre-ultrafunctor diagram \ref{cond-pre-ultrafunctor} commutes because our definition of $\Phi_{(M_i)}$ depended only on our choice of bijection, which depended only on types and our choice of $I$ and $\mc{U}$.
+
+% And the triangle
+%   $$
+%   \begin{tikzcd}[ampersand replacement = \&]
+%   X\left(M^{\mc{U}}\right) \arrow{rr}{\Phi_{(M)}}  \& \& \left(X(M)\right)^{\mc{U}} \\
+%     \& X(M) \arrow{ul}{X\left(\Delta_M\right)} \arrow[swap]{ur}{\Delta_{X(M)}} \& 
+%   \end{tikzcd}
+%   $$
+%   commutes because $\Phi_{(M_i)}$ was defined to act as the identity on the images of $X(\Delta_M)$ and $\Delta_{X(M)}$.
+
+% \item To show that $\Phi$ does not make $X$ into a definable functor, we show that $\Phi$ could have been chosen such that an ultramorphism of the form $\Delta_g$ \ref{def-delta-g} was not preserved.
+
+%   To do this, we're going to exploit how, in the above construction, after specifying an indexing set $I$ and an ultrafilter $\mc{U}$ on $I$, we were free to choose any bijection $\Ex_{\mc{U}}(P_i) \sqcup \Out_{\mc{U}}(Q_i) \simeq \Out_{\mc{U}}(Q_i)$ for our transition isomorphism $\Phi_{(M_i)_{i \to \mc{U}}}$. The plan is to show that if some ultramorphisms of the form $\Delta_g$ are preserved, then this induces a nontrivial relation between transition isomorphisms $\Phi_{(M_i)_{i \to \mc{U}}}$ and $\Phi_{(M_i)_{j \to \mc{V}}}$ for $\mc{U}$ and $\mc{V}$ ultrafilters on \emph{distinct} indexing sets $I$ and $J$.
+
+%   Consider a diagram of indexing sets $I, J, J'$ and functions $f, f'$
+%   $$
+%   \begin{tikzcd}[ampersand replacement = \&]
+%     \& J\\
+%   I \arrow{ur}{f} \arrow[swap]{dr}{f'}  \& \\
+%     \& J'
+%   \end{tikzcd}
+%   $$
+%   such that $|J'| > |J|$ and the kernel relation of $f'$ refines that of $f$, i.e. if $f' x = f' y$, then $f x = fy$. Fix a model $M$ and put $M_i = M_j = M_{j'} = M$ for all $i, j, j'$.
+
+%   Under these assumptions, if $\mc{U}$ is an ultrafilter on $I$ such that $f$ pushes $\mc{U}$ forward to an ultrafilter $\mc{V}$ on $J$ and to an ultrafilter $\mc{V}'$ on $J'$, then the images of the maps
+
+%   $$\begin{tikzcd}[ampersand replacement = \&]
+%     M^{\mc{V}} \arrow{dr}{\Delta_f} \&  \\
+%     \& M^{\mc{U}}\\
+%     M^{\mc{V}'} \arrow[swap]{ur}{\Delta_{f'}} \&
+%     \end{tikzcd}$$
+%   have nontrivial intersection inside $M^{\mc{U}}$, in fact $\im(\Delta_f) \subseteq \im(\Delta_{f'})$. (Any element of $\im(\Delta_f)$ is represented by a sequence which is constant on the fibers of $f$, but any sequence constant on the fibers of $f$ is constant on the fibers of $f'$ since $\ker f'$ refines $\ker f$.)
+
+%   If $X$ preserves $\Delta_f$ and $\Delta_f'$, then by definition of what it means to preserve ultramorphisms, the diagram
+%   $$
+%   \begin{tikzcd}[ampersand replacement = \&]
+% X(M^{\mc{V}}) \arrow[swap]{d}{\Phi_{(M)_{j \to \mc{V}}}}\arrow{r}{X(\Delta_f)}  \& X\left(M^{\mc{U}}\right) \arrow{d}{\Phi_{(M)_{i \to \mc{U}}}} \& X(M^{\mc{V}'}) \arrow[swap]{l}{X(\Delta_{f'})} \arrow{d}{\Phi_{(M)_{j' \to \mc{V}'}}}\\
+% X(M)^{\mc{V}}  \arrow[swap]{r}{\Delta_{X(f)}}  \& X(M)^{\mc{U}} \& \arrow{l}{\Delta_{X(f')}} X(M)^{\mc{V}'}
+%   \end{tikzcd}
+%   $$
+%   commutes. Since $\im(\Delta_f) \subseteq \im(\Delta_{f'})$ and $X(\Delta_{f'})$ is an injection, we can chase elements $\ol{x} \in X(M^{\mc{V}})$ around the entire diagram, so that what $\Phi_{(M)_{j \to \mc{V}}}$ does on $\ol{x}$ controls what $\Phi_{(M)_{j' \to \mc{V}'}}$ does on $X(\Delta_{f'})^{-1} \left(X(\Delta_f)(\ol{x}) \right)$. In particular, $\ol{x}$ could've been from $\Ex_{\mc{V}}(P_i) \sqcup \Out_{\mc{V}}(Q_i)\left(M^{\mc{V}}\right)$. But we could have chosen $\Phi_{(M)_{j' \to \mc{V}}}$ to be any bijection $\Ex_{\mc{V}'}(P_i)\sqcup \Out_{\mc{V}'}(Q_i) \simeq \Out_{\mc{V}'}(Q_i)$, so there is a choice of $\Phi$ which breaks the commutativity of the above diagram. Under this choice of $\Phi$, at least one of $\Delta_f$ or $\Delta_{f'}$ is not preserved.
+%   \end{itemize}
+% \end{proof}
+
+% \remark{\label{rem-weaker-matching-families-work}
+%   If one feels uncomfortable with using matching families as they were defined, we note that the result \ref{thm-non-definable-delta-functors-exist} still holds if we weaken the given notion of a matching family, so long as $T_{\ol{\ol{PQ}}}$ defines functions which restrict to bijections between the required types---we only need to do so for types $(p,q)$ where $p$ is a $P$-type not $\bigcap P_i$ but containing at least one (actually an ultrafilter-large number of) positive $P_i$ and $q$ is a $Q$-type not $\bigcap \not Q_i$ but containing at least one (actually an ultrafilter-large number of) negative $Q_i$.
+
+%   So, for example, we could have asked instead for each such $(p,q)$ that there was a function $f_{(p,q)}$ which restricted to a bijection $\bigcap_{i \leq n} p[i] \simeq \bigcap_{i \leq n} q[i]$ for all $n$. This is easily seen to be finitely consistent.
+% }
+
+% It remains to show that the functor $X : \Mod\left(T_{\ol{\ol{PQ}}}\right) \to \Set$ is not definable.
+
+% %  \remark{\label{rem-simpler-T-PQ}
+% %    Finally, we remark that the heart of the constructions exhibited above can be carried out on the following simpler reduct of $T_{PQ}$: expand the theory of equality on an infinite set by $\omega$-indexed families of predicates $(P_i)_{i \in \omega}$ and $(Q_i)_{i \in \omega}$, but this time axiomatize them as an infinite descending chain, with the $Q$-segment contained in the intersection of the $P$-segment. Let $X$ be the intersection of the $P$-segment. When forming the transition isomorphism $X(\prod_{i \to \mc{U}} M_i) \to \prod_{i \to \mc{U}} X(M_i)$, split up the left hand side as $\Ex_{\mc{U}}(P) \sqcup \prod_{i \to \mc{U}} X(M_i)$ and split up the right hand side as $\Ex_{\mc{U}}(Q)$ plus everything else. Then make $\Phi_{(M_i)}$ the identity on the everything else and carry out the same argument to obtain a bijection $\Ex_{\mc{U}}(P) \sqcup \Ex_{\mc{U}}(Q) \overset{\sim}{\to} \Ex_{\mc{U}}(Q)$ as before.
+% %  }
+% %  
+
+\section{Further directions}
+\subsection{Non-definable counterexamples}
+In this chapter, we have constructed counterexamples to Theorem \ref{thm-other-main-theorem}. Thus, our counterexamples are not \emph{a priori} counterexamples to Theorem \ref{thm-main-theorem}. Indeed, as we pointed out in \ref{example-simple-counterexample}, our functor $X$ \emph{is} definable, in fact isomorphic to the functor of points of the $1$-sort of $T$.
+
+We therefore ask:
+
+\question{What is an example of a non-definable pre-ultrafunctor?}
+  
+  Given the examples of exotic functors we have constructed in this section, it is natural to also ask the following questions:
+
+  \question{Does there exist a pre-ultrafunctor which preserves the generalized diagonal maps $\Delta_g$, but which is not an ultrafunctor?}
+
+  \question{
+    Given any ultramorphism $\delta$, does there exist a pre-ultrafunctor which preserves $\delta$ but which is not an ultrafunctor?
+  }
+
+  \question{
+Given any set of ultramorphisms $S$, does there exist a pre-ultrafunctor which preserves every $\delta \in S$, but fails to preserve every $\delta \not \in S$?
+    }
+

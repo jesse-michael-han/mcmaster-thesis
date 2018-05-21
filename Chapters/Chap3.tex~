@@ -1,0 +1,418 @@
+
+In this chapter, we apply (pre)-ultracategories and $\Delta$-functors to deduce a definability criterion for $\aleph_0$-categorical theories (Theorem \ref{thm-main-theorem}): a functor $X : \Mod(T) \to \mbf{Set}$ is definable, i.e. isomorphic as a functor to $\ev_{\varphi(x)}$ for some $\varphi(x) \in T$, if and only if there is some transition isomorphism $\Phi$ such that $(X, \Phi)$ is a $\Delta$-functor.
+
+This shows that for $\aleph_0$-categorical theories, the rest of the ultramorphisms \ref{def-ultramorphism} that were part of Makkai's reconstruction data for strong conceptual completeness are unnecessary for checking definability.
+
+The result \ref{thm-main-theorem} is related to, but distinct from, Makkai's strong conceptual completeness. From \ref{thm-main-theorem}, we know that if $(X, \Phi)$ is a $\Delta$-functor, then the underlying functor $X$ is isomorphic to an evaluation functor. This situation does not necessarily imply that $(X, \Phi)$ is an ultrafunctor. An counterexample is given in \ref{first-batch}, where a definable functor is expanded by a transition isomorphism to a non-ultrafunctor. As the counterexample shows, we need to exploit the $\aleph_0$-categoricity assumption further before we can deduce strong conceptual completeness for $\aleph_0$-categorical theories.
+
+Indeed, later we will prove a coherence criterion (Theorem \ref{thm-ultraproduct-coherence}) for objects in the classifying toposes of first-order theories, specialize to $\aleph_0$-categorical $T$, and deduce as a corollary Theorem \ref{thm-other-main-theorem}, which says that any $\Delta$-functor $(X, \Phi) : \Mod(T) \to \Set$ \emph{is} an ultrafunctor, completing our deduction of strong conceptual completeness for $\aleph_0$-categorical theories.
+
+\section{$\Delta$-functors and the finite support property}
+\definition{\label{def-fsp-functor}We say a functor $X : \Mod(T) \to \mbf{Set}$ has the \emph{finite support property} (is fsp, has fsp) if for every $M \in \Mod(T)$, for every $x \in X(M)$, there exists an $a \in M$ such that for every pair of elementary embeddings $h_1, h_2 : M \to N$, $h_1 (a) = h_2(a) \implies X h_1 (x) = X h_2(x)$.}
+
+% \definition{\label{def-delta-functor}Let $\mbf{K}$ be an ultracategory, and $X$ a functor $\mbf{K} \to \mbf{Set}$. We say that $X$ is a \emph{$\Delta$-functor} if it is a pre-ultrafunctor \ref{def-pre-ultrafunctor} (i.e. preserves ultraproducts of both structures and elementary embeddings) and preserves diagonal maps into ultrapowers. Since a pre-ultrafunctor includes the data of transition isomorphisms $\Phi_{(M_i)}$, this means that for every $M \in \mbf{K}$, the triangle \label{cond-delta-functor}
+% $$    \begin{tikzcd}[ampersand replacement = \&]
+%   X\left(M^{\mc{U}}\right) \arrow{rr}{\Phi_{(M)}}  \& \& \left(X(M)\right)^{\mc{U}} \\
+%     \& X(M) \arrow{ul}{X\left(\Delta_M\right)} \arrow[swap]{ur}{\Delta_{X(M)}} \& 
+%   \end{tikzcd}
+%   $$
+%   commutes.
+% }
+
+As a warm-up to the theorem \ref{thm-main-theorem}, we will show in general that if $X : \Mod(T) \to \Set$ is a $\Delta$-functor, $X$ must map $\Aut(M)$ \emph{continuously} to $\Sym(X(M))$.
+
+\proposition{
+  \label{prop-delta-functors-are-continuous}
+  Let $T$ be any theory, and let $(X, \Phi) : \Mod(T) \to \Set$ be a $\Delta$-functor. Then for any model $M \models T$, the restriction of $X$ to a map $\Aut(M) \to \Sym(X(M))$ is a continuous group homomorphism (where both groups are topologized by pointwise convergence).
+}
+
+\begin{proof}
+  Since $X$ is a functor, its restriction to $\Aut(M)$ is a group homomorphism. To check continuity, let $\mc{D}$ be a directed partial order indexing a net of automorphisms $[\sigma_{\alpha}]_{\alpha \in \mc{D}}$. It suffices to check that if $[\sigma_{\alpha}]_{\alpha \in \mc{D}} \to \sigma$ in $\Aut(M)$, then $[X \sigma_{\alpha}]_{\alpha \in \mc{D}} \to X \sigma$ in $\Sym(X(M))$.
+
+  We will suppose not and take an ultraproduct of counterexamples. So suppose that $[X \sigma_{\alpha}]_{\alpha \in \mc{D}}$ does not converge to $X \sigma$. The basic open neighborhoods $B_{c \hspace{0.5mm} \mapsto \hspace{0.5mm} d}$ of $X \sigma$ are parametrized by tuples $c,d$ of the same sort, and they look like this:
+  $$
+B_{c \hspace{0.5mm} \mapsto \hspace{0.5mm} d} \dfeq \{\rho : X(M) \to X(M) \stbar \rho(c) = d\}.
+$$
+Since $[X \sigma_{\alpha}]_{\alpha \in \mc{D}}$ does not converge to $X \sigma$, then there exists some neighborhood $B_{c \hspace{0.5mm} \mapsto \hspace{0.5mm} d}$ such that for every $\alpha \in \mc{D}$, there exists an $\alpha' \geq \alpha \in \mc{D}$ such that $X \sigma_{\alpha'} \not \in B_{c \hspace{0.5mm} \mapsto \hspace{0.5mm} d}$.
+
+Now, let $I$ be the underlying set of $\mc{D}$, and consider the collection of subsets $\{P_{\alpha} \subseteq I\}_{\alpha \in \mc{D}}$, where each $P_{\alpha}$ is the set of all $\beta \in \mc{D}$ such that $\beta \geq \alpha$. Since $\mc{D}$ was a directed partial order, $\{P_{\alpha}\}_{\alpha \in \mc{D}}$ has the finite intersection property, and can therefore be completed to an ultrafilter $\mc{U}$.
+
+Then consider the ultraproduct of automorphisms $$\left[X \sigma_{\alpha'}\right]_{\alpha \to \mc{U}} : X(M)^{\mc{U}} \to X(M)^{\mc{U}}.$$ Let $\Delta_{X(M)}$ be the diagonal embedding of $X(M)$ into $X(M)^{\mc{U}}$. Since every $X \sigma_{\alpha'}$ sends $c$ to $d' \neq d$, $\left[X \sigma_{\alpha'} \right]_{\alpha \to \mc{U}}$ sends $\Delta_{X(M)}(c)$ to $\Delta_{X(M)}(d') \neq \Delta_{X(M)}(d)$. Therefore,
+$$
+\left[X \sigma_{\alpha'}\right]_{\alpha \to \mc{U}} \circ \Delta_{X(M)} \neq \left[X \sigma \right]_{\alpha \to \mc{U}} \circ \Delta_{X(M)}.
+$$
+By the definition \ref{def-delta-functor} of a $\Delta$-functor, we can replace $\Delta_{X(M)}$ with $\Phi_{(M)} \circ X \left(\Delta_M\right)$. By the definition \ref{def-pre-ultrafunctor} of a pre-ultrafunctor, we can replace $\left[X \sigma_{\alpha'} \right]_{\alpha \to \mc{U}}$ and $\left[X \sigma \right]_{\alpha \to \mc{U}}$ with $$\Phi_{(M)} \circ X\left([\sigma_{\alpha'}]_{\alpha \to \mc{U}}\right) \circ \Phi_{(M)}^{-1} \te{ and } \Phi_{(M)} \circ X\left([\sigma]_{\alpha \to \mc{U}}\right) \circ \Phi_{(M)}^{-1}.$$ Substituting into the displayed inequality above and letting inverse transition isomorphisms cancel out, we obtain
+$$
+  \Phi_{(M)} \circ X\left([\sigma_{\alpha'}]_{\alpha \to \mc{U}}\right) \circ X \left(\Delta_M\right) \neq \Phi_{(M)} \circ X\left([\sigma]_{\alpha \to \mc{U}}\right) \circ  X \left(\Delta_M\right)
+$$
+and since $\Phi_{(M)}$ is a bijection, we may omit it:
+$$
+X\left([\sigma_{\alpha'}]_{\alpha \to \mc{U}}\right) \circ X \left(\Delta_M\right) \neq  X\left([\sigma]_{\alpha \to \mc{U}}\right) \circ  X \left(\Delta_M\right).
+$$
+Since $X$ is a functor, we conclude that
+$$
+X\left([\sigma_{\alpha'}]_{\alpha \to \mc{U}} \circ \Delta_M\right) \neq  X\left([\sigma]_{\alpha \to \mc{U}} \circ\Delta_M\right)
+$$
+and since $X$ is certainly a function from $\Mod(T)(M, M^{\mc{U}}) \to \Set\left(X(M), X\left(M^{\mc{U}}\right)\right)$, this means that
+$$
+[\sigma_{\alpha'}]_{\alpha \to \mc{U}} \circ \Delta_M \neq [\sigma]_{\alpha \to \mc{U}} \circ\Delta_M.
+$$
+But this inequality says that there is some $a \in M$ such that for every $\alpha$, there is an $\alpha'$ such that $\{\sigma_{\alpha'}(a)\}_{\alpha}$ disagrees with $\{\sigma(a)\}_{\alpha}$ on some $\mc{U}$-large set of indices $P$. Letting $c = a$ and $d = \sigma(c)$, we have that a $\mc{U}$-large subset of $\{\sigma_{\alpha'}(a)\}_{\alpha}$ lies outside of the basic open $B_{c \hspace{0.5mm} \mapsto \hspace{0.5mm} d} \ni \sigma$. Since $\mc{U}$ contains all the principal filters in $\mc{D}$, we have that for every $\alpha \in \mc{D}$, the intersection $P \cap P_{\alpha}$ is nonempty. So, for the basic open $B_{c \hspace{0.5mm} \mapsto \hspace{0.5mm} d} \ni \sigma$, we have that for every $\alpha$ we can find some $\alpha'' \in P \cap P_{\alpha}$ such that $\sigma_{\alpha''} \not \in B_{c \hspace{0.5mm} \mapsto \hspace{0.5mm} d}$. Therefore, $[\sigma_{\alpha}]_{\alpha \in \mc{D}}$ does not converge to $\sigma$, which is the contrapositive.
+\end{proof}
+
+Since for any $T$ and $M \models T$, $\End(M)$ is the closure of $\Aut(M)$ inside the product space $M^M$, one easily modifies the above proof to obtain:
+
+\theorem{\label{thm-delta-functor-induces-continuous-maps}
+Let $T$ and $T'$ be any two theories. If $(X, \Phi) : \Mod(T) \to \Mod(T')$ is a $\Delta$-functor, then for each $M \in \Mod(T)$, $$X_M \dfeq X \restr \End(M) : \End(M) \to \End(X(M))$$ is continuous.
+}
+
+\theorem{\label{thm-delta-functor-implies-fsp}
+Let $(X, \Phi) : \Mod(T) \to \mbf{Set}$ be a $\Delta$ functor. Then $X$ is fsp \ref{def-fsp-functor}.
+}
+
+\begin{proof}
+Towards the contrapositive, suppose $X$ is not fsp. Then there is some $M$ and $x \in X(M)$ such that for every tuple $a \in M$, there exists elementary embeddings $h_a, h'_a : M \to N_a$ such that $h_a(a) = h'_a(a)$ while $X h_a(x) \neq X h'_a(x)$.
+
+  As in the ultraproduct proof \ref{thm-compactness} of compactness, let $I$ index all the finite subsets (i.e. tuples) of $M$. Let $\mc{U}$ be an ultrafilter completing the collection $\{P_i\}_{i \in I}$ where $P_i$ is the set of all $j \in I$ such that, viewed as finite subsets of $M$, $j \supseteq i$; this collection has the finite intersection property, so is contained in some ultrafilter.
+
+  Now, take the ultraproducts $\mbf{h}$ and $\mbf{h}'$ of $h_a$ and $h'_a$. On any element $[a]_{i \to \mc{U}}$ of the diagonally embedded copy of $M$ in $M^{\mc{U}}$, $\mbf{h}$ and $\mbf{h}'$ agree on $[a]$ whenenver $b \supseteq a$. Hence, this happens on $P_a$, which was in $\mc{U}$.
+
+  Therefore, the maps $\mbf{h}, \mbf{h}' : M^{\mc{U}} \to \prod_{\mc{U}} N_a$ are equalized by $\Delta_M : M \hookrightarrow M^{\mc{U}}$.
+
+  By assumption, this is not preserved by the functor $X$, so $X$ must have failed to preserve $\Delta_M$ or an ultraproduct.
+\end{proof}
+
+\remark{\label{rem-fsp-does-not-imply-delta-functor} An fsp functor is not necessarily the underlying functor of a $\Delta$-functor. For example, if $p$ is a complete non-isolated type, then the functor $X : \Mod(T) \to \mbf{Set}$ taking each model $M$ to its realizations $p(M)$ of $p$ is fsp (if there is a realization, then it is its own support inside the model).
+
+  However, this $X$ does not commute with ultraproducts (with the obvious choice of transition map): if $M$ omits $p$, then $X(M) = \emptyset$. The ultraproduct of an empty set is empty, but since $M^{\mc{U}}$ realizes $p$, $X$ is not a $\Delta$-functor.
+
+  Somewhat less trivially, if $X$ is definable then the infinite disjoint union $\bigsqcup_{i \in I} X$ again has fsp (every point is its own support), but with the obvious choice of transition map is not definable.
+
+  Later, we will see that in general these two examples are ``absolutely undefinable'', in the sense that there is no isomorphism whatsoever to any definable functor.
+}
+
+Finally, we point out that \ref{thm-delta-functor-induces-continuous-maps} and \ref{thm-delta-functor-implies-fsp} are really saying the same thing:
+
+\theorem{\label{thm-fsp-iff-induces-continuous-maps}
+$X : \Mod(T) \to \mbf{Set}$ is fsp if and only if it induces continuous maps on endomorphism monoids.
+}
+\begin{proof}
+  Suppose $X$ is fsp. Fix $M$. For any finite tuple $x \in X(M)$ with support $a_x$, we have from the definition \ref{def-fsp-functor} of fsp that whenever $\sigma a_x = \id_M a_x$, $X \sigma x = \id_{X(M)} x$. Therefore, $\Stab(a_x) \subseteq X^{-1}(\Stab(x))$, so $X^{-1}(\Stab(x))$ is open. Since $x$ was an arbitrary finite tuple and the pointwise convergence topology has a basis of neighborhoods of the identity given by stabilizers of finite tuples, this means that $X$ restricts to a continuous map between endomorphism monoids equipped with the topology of pointwise convergence.
+
+  On the other hand, suppose $X$ induces continuous monoid maps at each $M$. Then for every finite tuple $x \in X(M)$, $X^{-1}(\Stab(x))$ is open, hence contains some basic open neighborhood of the identity of the form $\Stab(a_x)$, for some $a_x$ which we put as the support of $x$.
+  \end{proof}
+%%% REMARK
+% We need upcontinuity or something to finish proving the proposition as stated below. This is because we can split things up just fine when we're working with just the countable model M, but we have no idea how it extends to the higher models (fsp is implied by continuous action, and we can just take the trivial action on the higher models, for example...)
+%%%
+
+%Finally, we remark that in the case that $T$ is $\aleph_0$-categorical, an fsp functor is isomorphic to a possibly infinite disjunction of types:
+
+%\proposition{\label{prop-fsp-for-T-omega-categorical-implies-infinite-disjunction-of-types}
+%Let $T$ be $\aleph_0$-categorical. Let $X : \Mod(T) \to \mbf{Set}$ be fsp. Then $X$ is isomorphic to a possibly infinite coproduct of definable functors.
+%}
+
+%\begin{proof}
+%To each $\Aut(M)$-orbit of $X(M)$ we choose a representative $x$ and associate a% support $a_x \in M$. From $\Aut(M)$-equivariance we induce a map $\Orb_{\Aut(M)%}(a_x) \to \Orb_{\Aut(M)}(x)$. 
+%  \end{proof}
+
+%  \section{A definability criterion for $\aleph_0$-categorical theories}
+%
+%  \definition{\label{def-definable-functor}
+%A functor $X : \Mod(T) \to \mbf{Set}$ is said to be \emph{definable} if it is isomorphic to an evaluation functor of the form $\ev_{\varphi}$ for some definable set $\varphi$.
+%    }
+%  
+%The purpose of this section is to prove the following
+%    
+%\theorem{\label{thm-main-theorem}Let $T$ be $\aleph_0$-categorical. A functor $X : \Mod(T) \to \mbf{Set}$ is definable if and only if $X$ is a $\Delta$-functor.}  
+%
+%\begin{proof}
+%  A definable functor is an ultrafunctor is at least a $\Delta$-functor; this follows from strong conceptual completeness \ref{thm-strong-conceptual-completeness}.
+%
+%  Conversely:
+%\begin{itemize}
+%\item  By \ref{thm-delta-functor-implies-fsp}, $X$ has the fsp.
+%
+% \item  If $x \in X(M)$, then there is an $\Aut(M)$-equivariant map from the $\Aut(M)$-orbit of its support $a$ to the $\Aut(M)$-orbit of $x$.
+%   
+% \item  Since $T$ is $\aleph_0$-categorical [\remph{Remark 2017-08-20T14:07:12: I don't think this follows.}], then if the supports $\{a_x \stbar x \in X(M)\}$ are all tuples of bounded length\footnote{Of course, this is crucial. \label{thm-main-theorem-crucial-condition}}, they must lie in finitely many orbits (types) in $M$.
+%
+% \item  Therefore, $X(M)$ is the quotient of a finite disjunction of types.
+%
+% \item  Since this quotient map is $\Aut(M)$-equivariant and $T$ is bi-interpretable with the theory of the invariant structure of $\Aut(M)$, we conclude that $X(M)$ was $0$-definable in $M$.
+% \end{itemize}
+%
+%[\remph{Remark 2017-08-20T14:06:16: The proof is incomplete, and I'm not sure that this argument can be completed to fix the proof.}] It remains to show that the assumption of being a $\Delta$-functor ensures the condition \ref{thm-main-theorem-crucial-condition} that the supports are of bounded length.
+%
+%By using the $\Aut(M)$-action, we can assume that the length of a support is constant on orbits. So suppose towards a contradiction that there is a transversal $(x_i)_{i \in I}$ of $\Aut(M)$-orbits of $X(M)$ whose supports are tuples are of finite unbounded length. Let $I \geq |\Aut(M)|^+$, let $\mc{U}$ be a non-principal ultrafilter on $I$, and take the ultrapowers $M^{\mc{U}}$ and $X(M)^{\mc{U}} \simeq X(M^{\mc{U}})$. Then $[x_i]_{i \to \mc{U}}$ is supported by some $[a_i]_{i \in I}$...
+%\end{proof}
+%
+\section{Failure of $\ol{F}$ to preserve the ultracategory structure}
+
+In \cite{BEKP}, a pair of $\aleph_0$-categorical structures $M \models T$ and $M' \models T'$ are constructed which have isomorphic endomorphism monoids $\End(M) \simeq \End(M')$ that are \emph{not} isomorphic as topological monoids. By \ref{thm-coquand-ahlbrandt-ziegler} and \ref{prop-aleph-0-bi-interpretable}, $T$ is not bi-interpretable with $T'$. With what we have so far, we can see the failure of bi-interpretability at the level of ultracategories.
+
+By \ref{prop-lascar-colimit-argument}, we know that the isomorphism of endomorphism monoids $F : \\End(M) \simeq \End(M') : G $ induces an equivalence of categories of models $\ol{F} : \Mod(T) \simeq \Mod(T') : \ol{G}$. By strong conceptual completeness \ref{thm-scc}, if there were a way of expanding $\ol{F}$ and $\ol{G}$ to ultrafunctors $(\ol{F}, \Phi) : \Mod(T) \simeq \Mod(T') :(\ol{G}, \Psi)$, this would induce an equivalence of categories of ultrafunctors $\Ult(\Mod(T), \Set) \simeq \Ult(\Mod(T'), \Set)$, and hence of pretoposes $\Def(T') \simeq \Def(T)$. Therefore,
+
+\theorem{\label{prop-reconciliation}$\ol{F}$ or $\ol{G}$ cannot be the underlying functor of an ultrafunctor.}
+
+\begin{proof} Suppose there existed $\Phi$ and $\Psi$ such that $(\ol{F}, \Phi)$ and $(\ol{G}, \Psi)$ are ultrafunctors. Then $(\ol{F}, \Phi)$ and $(\ol{G}, \Psi)$ are $\Delta$-functors. By \ref{thm-delta-functor-induces-continuous-maps}, $F$ and $G$ are then continuous. Since they already invert each other, $\End(M)$ and $\End(M')$ are isomorphic as topological monoids, a contradiction.
+\end{proof}
+  
+\section{A definability criterion for $\aleph_0$-categorical theories}
+\lemma{\label{lemma-delta-functors-preserve-filtered-colimits}
+  Let $T$ be any theory, and let $X : \Mod(T) \to \Set$ be a $\Delta$-functor.
+Then $X$ preserves filtered colimits of models: for any model $N$, if $N$ can be written as the filtered colimit $N \simeq \colim M_i$, then $X(N) \simeq \colim X(M_i)$.
+}
+
+\begin{proof}
+First, we'll show that being a $\Delta$-functor implies that elementary embeddings are sent to injective functions:
+  
+  \begin{description}
+  \item \ul{Claim}: Let $f : M \to N$ be an elementary embedding. Then $X(f) : X(M) \to X(N)$ is injective.
+
+    \item \begin{proof}[Proof of claim.]
+      By Scott's lemma (see e.g. \cite{bell-slomson-model-theory} for a proof), there is an ultrapower $M^{\mc{U}}$ of $M$ and an elementary map $g : N \to M^{\mc{U}}$ such that the diagram
+$$      \begin{tikzcd}[ampersand replacement = \&]
+   M^{\mc{U}}        \& \\
+      M \arrow{u}{\Delta_M} \arrow[swap]{r}{f}  \& N \arrow[swap]{ul}{g}
+    \end{tikzcd}
+    $$
+    commutes. Since $X$ was assumed to be a $\Delta$-functor, the diagram
+    $$
+    \begin{tikzcd}[ampersand replacement = \&]
+    X(M)^{\mc{U}} \& \arrow[swap]{l}{\Phi_{(M)}} X\left(M^{\mc{U}}\right) \& \\
+      \& X(M)  \arrow[swap]{u}{X(\Delta_M)} \arrow[swap]{r}{X(f)} \arrow{ul}{\Delta_{X(M)}} \& X(N) \arrow[swap, shift right=1.1ex]{ul}{X(g)}
+      \end{tikzcd}
+    $$
+    commutes. Since $\Delta_{X(M)} : X(M) \hookrightarrow X(M)^{\mc{U}}$ is injective and $\Phi_{(M)}$ is a transition isomorphism, $X(\Delta_M)$ is injective, and therefore the composite $X(g) \circ X(f)$ is injective. Therefore, $X(f)$ was injective.
+      \end{proof}
+    \end{description}
+
+    \begin{description}
+    \item \ul{Claim}: For any $N \models T$, the collection of maps $\{X(f) \stbar f : M \to N, \te{ $M$ countable}\}$ jointly surject onto $X(N)$.
+    \item \begin{proof}[Proof of claim.]
+        Since $N$ is covered by copies of countable models, we do know that $\{f \stbar f : M \to N, \te{ $M$ countable}\}$ jointly covers $N$.
+
+        Let $I$ index the elementary embeddings from (representatives of isomorphism classes of) all countable models to $N$. Let $\mc{U}$ be a non-principal ultrafilter on $I$ which contains the sets $P_{\vec{n}} \dfeq \{i \in I \stbar \im(f_i) \ni \vec{n}\}$, which has the finite intersection property by the downward Lowenheim-Skolem theorem.
+        
+        Consider the map
+        $$\prod_{i \to \mc{U}} M_i \overset{[f_i]_{i \to \mc{U}}}{\to} N^{\mc{U}}.$$
+        The diagonal copy of $N$ in $N^{\mc{U}}$ is in the image of this map: if $[n]_{i \to \mc{U}} \in N^{\mc{U}}$, then $\{i \in I \stbar \exists m_i \te{ s.t. } f_i(m_i) =  n\}$ is in $\mc{U}$, so $[f_i]_{i \to \mc{U}} [m_i]_{i \to \mc{U}} = [n]_{i \to \mc{U}}$. Pulling back $\Delta_N(N)$ along $[f_i]_{i \to \mc{U}}$, we obtain a map $\eta$ from $N$ into $\prod_{i \to \mc{U}} M_i$ such that the diagram
+        $$
+        \begin{tikzcd}[ampersand replacement = \&]
+         N^{\mc{U}} \& \\
+         N \arrow{u}{\Delta_N} \arrow[swap]{r}{\eta} \& \prod_{i \to \mc{U}} M_i \arrow[swap]{ul}{[f_i]_{i \to \mc{U}}}
+          \end{tikzcd}
+        $$
+commutes.
+
+Now apply $X$, obtaining the commutative diagram (it is easy to check that the extra subdiagrams involving $X(\eta)$ commute by $\Phi_{(N)}$ and $\Phi_{(M_i)}$ being isomorphisms):
+$$
+\begin{tikzcd}[ampersand replacement = \&]
+  \& X(N) \arrow[swap]{dl}{X(\Delta_N)} \arrow{dr}{\Delta_{X(N)}} \arrow[shift left = 1.5ex]{ddl}{X(\eta)}\& \\
+X\left(N^{\mc{U}}\right) \arrow{rr}{\Phi_{(N)}}  \& \& X(N)^{\mc{U}}\\
+X\left(\prod_{i \to \mc{U}} M_i\right) \arrow{u}{X([f_i]_{i \to \mc{U}})} \arrow[swap]{rr}{\Phi_{(M_i)}}  \& \& X(M)^{\mc{U}}. \arrow[swap]{u}{[X(f_i)]_{i \to \mc{U}}}
+  \end{tikzcd}
+$$
+In particular,
+$$\Delta_{X(N)} = [X(f_i)]_{i \to \mc{U}} \circ \Phi_{(M_i)} \circ X(\eta).$$ This implies that $\Delta_{X(N)}$ is contained inside the image of $[X(f_i)]_{i \to \mc{U}}$.
+
+Now, suppose that the $X(f_i)$ did not cover $X(N)$. That is, suppose that there exists an $x \in X(N)$ such that $x$ lies outside of the image of $X(f_i)$ for every $i \in I$. Then for any $[m_i]_{i \to \mc{U}} \in \prod_{i \to \mc{U}} M_i$, $f_i(m_i) \neq x$ for all $i \in I$. Therefore, $\Delta_{X(N)}(x)$ is not contained in the image of $[X(f_i)]_{i \to \mc{U}}$, a contradiction.
+
+We conclude that $\{X(f) \stbar f : M \to N\}$ jointly surjects onto $X(N)$.
+      \end{proof}
+    \end{description}
+
+    \begin{description}
+    \item \ul{Claim}: Present $N$ as a filtered colimit of its countable submodels $M_i$. Then $X(N) \simeq \colim X(M_i)$.
+      \begin{proof}[Proof of claim.]
+        Our two previous claims show that we may view $X(N)$ as the union of the $X(M_i)$'s. $\colim X(M_i)$ can be canonically written as
+        $$
+\bigslant{\medleft\bigsqcup_{i \in I} X(M_i)\medright}{E}
+$$
+where $(x \in X(M_i)) \sim_E (y \in X(M_j))$ if and only if $x$ and $y$ become the same element in some $X(M_k)$ for $M_k$ amalgamating $M_i$ and $M_j$. It is easy to check that sending an $x \in X(N)$ to the $E$-class of an arbitrary lift $x' \in X(M_i)$ (for a choice of some $X(M_i)$ containing $x'$) gives a bijection
+$$
+X(N) \simeq \colim X(M_i) \te{ by } x \mapsto [x']_E,
+$$
+compatible over the $X(M_i)$'s.
+      \end{proof}
+    \end{description}
+        So far, we have shown that $X$ preserves filtered colimits of countable models. But every model is a filtered colimit of countable models. Explicitly, if we have $N = \colim_i N_i$ where the $N_i$ are possible uncountable, we have that each $N_i = \colim_j N^i_j$, so that we have written $N$ as a filtered colimit of countable models $N^i_j$:
+$$
+N = \colim_i \colim_j N^u_j = \colim_{(i,j)} N^i_j
+$$
+Then
+$$
+X(N) \simeq \colim_{(i,j)} X(N^i_j) \simeq \colim_i \colim_j X(N^i_j) \simeq \colim_i X(N_i).
+$$
+\end{proof}
+
+\theorem{\label{thm-main-theorem}
+Let $T$ be $\aleph_0$-categorical. A functor $X : \Mod(T) \to \Set$ is definable if and only if there is a transition isomorphism $\Phi$ such that $(X, \Phi)$ is a $\Delta$-functor.
+}
+
+\begin{proof}
+  If $X$ is definable, then its isomorphism to an evaluation functor $\varphi$ pulls back $\varphi$'s transition isomorphism $\Phi'$ to a transition isomorphism $\Phi$ for $X$, and since $(\varphi, \Phi')$ was an ultrafunctor $(X, \Phi)$ is also (these are diagrammatic conditions on $\Phi'$ and so are invariant under conjugation by isomorphisms).
+
+  On the other hand, suppose that $(X, \Phi)$ is a $\Delta$-functor. $\Aut(M)$ acts via $X$ on $X(M)$, and so $X(M)$ splits up into $\Aut(M)$-orbits. For each representative $x$ of these orbits, we know from the remarks following \ref{prop-delta-functors-are-continuous} that there is a tuple $a_x \in M$ which supports $x$, and the map $a_x \mapsto x$ induces an $\Aut(M)$-equivariant map from the orbit (type) of $a_x$ to the orbit of $x$.
+
+  Therefore, each $\Aut(M)$-orbit of $X(M)$ is a quotient of an $\Aut(M)$-orbit of $M$ by some $\Aut(M)$-invariant equivalence relation. Since $M$ is $\aleph_0$-categorical, these equivalence relations are definable and all types are isolated by formulas, so we can write:
+
+  $$X(M) \simeq \bigvee_{i \in I} M(\varphi_i(x_i)) \simeq \bigsqcup_{i \in I} M(\varphi_i(x_i)).$$
+
+    By the previous lemma \ref{lemma-delta-functors-preserve-filtered-colimits} and the fact that colimits always commute with colimits and definable functors always commute with filtered colimits of models, we conclude (writing $N = \colim_j M_j$):
+    \begin{align}
+    X(N)  &\simeq \underset{j}{\colim} \left(\bigsqcup_{i \in I} \varphi_i(M_j) \right)\\
+          &\simeq \bigsqcup_{i \in I} \left(\underset{j}{\colim} \varphi_i(M_j)\right) \\
+          &\simeq \bigsqcup_{i \in I} \left( \varphi_i( \underset{j}{\colim} M_j) \right)\\
+      &\simeq \bigsqcup_{i \in I} \varphi_i(N).
+      \end{align}
+
+      Now we will show that the $I$ indexing the $\varphi_i$ must be finite.
+
+In the pre-ultrafunctor condition
+      $$\begin{tikzcd}[ampersand replacement = \&]
+X\left(\prod_{\mc{U}} M_i\right) \arrow[swap]{d}{X\left(\prod_{\mc{U}} f_i \right)} \arrow{r}{\Phi_{\mc{U}, (M_i)}}  \& \prod_{\mc{U}} \left( X(M_i) \right) \arrow{d}{\prod_{\mc{U}} X(f_i)}\\
+X\left(\prod_{\mc{U}} N_i\right) \arrow[swap]{r}{\Phi_{\mc{U}, (N_i)}} \& \prod_{\mc{U}} \left( X(N_i)\right),
+\end{tikzcd}$$
+restricting our attention to just ultraproducts of automorphisms tells us that $\Phi_{(M_i)} : X\left(\prod_{i \to \mc{U}}\right) M_i \to \prod_{i \to \mc{U}} X(M_i)$ is a $\prod_{i \to \mc{U}} \Aut(M_i)$-equivariant bijection, and therefore induces a bijection on the orbits of the action on either side.
+
+Let $\mc{U}$ be some ultrafilter such that $|I^{\mc{U}}| > |I|$. Then, at the countable model $M$, we have the bijection:
+$$
+X \left( M^{\mc{U}} \right) \overset{\Phi_{(M)}}{\simeq} \left(X(M)\right)^{\mc{U}}.
+$$
+
+Now, the left hand side is $\bigsqcup_{i \in I} \varphi_i\left(M^{\mc{U}}\right)$. Each $\varphi_i \left(M^{\mc{U}}\right)$ is actually an $\Aut(M)^{\mc{U}}$-orbit, since $\varphi_i(M)$ was an $\Aut(M)$-orbit. Therefore, the number of $\Aut(M)^{\mc{U}}$-orbits on the left hand side is $|I|$.
+
+On the right hand side, we have $\left(\bigsqcup_{i \in I} \varphi_i(M)\right)^{\mc{U}}$. Two points $[x_i]_{i \to \mc{U}}$ and $[y_i]_{i \to \mc{U}}$ are $\Aut(M)^{\mc{U}}$-conjugate if and only if there exists a $P \in \mc{U}$ such that for all $j \in P$, $\varphi_{x_j} = \varphi_{y_j}$ (where $\varphi_{x_i}$ means which $\varphi_k$ $x_i$ came from.) But, this is the same as saying $[\varphi_{x_j}]_{j \to \mc{U}} = [\varphi_{y_j}]_{j \to \mc{U}}$. So the number of orbits on the right hand side is $|I|^{\mc{U}}$.
+
+Therefore, $|I^{\mc{U}}| = |I|$, so $I$ must be finite. Hence there is a formula $\varphi(x)$ such that $X(N) \simeq \varphi(N)$ for all $N \models T$. Since for each $N$, this isomorphism $X(N) \simeq \varphi(N)$ is induced via filtered colimits by $X(M) \simeq \varphi(M)$, this is a natural isomorphism, so $X$ is definable.
+\end{proof}
+  
+% We also remark that this theorem provides an alternate proof of the proposition \ref{prop-reconciliation}.
+
+% \corollary{
+%   \label{cor-ultra-equivalence-iff-delta-equivalence}
+%   Let $T_1$ and $T_2$ be $\aleph_0$-categorical. Let $X : \Mod(T_1) \to \Mod(T_2)$ be an equivalence of categories. Then the following are equivalent:
+%   \bfenumerate{
+%   \item $X$ is an ultrafunctor.
+%   \item There exists a bi-interpretation $I : T_2 \to T_1$ such that $X = I^*$.
+%   \item $X$ is a $\Delta$-functor.
+%     }
+%   }
+
+%   \begin{proof}
+%     That $\bfe{i}$ is equivalent to $\bfe{ii}$ is strong conceptual completeness, and that $\bfe{i}$ implies $\bfe{iii}$ is immediate. To see $\bfe{iii}$ implies $\bfe{ii}$, build the bi-interpretation by taking a formula $\varphi \in T_1$, treating it as its evaluation ultrafunctor, and then precomposing by $X^{-1}$, obtaining a $\Delta$-functor $\varphi \circ X^{-1} : \Mod(T_2) \to \mbf{Set}$. By the theorem \ref{thm-main-theorem}, $\varphi \circ X^{-1}$ is actually an ultrafunctor, and is therefore (the evaluation functor) of some formula $\psi$ of $T_2$.
+
+%     Since $X$ was an equivalence of categories to begin with, it induces via precomposition an equivalence of categries $[\Mod(T_2), \mbf{Set}] \simeq [\Mod(T_1), \mbf{Set}]$. The subcategories of ultrafunctors on either side of this equivalence are closed under isomorphism, and we just saw that the equivalence restricts to an equivalence of categories of ultrafunctors.
+
+%   By strong conceptual completeness \cite{makkai-sdfol}, these categories of ultrafunctors are precisely $\Def(T_1)$ and $\Def(T_2)$, and an equivalence of categories is in particular an equivalence of (i.e. bi-interpretation between) pretoposes.
+% \end{proof}
+
+%\remark{
+%  Here is another proof of \ref{thm-main-theorem}, due to Bradd Hart.
+%
+%  Fix the countable model $M$ of an $\aleph_0$-categorical theory $T$. By \ref{thm-delta-functor-implies-fsp}, for every $x \in X(M)$ there exists a supporting tuple $a_x \in M$. Expand $M$ by $X(M)$ as a new sort and consider a relation $R^M_x \subset M \times X(M)$ defined as follows:
+%  $$
+%R^M_x \dfeq \{(f(a_x), X(f)(x)) \in M \times X(M) \stbar f \in \End(M)\}.
+%$$
+%(So each $R^M_x$ is the graph of the $\Aut(M)$-equivariant projection from the $\Aut(M)$-orbit of $a_x$ to the $\Aut(M)$-orbit of $x$ which we considered in the original proof.)
+%
+%For fixed $x$, we extend this relation to all models $N \models T$ as follows: set
+%$$
+%R^N_x \dfeq \{(f(a_x), X(f)(x)) \in N \times X(N) \stbar f \in \Hom(M,N)\}
+%$$
+%(in the above definitions, both $\End$ and $\Hom$ are being taken in the category $\Mod(T)$ of models and elementary maps.)
+%
+%Now, let $C$ be the class of structures
+%$$
+%C \dfeq \{(N, X(N)), \{R_x^N : x \in X(M)\} \stbar N \in \Mod(T)\}.
+%$$
+%\begin{description}
+%\item[Claim.]
+%  $C$ is an elementary class.
+%
+%  \begin{proof}[Proof of claim.]
+%    It suffices to show that each of the extra relations $R_x$ commute with ultraproducts, i.e. that for every sequence $\ol{N_i} = \left(N_i, X(N_i), \{R_x^{N_i} \stbar x \in X(M)\}\right)$ of models in $C$, we have
+%    $$
+%R_x^{\prod_{i \to \mc{U}} \ol{N_i}} = \prod_{i \to \mc{U}} R_x^{\ol{N_i}}.
+%$$
+%The inclusion left to right is clear. In the other direction, let $(\ol{a}, \ol{x})$ be on the left side. By definition, there is some $f \in M \to \prod_{i \to \mc{U}} N_i$ such that $f(a_x) = \ol{a}$ and $X(f)(x) = \ol{x}$.
+%
+%By $\omega$-categoricity and Los' theorem, the components $a_i$ of $a$ have the same type as $a_x$ ultrafilter-often.
+%
+%Let $f_i : M \to N$ be the elementary embedding which sends $a_x$ to $a_i$ for each $i$ (these exist because $M$ is a prime model for $T$).
+%
+%Then $\left(\prod_{i \to \mc{U}} f_i \right) \circ \Delta$ agrees with $f$ on $a_x$, and therefore $\prod_{i \to \mc{U}} X(f_i) \circ \Delta$ agrees with $X(f)$ on $x$.
+%
+%Then ultrafilter-often, $X(f_i)(x) = x_i$.
+%\end{proof}
+%\end{description}
+%Now we set up Beth definability \ref{thm-beth}. Let $F : C \to \Mod(T)$ be the reduct functor to $T$. Since $X$ was a functor, $F$ is surjective on obects. It suffices to check that any elementary map $f : N \to N^{\mc{U}}$ lifts to an embedding (not necessarily elementary) between $N$.
+%
+%So suppose that $R_x(n,y)$ is true in $\ol{N}$. Then there is some elementary embedding $g : M \to N$ such that $g(a_x) = n$ and $X(g)(x) = y$, and so $f(g(a_x)) = f(n)$ and $X(f)(g(x)) = X(f)(y)$. Therefore, $R_x(f(a_x), X(f)(x))$ holds in $\prod_{i \to \mc{U}} \ol{N}_i$.
+%
+%In the other direction, if $R_x(f(n), X(f)(x))$ holds in $\ol{N}^{\mc{U}}$, then there is an elementary map $g : M \to N^{\mc{U}}$ which witnesses this. Since $M$ is the prime model of $T$, we can assume that $g$ maps $M$ into $f(N)$.
+%
+%    Let $h = f^{-1} \circ g$; the previous argument yields that $N \models R_x(n,y)$.
+%
+%Now we are in the situation of Beth's definability theorem. We conclude that $X$ is isomorphic to an evaluation functor by some formula of $T^{\eq}$, and all the graphs of the bijections between types are in fact definable inside $\Def(T^{\eq})$, completing the proof.}
+
+\subsection{$\Aut(M)^{\mc{U}}$ orbit-counting}
+Besides the observation \ref{thm-delta-functor-induces-continuous-maps} that $\Delta$-functors induce continuous maps of automorphism groups, the key step in the proof of the theorem \ref{thm-main-theorem} was counting $\Aut(M)^{\mc{U}}$-orbits in an ultrapower, coming from the fact that pre-ultrafunctors $X : \Mod(T) \to \mbf{Set}$ are defined by requiring all squares
+$$
+\begin{tikzcd}[ampersand replacement = \&]
+X\left(\prod_{\mc{U}} M_i\right) \arrow[swap]{d}{X\left(\prod_{\mc{U}} f_i \right)} \arrow{r}{\Phi_{\mc{U}, (M_i)}}  \& \prod_{\mc{U}} \left( X(M_i) \right) \arrow{d}{\prod_{\mc{U}} X(f_i)}\\
+X\left(\prod_{\mc{U}} N_i\right) \arrow[swap]{r}{\Phi_{\mc{U}, (N_i)}} \& \prod_{\mc{U}} \left( X(N_i)\right).
+\end{tikzcd}
+$$
+to commute; in particular, when $N_i = M_i$ for all $i$, this says that $X$ is necessarily $\Aut(M)^{\mc{U}}$-equivariant, where
+$$
+\Aut(M)^{\mc{U}} \dfeq \{[\sigma_i]_{i \to \mc{U}} \stbar \sigma_i \in \Aut(M)\},
+$$
+where $[\sigma_i]_{i \to \mc{U}} : M^{\mc{U}} \to M^{\mc{U}}$ is defined by pointwise application on elements $[x_i]_{i \to \mc{U}}$ of the ultrapower.
+
+Note that while $M^{\mc{U}}$ might be saturated and so $p(M^{\mc{U}})$ is transitively acted upon by the full automorphism group $\Aut(M^{\mc{U}})$, this is not true under the $\Aut(M)^{\mc{U}}$-action: a non-isolated type $p$ will have realizations $[x_i]_{i \to \mc{U}}$ which are $\mc{U}$-often \emph{not} realizations of $p$.
+
+For example, take a countable model of the (theory of the infinite set + countably many distinct constants), such that the non-isolated type ``I am not any of the constants'' is realized by some $a$. In a countable ultrapower of this model, $\Delta(a)$ is not $\Aut(M)^{\mc{U}}$-conjugate to $[c_i \stbar i \in \omega]_{i \to \mc{U}}$ (in fact, since this element of $M^{\mc{U}}$ comes from a sequence of constants, this is a fixed point of the $\Aut(M)^{\mc{U}}$-action.)
+
+We can write down an explicit description of the $\Aut(M)^{\mc{U}}$-orbits of $p(M^{\mc{U}})$ for a complete type $p$.
+
+\lemma{
+  \label{lemma-external-realization-iff-sequence-of-types-converges}
+  Let $p$ be a complete type of $T$. Let $\left(a_i \in M_i \stbar M_i \models T\right)$ be a sequence of elements in possibly distinct models. Let $\mc{U}$ be a non-principal ultrafilter on $I$.
+
+  Then $\tp([a_i]_{i \to \mc{U}}) = p$ if and only if in the Stone space, the sequence $\left(p_i \dfeq \tp(a_i)\right)_{i \in I}$ $\mc{U}$-converges to $p$.
+}
+\begin{proof}
+  Suppose that $[a_i]_{i \to \mc{U}} \models p$. Then for each $\varphi \in p$, $\mc{U}$-often, $a_i \in \varphi(M_i)$. Hence for each $D_{\varphi}$ the basic open neighborhood of $p$ corresponding to $\varphi$ in the Stone space, $\mc{U}$-often, $p_i \in D_{\varphi}$. Hence $p_i \overset{\mc{U}}{\to} p$.
+
+  Now suppose that $p_i \overset{U}{\to} p$. Let $\varphi \in p$. Then $\mc{U}$-often, $p_i \in D_{\varphi}$, equivalently, $\mc{U}$-often, $a_i \in \varphi(M_i)$. Hence $[a_i]_{i \to \mc{U}} \models p$.
+\end{proof}
+
+\theorem{
+  \label{thm-internal-orbits-of-complete-type-refine-U-classes-of-convergent-sequences}
+  The $\prod_{i \to \mc{U}} \Aut(M_i)$-orbits of $p\left(\prod_{i \to \mc{U}} M_i \right)$ refine the equivalence classes $[p_i]_{i \to \mc{U}}$ where each $p_i$ is realized in $M_i$ and $p_i \overset{\mc{U}}{\to} p$ in the Stone space.
+
+  Furthermore, if the $M_i$ are homogeneous (so that any two realizations of the same type in each $M_i$ are $\Aut(M_i)$-conjugate), then we can improve ``refine'' to ``are exactly''.
+}
+
+\begin{proof}
+  It suffices to show that the map
+  $$
+\tp^{\mc{U}} \dfeq \left( [a_i]_{i \to \mc{U}} \mapsto [\tp(a_i)]_{i \to \mc{U}} \right) : p \left( \prod_{i \to \mc{U}} M_i \right) \to \St(T)^{\mc{U}}
+$$
+is constant on each $\Aut(M)^{\mc{U}}$ orbit.\footnote{Note that this only means that we have a well-defined surjection from $\Aut(M)^{\mc{U}}$-orbits onto the ultraproducts of sequences of types converging to $p$. To get injectivity also, we would need to show that the values are different for different orbits.}
+
+Let $[a_i]_{i \to \mc{U}}$ be $\Aut(M)^{\mc{U}}$-conjugate to $[b_i]_{i \to \mc{U}}$. Then (ultrafilter-often), $\tp(a_i) = \tp(b_i)$ so $\tp^{\mc{U}}\left([a_i]_{i \to \mc{U}}\right) = \tp^{\mc{U}}\left([b_i]_{i \to \mc{U}}\right)$.
+
+Now, suppose furthermore that in each $M_i$, any two realizations of the same type in $M_i$ are $\Aut(M_i)$-conjugate. Then if two realizations $[a_i]_{i \to \mc{U}}$ and $[b_i]_{i \to \mc{U}}$ of $p$ in $\prod_{i \to \mc{U}} M_i$ are \emph{not} $\Aut(M_i)_{i \to \mc{U}}$-conjugate, it follows that $\mc{U}$-often, $\tp(a_i) \neq \tp(b_i)$.
+
+Therefore, $\tp^{\mc{U}}([a_i]_{i \to \mc{U}}) \neq \tp^{\mc{U}}([b_i]_{i \to \mc{U}})$.
+\end{proof}
+
+\remark{
+  \label{rem-orbit-counting-for-omega-categorical-structures}
+  With this theorem, the role of $\omega$-categoricity in the orbit-counting argument for the proof of \ref{thm-main-theorem} is clear: there are only finitely many types in every sort, and all the types are isolated, so in the Stone space, the only sequences which approach these types are constant sequences of these types.
+
+Therefore, counting $\Aut(M)^{\mc{U}}$-orbits of $\bigvee_{i \in I} p_i \left(M^{\mc{U}}\right)$ yields $|I|$, whereas counting $\Aut(M)^{\mc{U}}$-orbits of $\left(\bigvee_{i \in I} p_i(M) \right)^{\mc{U}}$ yields $|I^{\mc{U}}|$.
+  }

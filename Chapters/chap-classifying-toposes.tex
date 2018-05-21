@@ -1,0 +1,156 @@
+\label{chap-classifying-toposes}
+The aim of this chapter and of \autoref{chap:ultraproduct-coherence} is to prove that ultraproducts provide a natural characterization of the \emph{coherent objects} of the classifying topos of a first-order theory. The classifying topos $\mscr{E}(T)$ of $T$ is a natural enlargement of $\Def(T)$ whose models in $\Set$ are the same as $T$'s, and whose objects pick out a subcategory of evaluation functors $\Mod(T) \to \Set$ containing the image of $\ev : \Def(T) \to [\Mod(T), \Set]$. We will show in Theorem \ref{thm-ultraproduct-coherence} that the property of $\ev_B$ being a pre-ultrafunctor with respect to a canonical transition map characterizes whether or not $B \in \mscr{E}(T)$ is isomorphic to an object in $\Def(T)$.
+
+\section{Preliminaries on the classifying topos}
+For the construction and standard facts about the classifying topos of a first-order (or generally, a coherent) theory, see e.g. Part D of \cite{johnstone-elephant} or Volume III of \cite{borceux-handbook}. For our convenience we will repeat the essentials for our results.
+
+Throughout this chapter, ``topos'' will mean ``Grothendieck topos'', i.e. a category of sheaves on a small site. For detailed definitions of sites, sheaves, and toposes, we direct the reader to the relevant sections of the excellent references \cite{maclane-moerdijk}, \cite{borceux-handbook}, and \cite{johnstone-elephant}.
+
+For the reader's convenience, we will repeat Giraud's axiomatic characterization of Grothendieck toposes (see C.2.2.8, \cite{johnstone-elephant}):
+
+\fact{\label{fact-giraud-theorem}
+  A (possibly large) category $\mscr{E}$ is a Grothendieck topos if and only if the following conditions are satisfied:
+  \begin{enumerate}
+  \item Every class of morphisms $\mscr{E}(X,Y)$ in $\mscr{E}$ is a set ($\mscr{E}$ is "locally small").
+    \item There exists a set $\mc{S}$ of objects in $E$ such that for every pair of maps $f, g : X \to Y$ in $\mscr{E}$ such that for all $S \in \mc{S}$, for all $e : S \to X$, $f \circ e = g \circ e$, then $e = g$ ($\mscr{E}$ has a ``small separating set of objects'').
+  \item $\mscr{E}$ has all small limits.
+  \item $\mscr{E}$ has all small coproducts, which are disjoint and stable under pullback.
+  \item All equivalence relations in $\mscr{E}$ have quotients which are stable under pullback.
+    \end{enumerate}
+  }
+
+Note the similary to the definition of a pretopos (Definition \ref{def-pretopos}). Indeed, it was shown in \cite{makkai-reyes} that one could generalize the closure under ``finitary'' operations defining a pretopos to a notion of a $\kappa$-pretopos for a regular cardinal $\kappa$, and that Grothendieck toposes are precisely $\infty$-pretoposes with a small separating set of objects.
+  
+\definition{
+  \label{def-classifying-topos}
+  The \tbf{classifying topos} of a first-order theory $T$ is a topos $\mscr{E}(T)$ equipped with a fully faithful functor $\mbf{y} : \Def(T) \to \mscr{E}(T)$ which is also a model in the sense of \ref{prop-models-as-functors} (the definition given there only involves the preservation of certain categorical properties, so makes sense for functors into any topos instead of $\Set$). $\mscr{E}(T)$ additionally satisfies the following universal property: for any other topos $\mscr{S}$ and any model $M : \Def(T) \to \mscr{S}$ of $\Def(T)$ in $\mscr{S}$, there exists a unique $\wt{M} : \mscr{E}(T) \to \mscr{S}$ such that the diagram
+  $$
+  \begin{tikzcd}[ampersand replacement = \&]
+\mscr{E}(T) \arrow{dr}{\wt{M}}    \& \\
+\Def(T) \arrow{u}{\mbf{y}} \arrow[swap]{r}{M}    \& \mscr{S}
+    \end{tikzcd}
+    $$
+    commutes.
+
+    This characterizes $\mscr{E}(T)$ up to equivalence. We call $\wt{M}$ the \tbf{inverse image functor} associated to the model $M$. We also call objects of $\mscr{E}(T)$ which are, up to isomorphism, in the image of $\mbf{y}$ \tbf{representable} (echoing the standard construction of $\mscr{E}(T)$ as a certain category of sheaves on $\Def(T)$.)
+  }
+
+  As the definition indicates, the extension $\wt{M}$ of $M$ from $\Def(T)$ to $\mscr{E}(T)$ should be determined by what $M$ does on the objects of $\Def(T)$. The following discussion is meant to make this intuition explicit, and to give a formula for computing what $\wt{M}$ is outside of the image of $\mbf{y}$ inside $\mscr{E}(T)$.
+
+\subsection{Computing the associated inverse image functor $\wt{M}$}
+  
+\definition{\label{def-kan-extension} (3.7.1 of \cite{borceux-handbook})
+  Let $F: A \to B$ and $G : A \to C$ be functors. The \tbf{left Kan extension} of $G$ along $F$, if it exists, is a pair $(K,\alpha)$ where $K : B \to C$ is a functor and $\alpha : G \to K \circ F$ is a natural transformation satisfying the following universal property if $(H, \beta)$ is another pair with $H : B \to C$ a functor and $\beta : G \to H \circ F$ a natural transformation, then there exists a unique natural transformation $\gamma : K \to H$ satisfying the equality $(\gamma F) \circ \alpha = \beta$, as in the following diagram:
+  $$
+  \begin{tikzcd}[ampersand replacement = \&]
+   A \arrow[swap]{dd}{G} \arrow{rr}{F} \& \& B \arrow[shift left = .50ex]{ddll}{H} \arrow[swap, shift right = .50ex]{ddll}{K}\\
+    \& \& \\
+C    \& \&
+    \end{tikzcd}, \hspace{5mm}\gamma : K \overset{!}{\to} H.
+    $$
+We write $\opn{Lan}_F G$ for the left Kan extension of $G$ along $F$. Right Kan extensions are defined dually, and are written $\opn{Ran}_F G$.
+  }
+
+  Before proceeding, we give two definitions around the category of points of a (contravariant) functor.
+
+  \definition{\label{def-comma-category}Consider the diagram of functors \(\begin{tikzcd}[ampersand replacement = \&] C \arrow[swap]{dr}{F} \& \& D. \arrow{dl}{G} \\ \& E \&\end{tikzcd}\) The \tbf{comma category} \((F \downarrow G)\) is given by:
+\begin{description}
+\item Objects: \((c,d,\alpha)\) where \(c \in C, d \in D, \alpha : F(c) \to G(d) \in E\).
+\item Morphisms: \(\Hom_{(F \downarrow G)}\left((c_1, d_1, \alpha_1), (c_2, d_2, \alpha_2) \right)\) is defined to be the set \\ \[\left\{(\beta_1, \beta_2) \stbar \beta_1 : c_1 \to c_2, \beta_2 : d_1 \to d_2, \text{ and } \begin{tikzcd}[ampersand replacement = \&]
+F(c_1) \arrow[swap]{d}{\alpha_1} \arrow{r}{F(\beta_1)} \& F(c_2) \arrow{d}{\alpha_2} \\
+ G(d_1) \arrow{r}{G(\beta_2)} \& G(d_2)  \end{tikzcd} \text{ commutes.}\right\}\].
+\end{description}
+}
+
+\definition{If \(F \from C \to \mbf{Set}\) is a \(\mbf{Set}\)-valued functor on a locally small category \(C\), the \tbf{category of (global) points of \(F\)}, written \(\int^{c \in C} F(c)\), is the comma category $(1 \downarrow F)$.
+
+  Explicitly, it is given by:
+\begin{description}
+\item Objects: \(\big\{(c,x) \stbar c \in C, x \in F(C) \big\}.\)
+\item Morphisms: \(\Hom_{\int^{c \in C} F(c)}\left((c_1, x_1), (c_2, x_2)\right)\) is defined to be the set
+\[
+\left\{f \stbar f : c_1 \to c_2 \text{ and } F(f)(x_1) = x_2. \right\}
+\]
+\end{description}
+
+If $F : C^{\op} \to D$ is a contravariant functor, we write $\int_{c \in C} F(c)$ for the opposite of $\int^{c \in C} F(c)$.
+
+The category of points of a functor $F : C \to D$  is equipped with a projection (forgetful) functor $\pi$ back to $C$.
+}
+
+  
+  \lemma{\label{lemma-lan-exists}
+    (3.7.2 of \cite{borceux-handbook})
+    Consider two functors $F : A \to B$ and $G : A \to C$ with $A$ small and $C$ cocomplete. Then the left Kan extension of $G$ along $F$ exists, and is given pointwise by a colimit
+    $$
+    (b \to b') \mapsto
+    \colim \left(\displaystyle \int^{a \in A} B(a, b) \overset{\pi}{\to} A \overset{G}{\to} C \right) \to     \colim \left(\displaystyle \int^{a \in A} B(a, b') \overset{\pi}{\to} A \overset{G}{\to} C \right)
+$$
+    }
+  
+    \lemma{\label{lemma-pointwise-kan-extension} (3.7.3 of \cite{borceux-handbook})
+Let $F : A \to B$ be a full and faithful functor with $A$ a small category. Let $C$ be a cocomplete category. Then for any functor $A \to C$, the canonical natural transformation $G \overset{\alpha}{\to} (\opn{Lan}_F G) \circ F$ is an isomorphism (so that the inner triangle from \ref{def-kan-extension} ``commutes'').
+      }
+
+\corollary{\label{lemma-kan-extension}
+  Every model $M : \Def(T) \to \mbf{Set}$ extends uniquely along $\mbf{y}$
+$
+\Def(T) \overset{\mbf{y}}{\hookrightarrow} \mscr{E}(T)
+$
+to an inverse image functor $\wt{M}$, as in $$
+\begin{tikzcd}[ampersand replacement = \&]
+\mscr{E}(T) \arrow{dr}{\wt{M}}  \& \\
+\Def(T) \arrow[hook]{u}{\mbf{y}} \arrow[swap]{r}{M}  \& \mbf{Set}
+\end{tikzcd}.$$
+The extension to $\mscr{E}(T)$ is given by a pointwise Kan extension, so that for any $B \in \mscr{E}(T)$, $\wt{M}(B)$ can be computed as the colimit
+$$
+\colim \left(\displaystyle \int^{A \in \Def(T)} \mscr{E}(T)(A, B) \overset{\pi}{\to} \Def(T) \overset{M}{\to} \Set \right).
+$$
+}
+
+\section{Coherence, compactness and definability in $\mscr{E}(T)$}
+
+In this section, we review the necessary parts of the theory of classifying toposes of first-order theories. We refer the reader to section D3 of \cite{johnstone-elephant} for details.
+
+\definition{\label{def-compact-object} An object $A$ of a topos $\mscr{E}$ is \tbf{compact} if every covering family of maps $\{f_i \stbar i \in I\}$ of maps into $A$ contains a finite subcover.}
+
+\definition{\label{def-stable-object} An object $A$ of a topos $\mscr{E}$ is \tbf{stable} if for every morphism $f : B \to A$ where $B$ is compact, the domain $K$ of the kernel relation $K \rightrightarrows B \overset{f}{\to} A$ is also compact.}
+
+\definition{\label{def-coherent-object} An object $A$ of a topos $\mscr{E}$ is \tbf{coherent} if it is both compact and stable.}
+
+\remark{\label{rem-coequalizer}
+In a coherent topos, the pretopos of coherent objects is not necessarily closed under arbitrary finite colimits. This is because coequalizers are quotients by (at least) transitive closures of certain relations, so if one has a relation $R \rightrightarrows X$ whose transitive closure is properly ind-definable, the coequalizer $\mbf{y}(R) \rightrightarrows \mbf{y}(X) \twoheadrightarrow Y$ will not be definable.
+  }
+
+  \lemma{\label{lemma-coherent-iff-representable} (D3.3.7, \cite{johnstone-elephant}) An object $B$ of the classifying topos $\mscr{E}(T)$ of a first-order theory $T$ is representable (i.e. isomorphic to an object from $\Def(T) \hookrightarrow \mscr{E}(T)$) if and only if it is coherent.}
+
+  \remark{
+If one constructs the classifying topos $\mscr{E}(T)$ as a category of sheaves on $\Def(T)$ (where $T$ might not necessarily eliminate imaginaries), then taking the coherent objects of $\mscr{E}(T)$ yields an alternate construction of the pretopos completion of $\Def(T)$. Thus, if $T$ eliminates imaginaries (as we have assumed for most of this document), the pretopos completion of $\Def(T)$ is isomorphic to $\Def(T)$, hence the previous lemma.
+    }
+
+\notation{
+From now on, when working in the classifying topos $\mscr{E}(T)$ of a first-order theory, we will use ``definable'' and ``coherent'' interchangably.
+  }
+
+\definition{
+  \label{def-slice-category}
+  Let $\mbf{C}$ be a category, and let $B$ be an object of $\mbf{C}$. Let $c_B$ be the constant functor $\mbf{C} \to B$ which sends every morphism in $\mbf{C}$ to $\id_B$. The \tbf{slice category} $\mbf{C}/B$ is defined to be the comma category (Definition \ref{def-comma-category}) $(\id_{\mbf{C}}, c_B)$.
+
+  The ``fundamental theorem of topos theory'' (see A2.3, \cite{johnstone-elephant}) says that for a topos $\mscr{E}$, \emph{any} slice category $\mscr{E}/B$ of $\mscr{E}$ is also a topos.
+}
+  
+\lemma{\label{lemma-coherent-iff-slice-topos-is-coherent} (D3.3.16, \cite{johnstone-elephant}) Let $\mscr{E}(T)$ be the classifying topos for a first-order theory. Then an object $B \in \mscr{E}(T)$ is coherent if and only if the slice category $\mscr{E}(T)/B$ is a coherent topos, which is presented by the coherent site $\Def(T)/B$ of coherent objects $A \in \mscr{E}(T)$ over $B$.}
+
+We also record the following observation, which seems to be folklore:
+
+\lemma{\label{lemma-coherent-slice-axiomatization}
+Let $B \in \mscr{E}(T)$ be coherent. Then the slice topos $\mscr{E}(T)/B$ is presented by the theory of $T$ extended by a generic constant of $b$, written $T[b : B]$.
+}
+\begin{proof}
+One easily verifies that the adjoint $(-) \times B$ to the forgetful functor $\mscr{E}(T)/B \to \mscr{E}(T)$ restricts to an interpretation of the underlying pretoposes which factors through $\Def(T[b : B])$, and that the induced map between the categories of models $\Mod(T[b : B]) \leftarrow \Mod(\mscr{E}(T)/B)$ is an isomorphism. By conceptual completeness \ref{thm-conceptual-completeness}, the map $\Def(T[b : B]) \to \Def(T)/B$ was a bi-interpretation of pretoposes.
+  \end{proof}
+
+%   \lemma{\label{models-of-def-t-over-b} Let $B$ be an object of $\mscr{E}(T)$. The category of ``models'' of $\mscr{E}(T)/B$ (functors which preserve pretopos structure even though $\Def(T)/B$ might not have the structure of a pretopos) is
+%     $$
+% \Mod(\mscr{E}(T)/B) \simeq \{\langle M, \ol{b} \rangle \stbar \ol{b} \in M^*(B)\}.
+%   $$}

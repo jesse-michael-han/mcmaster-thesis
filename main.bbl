@@ -1,0 +1,61 @@
+\begin{thebibliography}{10}
+
+\bibitem{ahlbrandt-ziegler}
+{\sc G.~Ahlbrandt and M.~Ziegler}, {\em Quasi-finitely axiomatizable totally
+  categorical theories}, Annals of Pure and Applied Logic, 30(1) (1986),
+  pp.~63--82.
+
+\bibitem{sga4}
+{\sc M.~Artin, A.~Grothendieck, and J.-L. Verdier}, {\em Theorie des topos et
+  cohomologie etale des schemas}, Springer Lecture Notes in Math.
+
+\bibitem{bell-slomson-model-theory}
+{\sc J.~Bell and A.~Slomson}, {\em Models and Ultraproducts: An Introduction},
+  Dover Books on Mathematics Series, Dover Publications, 2006.
+
+\bibitem{BEKP}
+{\sc M.~Bodirsky, D.~Evans, M.~Kompatscher, and M.~Pinsker}, {\em A
+  counterexample to the reconstruction of $\omega$-categorical structures from
+  their endomorphism monoids}, Israel J. Math,  (2015).
+
+\bibitem{borceux-handbook}
+{\sc F.~Borceux}, {\em Handbook of Categorical Algebra}, Cambridge University
+  Press, 1994.
+
+\bibitem{johnstone-topos-theory}
+{\sc P.~Johnstone}, {\em Topos theory}, Academic Press, 1977.
+
+\bibitem{johnstone-elephant}
+\leavevmode\vrule height 2pt depth -1.6pt width 23pt, {\em Sketches of an
+  Elephant: A Topos Theory Compendium}, Oxford Logic Guides, 2002.
+
+\bibitem{kamensky-categorical-internality}
+{\sc M.~Kamensky}, {\em A categorical approach to internality}, Models, Logics
+  and Higher dimensional categories. A tribute to the work of Mihaly Makkai,
+  (2009).
+
+\bibitem{maclane-cwm}
+{\sc S.~M. Lane}, {\em Categories for the working mathematician, 2nd ed.},
+  Springer-Verlag, 1998.
+
+\bibitem{maclane-moerdijk}
+{\sc S.~M. Lane and I.~Moerdijk}, {\em Sheaves in geometry and logic},
+  Springer-Verlag, 1992.
+
+\bibitem{lascar-semigroup}
+{\sc D.~Lascar}, {\em Le demi-groupe des endomorphismes d’une structure
+  $\aleph_0$-cat{\'e}gorique}, Actes de la Journ{\'e}e Algebre Ordonn{\'e}e (Le
+  Mans, 1987),  (1989), pp.~33--43.
+
+\bibitem{makkai-sdfol}
+{\sc M.~Makkai}, {\em Stone duality for first-order logic}, Annals of Pure and
+  Applied Logic, 40 (1988), pp.~167--215.
+
+\bibitem{makkai-reyes}
+{\sc M.~Makkai and G.~Reyes}, {\em First-order categorical logic},
+  Springer-Verlag, 1977.
+
+\bibitem{marker-model-theory}
+{\sc D.~Marker}, {\em Model theory: an introduction}, Springer-Verlag, 2002.
+
+\end{thebibliography}

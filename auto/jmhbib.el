@@ -1,0 +1,31 @@
+(TeX-add-style-hook
+ "jmhbib"
+ (lambda ()
+   (LaTeX-add-bibitems
+    "sga4"
+    "lascar-semigroup"
+    "maclane-cwm"
+    "bell-slomson-model-theory"
+    "ahlbrandt-ziegler"
+    "maclane-moerdijk"
+    "marker-model-theory"
+    "borceux-handbook"
+    "johnstone-topos-theory"
+    "johnstone-elephant"
+    "makkai-reyes"
+    "kamensky-categorical-internality"
+    "makkai-sdfol"
+    "evanshewitt"
+    "lascarcats"
+    "bekp"
+    "makkai-dadifol"
+    "kashiwaraschapira"
+    "lascarpetit"
+    "hodgesetal"
+    "makkaifull"
+    "topostheory"
+    "bourbaki-topology"
+    "b-y-b-h-u-model-theory-for-metric-structures"
+    "wagner-simple-theories"))
+ :bibtex)
+

@@ -1,0 +1,7 @@
+#+TITLE: Reconstruction problems for first-order theories
+
+This is my master's thesis.
+
+The [[https://github.com/jesse-michael-han/theories-interpretations-pretoposes][theories and interpretations]] draft was written as a revised Chapter 1 of this thesis. It might be merged into the main document at some point.
+
+To read the thesis, either compile it with pdfLaTeX or look at [[./main.pdf][main.pdf]]

@@ -1,0 +1,13 @@
+*~
+misc/
+*out
+*aux
+*tex
+*fdb*
+*log
+*bbl
+auto/
+**/*.log
+*blg
+*fls
+*toc
